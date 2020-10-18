@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'pages/baseApp.dart';
 import 'pages/login.dart';
 import 'pages/home.dart';
+import 'pages/thesis.dart';
+import 'pages/test.dart';
 
 void main()
 {
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget{
            '/LoginAsResident' : (context) => LogInResident(),
             '/BaseApp' : (context) => BaseApp(),
             '/home' : (context) => MyApp2(),
+            '/thesis' : (context) => Thesis(),
+            '/test' : (context) => Test(),
           }
     );
 

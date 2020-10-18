@@ -1,32 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'baseApp.dart';
-import 'login.dart';
 
 class MyApp2 extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'JNMCH eLogBook'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -39,10 +14,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('JNMCH eLogBook'),
         backgroundColor: Color.fromRGBO(273, 146, 158, 1),
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {Navigator.pushNamed(context, '/LoginAsResident');},
           icon: Icon(Icons.view_headline),
         ),
 
@@ -90,13 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
           ),
           Container(
-            color: Colors.white,
+            //color: Colors.white,
             height: 260,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  IconButton(icon: new Icon(Icons.looks_one), onPressed: (){}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
+                  IconButton(icon: new Icon(Icons.looks_one), onPressed: (){Navigator.pushNamed(context, '/LoginAsResident');}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_two), onPressed: (){},  color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_3), onPressed: (){}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_4), onPressed: (){}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
@@ -126,13 +101,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Column( // Replace with a Row for horizontal icon + text
                     children: <Widget>[
-                      IconButton(icon: new Icon(Icons.edit), onPressed: (){}, color: Colors.white,iconSize: 33),
+                      IconButton(icon: new Icon(Icons.edit), onPressed: (){ Navigator.pushNamed(context, '/thesis');}, color: Colors.white,iconSize: 33),
                       Text("Thesis",),
                     ],
                   ),
                   Column( // Replace with a Row for horizontal icon + text
                     children: <Widget>[
-                      IconButton(icon: new Icon(Icons.assignment), onPressed: (){}, color: Colors.white,iconSize: 33),
+                      IconButton(
+                          icon: new Icon(Icons.assignment),
+                          onPressed: (){
+                            Navigator.pushNamed(context, '/test');
+                      },
+                          color: Colors.white,iconSize: 33),
                       Text("Test",),
                     ],
                   ),
