@@ -5,7 +5,28 @@ import 'baseApp.dart';
 import 'login.dart';
 
 
-class Test extends StatelessWidget  {
+class Test extends StatefulWidget  {
+
+  @override
+  _TestState createState() => _TestState();
+}
+
+class _TestState extends State<Test> {
+  String text = '';
+  bool shouldDisplay = false;
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -15,6 +36,7 @@ class Test extends StatelessWidget  {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -26,34 +48,11 @@ class Test extends StatelessWidget  {
         ),
 
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Column(children: <Widget>[
+
           Container(
-            color: Color.fromRGBO(273, 146, 158, 1),
-            height: MediaQuery.of(context).size.height / 3,
-            width: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: EdgeInsets.all(15),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Color.fromRGBO(146, 180, 237, 1),
-                    border: Border.all(
-                      // color: Colors.red[500],
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(30))
-                ),
-                child: Center(
-                  child: Text(
-                    "Keep your Log Book with yourselves!",
-                    //alignment:Alignment(10,20),
-                    style: TextStyle(fontSize: 27, fontFamily: "DancingScript",),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            height: 310,
+            height: 538,
             child:DefaultTabController(
               length: 4,
               child: Scaffold(
@@ -84,55 +83,155 @@ class Test extends StatelessWidget  {
                         Text('Reflections: Reasons for level of performance'),
                         Text('Future Goals'),
                     ]),
-                    Column(
-                      children: <Widget>[
-                        Text('Grading: Poor- E, Satisfactory- D, Average- C, Good- B, Very Good- A',
-                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.red),),
+                    ListView(
+                      children: [
                         Row(
+                          //mainAxisSize: MainAxisSize.min,
+                         // crossAxisAlignment: CrossAxisAlignment.baseline,
+                         // textBaseline: TextBaseline.ideographic,
                           children: <Widget>[
-                            Text('Periodic Consultation with Mentor',
-                              style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
-                            new DropdownButton<String>(
-                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (_) {},
-                            ),
+                            //Text("${selectedDate.toLocal()}".split(' ')[0]),
+                            //SizedBox(width: 20.0,),
+                            Text('Date:      ', style: TextStyle(fontSize: 25),),
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              child: IconButton(
+                                onPressed: () => _selectDate(context),
+                                color: Color.fromRGBO(146, 180, 237, 1),
+                                icon: Icon(Icons.perm_contact_calendar),
+                               iconSize: 30,
 
+                              ),
+                            ),
+                            Text("${selectedDate.toLocal()}".split(' ')[0]),
                           ],
-                        ), Row(
+                        ),
+                        Row(
+                          //crossAxisAlignment: CrossAxisAlignment.baseline,
+                          //textBaseline: TextBaseline.ideographic,
+                         // mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text('Regular Collection of Data',
-                              style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
-                            new DropdownButton<String>(
-                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (_) {},
+                            Text('Result:     ', style: TextStyle(fontSize: 25),),
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              width: 150.0,
+                              height:50,
+                              margin: const EdgeInsets.only(right: 0, left: 0),
+                              child:TextField(
+                                onChanged: (value) {
+                                  setState(() {
+                                    text = value;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  labelText: 'Enter result',
+                                  counterText: "",
+                                  fillColor: Colors.white,
+                                  border: new OutlineInputBorder(
+                                    borderRadius: new BorderRadius.circular(5.0),
+                                    borderSide: new BorderSide(
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-
+                            FlatButton(onPressed: () {
+                              setState(() {
+                                shouldDisplay = !shouldDisplay;
+                              });
+                            },// child: Text('Submit')
+                               ),
+                            shouldDisplay ? Text(text) : Spacer()
                           ],
-                        ), Row(
+
+
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.ideographic,
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text('Departmental Presentation',
-                              style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
-                            new DropdownButton<String>(
-                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (_) {},
+                            Text('''Self Ass-\nessment: ''', style: TextStyle(fontSize: 25),),
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              width: 300.0,
+                              //height:65,
+                              margin: const EdgeInsets.only(right: 0, left: 0),
+                              child:TextField(
+                                maxLines: 3,
+                                decoration: InputDecoration(
+                                  labelText: '''Self Assessment: How did I\nperform? Grade yourself from good,\nsatisfactory, poor''',
+                                  counterText: "",
+                                  fillColor: Colors.white,
+                                  border: new OutlineInputBorder(
+                                    borderRadius: new BorderRadius.circular(5.0),
+                                    borderSide: new BorderSide(
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-
                           ],
+
+
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.ideographic,
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text('''Reflectio- \nns:''', style: TextStyle(fontSize: 25),),
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              width: 300.0,
+                              //height:65,
+                              margin: const EdgeInsets.only(right: 0, left: 0),
+                              child:TextField(
+                                maxLines: 3,
+                                decoration: InputDecoration(
+                                  labelText: '''Reflection: Reasons for level of\nperformance''',
+                                  counterText: "",
+                                  fillColor: Colors.white,
+                                  border: new OutlineInputBorder(
+                                    borderRadius: new BorderRadius.circular(5.0),
+                                    borderSide: new BorderSide(
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+
+
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.ideographic,
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text('''Future G- \noals: ''', style: TextStyle(fontSize: 25),),
+                            Container(
+                              padding: EdgeInsets.all(5.0),
+                              width: 300.0,
+                              //height:65,
+                              margin: const EdgeInsets.only(right: 0, left: 0),
+                              child:TextField(
+                                maxLines: 3,
+                                decoration: InputDecoration(
+                                  labelText: '''Future Goals''',
+                                  counterText: "",
+                                  fillColor: Colors.white,
+                                  border: new OutlineInputBorder(
+                                    borderRadius: new BorderRadius.circular(5.0),
+                                    borderSide: new BorderSide(
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+
+
                         ),
                       ],
                     ),

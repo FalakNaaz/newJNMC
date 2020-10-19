@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -79,14 +80,17 @@ class _ThesisState extends State<Thesis> {
                 body: TabBarView(
                   children: [
                    Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
                      children: <Widget>[
                        Text('Grading: Poor- E, Satisfactory- D, Average- C, Good- B, Very Good- A',
                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.red),),
                        Row(
-                        // mainAxisAlignment: MainAxisAlignment.values,
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
                          children: <Widget>[
-                           Text('Periodic Consultation with Mentor',
-                           style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
+                           Text('Periodic Consultation with Mentor :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
                            new DropdownButton<String>(
                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
                                return new DropdownMenuItem<String>(
@@ -100,14 +104,19 @@ class _ThesisState extends State<Thesis> {
                                });
                              },
                              value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+
                            ),
 
                          ],
-                       ), Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
                          children: <Widget>[
-                           Text('Regular Collection of Data',
-                           style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
+                           Text('Regular Collection of Data              :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
                            new DropdownButton<String>(
                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
                                return new DropdownMenuItem<String>(
@@ -115,14 +124,24 @@ class _ThesisState extends State<Thesis> {
                                  child: new Text(value),
                                );
                              }).toList(),
-                             onChanged: (_) {},
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                 this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
                            ),
 
                          ],
-                       ), Row(
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
                          children: <Widget>[
-                           Text('Departmental Presentation',
-                           style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
+                           Text('Departmental Presentation             :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
                            new DropdownButton<String>(
                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
                                return new DropdownMenuItem<String>(
@@ -130,7 +149,13 @@ class _ThesisState extends State<Thesis> {
                                  child: new Text(value),
                                );
                              }).toList(),
-                             onChanged: (_) {},
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                 this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
                            ),
 
                          ],
@@ -138,59 +163,255 @@ class _ThesisState extends State<Thesis> {
                      ],
                    ),
                     Column(
-                      children: <Widget>[
-                        Text('Grading: Poor- E, Satisfactory- D, Average- C, Good- B, Very Good- A',
-                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.red),),
-                        Row(
-                          children: <Widget>[
-                            Text('Periodic Consultation with Mentor',
-                              style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
-                            new DropdownButton<String>(
-                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (_) {},
-                            ),
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: <Widget>[
+                       Text('Grading: Poor- E, Satisfactory- D, Average- C, Good- B, Very Good- A',
+                       style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.red),),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Periodic Consultation with Mentor :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                  this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
 
-                          ],
-                        ), Row(
-                          children: <Widget>[
-                            Text('Regular Collection of Data',
-                              style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
-                            new DropdownButton<String>(
-                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (_) {},
-                            ),
+                           ),
 
-                          ],
-                        ), Row(
-                          children: <Widget>[
-                            Text('Departmental Presentation',
-                              style: TextStyle(color: Colors.black, fontSize: 20,letterSpacing: 1),),
-                            new DropdownButton<String>(
-                              items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (_) {},
-                            ),
+                         ],
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Regular Collection of Data              :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                 this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                           ),
 
-                          ],
-                        ),
-                      ],
-                    ),
-                    Text(''),
-                    Text(''),
+                         ],
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Departmental Presentation             :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                 this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                           ),
+
+                         ],
+                       ),
+                     ],
+                   ),
+                    Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: <Widget>[
+                       Text('Grading: Poor- E, Satisfactory- D, Average- C, Good- B, Very Good- A',
+                       style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.red),),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Periodic Consultation with Mentor :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                  this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+
+                           ),
+
+                         ],
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Regular Collection of Data              :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                 this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                           ),
+
+                         ],
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Departmental Presentation             :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                 this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                           ),
+
+                         ],
+                       ),
+                     ],
+                   ),
+                    Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     children: <Widget>[
+                       Text('Grading: Poor- E, Satisfactory- D, Average- C, Good- B, Very Good- A',
+                       style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.red),),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Periodic Consultation with Mentor :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                  this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+
+                           ),
+
+                         ],
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Regular Collection of Data              :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                 this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                           ),
+
+                         ],
+                       ),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         crossAxisAlignment: CrossAxisAlignment.baseline,
+                         textBaseline: TextBaseline.ideographic,
+                         children: <Widget>[
+                           Text('Departmental Presentation             :',
+                           style: TextStyle(color: Colors.black, fontSize: 20),),
+                           new DropdownButton<String>(
+                             items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                               return new DropdownMenuItem<String>(
+                                 value: value,
+                                 child: new Text(value),
+                               );
+                             }).toList(),
+                             onChanged: (String newValueSelected) {
+                               setState((){
+                                 this.currentItemSelected = newValueSelected;
+                               });
+                             },
+                             value: currentItemSelected,
+                             dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                           ),
+
+                         ],
+                       ),
+                     ],
+                   ),
+
                   ],
                 ),
               ),

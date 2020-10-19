@@ -36,18 +36,19 @@ class BaseApp extends StatelessWidget{
             ],),
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
 
           Padding(
             padding: const EdgeInsets.all(20),
             child: ButtonTheme(
-              minWidth: 200,
+              minWidth: 50,
               height: 50,
               child: RaisedButton(onPressed: () {
                 Navigator.pushNamed(context, '');
               },
                 color: Color.fromRGBO(146, 180, 237, 1),
+
                 child:
                 Text(
                   'Send Login Details',
@@ -63,7 +64,7 @@ class BaseApp extends StatelessWidget{
           Padding(
             padding: const EdgeInsets.all(20),
             child: ButtonTheme(
-              minWidth: 200,
+              minWidth: 50,
               height: 50,
               child: RaisedButton(onPressed: () {
                 Navigator.pushNamed(context, '/LoginAsResident');

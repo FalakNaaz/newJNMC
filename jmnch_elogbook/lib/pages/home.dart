@@ -2,6 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class MyApp2 extends StatelessWidget {
+  Widget createDrawerHeader() {
+    return DrawerHeader(
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image:  AssetImage('assets/images/bg.jpg'))),
+        child: Stack(children: <Widget>[
+          Positioned(
+              bottom: 35.0,
+              left: 16.0,
+              child: Text("Mark Shaun",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w500))),
+          Positioned(
+              bottom: 12.0,
+              left: 16.0,
+              child: Text("shaunmark05@hotmail.com",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500))),
+        ]));
+  }
+  Widget createDrawerBodyItem(
+      {IconData icon, String text, GestureTapCallback onTap}) {
+    return ListTile(
+      title: Row(
+        children: <Widget>[
+          Icon(icon),
+          Padding(
+            padding: EdgeInsets.only(left: 8.0),
+            child: Text(text),
+          )
+        ],
+      ),
+      onTap: onTap,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -11,15 +53,12 @@ class MyApp2 extends StatelessWidget {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text('JNMCH eLogBook'),
         backgroundColor: Color.fromRGBO(273, 146, 158, 1),
-        leading: IconButton(
-          onPressed: () {Navigator.pushNamed(context, '/LoginAsResident');},
-          icon: Icon(Icons.view_headline),
-        ),
 
       ),
       body: SafeArea(
@@ -80,53 +119,84 @@ class MyApp2 extends StatelessWidget {
                 ]),
 
           ),
-          Container(
-            color:  Color.fromRGBO(273, 146, 158, 1),
-            height: 65,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Column( // Replace with a Row for horizontal icon + text
-                    children: <Widget>[
-                      IconButton(icon: new Icon(Icons.home), onPressed: (){}, color: Colors.white,iconSize: 33),
-                      Text("Home",),
-                    ],
-                  ),
-                  Column( // Replace with a Row for horizontal icon + text
-                    children: <Widget>[
-                      IconButton(icon: new Icon(Icons.verified_user), onPressed: (){}, color: Colors.white,iconSize: 33),
-                      Text("Mission",),
-                    ],
-                  ),
-                  Column( // Replace with a Row for horizontal icon + text
-                    children: <Widget>[
-                      IconButton(icon: new Icon(Icons.edit), onPressed: (){ Navigator.pushNamed(context, '/thesis');}, color: Colors.white,iconSize: 33),
-                      Text("Thesis",),
-                    ],
-                  ),
-                  Column( // Replace with a Row for horizontal icon + text
-                    children: <Widget>[
-                      IconButton(
-                          icon: new Icon(Icons.assignment),
-                          onPressed: (){
-                            Navigator.pushNamed(context, '/test');
-                      },
-                          color: Colors.white,iconSize: 33),
-                      Text("Test",),
-                    ],
-                  ),
-
-                  //IconButton(icon: new Icon(Icons.verified_user), onPressed: (){}, color: Colors.pink,iconSize: 45,),
-                  //IconButton(icon: new Icon(Icons.edit), onPressed: (){}, color: Colors.pink,iconSize: 45,),
-                  // IconButton(icon: new Icon(Icons.assignment), onPressed: (){}, color: Colors.pink,iconSize: 45,),
-                ]),
-          ),
 
         ],
         ),
       ),
-      // This trailing comma makes auto-formatting nicer for build methods.
+      drawer: Drawer(
+        child: ListView(
+        padding: EdgeInsets.zero,
+          children: <Widget>[
+            createDrawerHeader(),
+            createDrawerBodyItem(
+                icon: Icons.account_circle,text: 'Profile'),
+            createDrawerBodyItem(
+                icon: Icons.person_add,text: 'Add Mentor'),
+            createDrawerBodyItem(
+                icon: Icons.publish,text: 'Uploads'),
+            createDrawerBodyItem(
+                icon: Icons.public,text: 'Publications'),
+            createDrawerBodyItem(
+                icon: Icons.exit_to_app,text: 'Log Out'),
+            ListTile(
+              title: Text('App version 1.0.0'),
+              onTap: () {},
+            ),
+          ],
+        ),
+    ),
+      bottomNavigationBar
+          : Theme(
+              data: Theme.of(context).copyWith(
+          // sets the background color of the `BottomNavigationBar`
+            canvasColor: Color.fromRGBO(273, 146, 158, 1),
+
+           ),
+            child: BottomNavigationBar(
+            currentIndex : 0,
+                type: BottomNavigationBarType.fixed,
+            unselectedItemColor:  Color.fromRGBO(146, 180, 237, 1),
+            selectedItemColor: Colors.white,
+            items
+                : [
+              BottomNavigationBarItem(
+                title
+                    : Text("Home"),
+                icon
+                    : Icon(Icons.home),
+
+              ),
+              BottomNavigationBarItem(
+                title
+                    : Text("Mission"),
+                icon
+                    : Icon(Icons.verified_user), ),
+              BottomNavigationBarItem(
+                title
+                    : Text("Thesis"),
+                icon
+                    : Icon(Icons.edit), ),
+              BottomNavigationBarItem(
+                title
+                    : Text("Test"),
+                icon
+                    : Icon(Icons.assignment),
+              ),
+
+            ],
+            onTap
+                : (int indexOfItem){
+              if(indexOfItem == 0)
+                Navigator.pushNamed(context, '/home');
+              else if(indexOfItem == 1)
+                Navigator.pushNamed(context, '/mission');
+              else if(indexOfItem == 2)
+                Navigator.pushNamed(context, '/thesis');
+              else if(indexOfItem == 3)
+                Navigator.pushNamed(context, '/test');
+
+            }),
+          ),
     );
   }
 }
