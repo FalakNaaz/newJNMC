@@ -183,7 +183,7 @@ class _TestState extends State<Test> {
                             Text('''Self Ass-\nessment: ''', style: TextStyle(fontSize: 25),),
                             Container(
                               padding: EdgeInsets.all(5.0),
-                              width: 300.0,
+                              width: 291.0,
                               //height:65,
                               margin: const EdgeInsets.only(right: 0, left: 0),
                               child:TextField(
@@ -212,7 +212,7 @@ class _TestState extends State<Test> {
                             Text('''Reflectio- \nns:''', style: TextStyle(fontSize: 25),),
                             Container(
                               padding: EdgeInsets.all(5.0),
-                              width: 300.0,
+                              width: 289.0,
                               //height:65,
                               margin: const EdgeInsets.only(right: 0, left: 0),
                               child:TextField(
@@ -241,7 +241,7 @@ class _TestState extends State<Test> {
                             Text('''Future G- \noals: ''', style: TextStyle(fontSize: 25),),
                             Container(
                               padding: EdgeInsets.all(5.0),
-                              width: 300.0,
+                              width: 293.0,
                               //height:65,
                               margin: const EdgeInsets.only(right: 0, left: 0),
                               child:TextField(
