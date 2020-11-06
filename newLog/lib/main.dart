@@ -6,6 +6,10 @@ import 'pages/home/home.dart';
 import 'pages/home/thesis.dart';
 import 'pages/home/test.dart';
 import 'pages/home/mission.dart';
+import 'pages/home/rotation.dart';
+import 'pages/home/casereport.dart';
+import 'pages/home/caseroutines.dart';
+import 'pages/home/logofcases.dart';
 import 'pages/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:jmnchelogbook/models/user.dart';
@@ -37,6 +41,10 @@ class MyApp extends StatelessWidget{
             '/thesis' : (context) => Thesis(),
             '/test' : (context) => Test(),
             '/mission' : (context) => Mission(),
+            '/rotation' : (context) => Rotation(),
+            '/casereport' : (context) => CaseReport(),
+            '/caseroutines' : (context) => CaseRoutine(),
+            '/logofcases' : (context) => LogOfCases(),
           }
       ),
     );

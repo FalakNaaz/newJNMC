@@ -112,7 +112,7 @@ class MyApp2 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  IconButton(icon: new Icon(Icons.looks_one), onPressed: ()}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
+                  IconButton(icon: new Icon(Icons.looks_one), onPressed: (){Navigator.pushNamed(context, '/rotation');}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_two), onPressed: (){},  color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_3), onPressed: (){}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_4), onPressed: (){}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
