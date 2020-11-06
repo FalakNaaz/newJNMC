@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:jmnchelogbook/services/auth.dart';
 
 class MyApp2 extends StatelessWidget {
+  final AuthService _auth = AuthService();
   Widget createDrawerHeader() {
     return DrawerHeader(
         margin: EdgeInsets.zero,
@@ -110,7 +112,7 @@ class MyApp2 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  IconButton(icon: new Icon(Icons.looks_one), onPressed: (){Navigator.pushNamed(context, '/LoginAsResident');}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
+                  IconButton(icon: new Icon(Icons.looks_one), onPressed: ()}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_two), onPressed: (){},  color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_3), onPressed: (){}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
                   IconButton(icon: new Icon(Icons.looks_4), onPressed: (){}, color: Color.fromRGBO(146, 180, 237, 1),iconSize: 45,),
@@ -137,7 +139,9 @@ class MyApp2 extends StatelessWidget {
             createDrawerBodyItem(
                 icon: Icons.public,text: 'Publications'),
             createDrawerBodyItem(
-                icon: Icons.exit_to_app,text: 'Log Out'),
+                icon: Icons.exit_to_app,text: 'Log Out', onTap: () async {
+                  await _auth.signOut();
+            }),
             ListTile(
               title: Text('App version 1.0.0'),
               onTap: () {},
