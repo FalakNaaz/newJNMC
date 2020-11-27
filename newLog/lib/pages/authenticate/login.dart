@@ -107,6 +107,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:jmnchelogbook/services/auth.dart';
+import 'package:jmnchelogbook/shared/loading.dart';
 
 class LogInResident extends StatefulWidget {
   final Function toggleView;
@@ -116,7 +117,7 @@ class LogInResident extends StatefulWidget {
 }
 
 class _LogInResidentState extends State<LogInResident> {
-
+  bool loading = false;
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -127,7 +128,7 @@ class _LogInResidentState extends State<LogInResident> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading? Loading() : Scaffold(
       resizeToAvoidBottomInset : false,
       backgroundColor: Colors.white,
       /*appBar: AppBar(
@@ -183,12 +184,17 @@ class _LogInResidentState extends State<LogInResident> {
                   child: RaisedButton(onPressed: () async {
                     if(_formKey.currentState.validate())
                     {
+                      setState(() {
+                        loading = true;
+                      });
                       dynamic result = await _auth.signInWithEmailAndPassword(email, password);
 
                       //print('valid');
                       if(result == null)
                       {
-                        setState(() => error = 'COULD NOT SIGN IN WITH THOSE CREDENTIALS!');
+                        setState(() =>
+                        error = 'COULD NOT SIGN IN WITH THOSE CREDENTIALS!');
+                        loading = false;
                       }else {
                         Navigator.pushNamed(context, '/home');
                       }

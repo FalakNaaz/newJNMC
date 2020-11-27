@@ -107,6 +107,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:jmnchelogbook/services/auth.dart';
+import 'package:jmnchelogbook/shared/loading.dart';
 
 class BaseApp extends StatefulWidget {
   final Function toggleView;
@@ -123,10 +124,11 @@ class _BaseAppState extends State<BaseApp> {
   String email = '';
   String password = '';
   String error = '';
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() :  Scaffold(
       resizeToAvoidBottomInset : false,
       backgroundColor: Colors.white,
       /*appBar: AppBar(
@@ -197,10 +199,14 @@ class _BaseAppState extends State<BaseApp> {
                     }*/
                     if(_formKey.currentState.validate())
                       {
+                        setState(() {
+                          loading = true;
+                        });
                         dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                         if(result == null)
                           {
                             setState(() => error = 'Please supply valid email');
+                            loading = false;
                           }else {
                           Navigator.pushNamed(context, '/home');
                         }

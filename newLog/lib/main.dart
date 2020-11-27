@@ -13,6 +13,7 @@ import 'pages/home/logofcases.dart';
 import 'pages/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:jmnchelogbook/models/user.dart';
+import 'package:jmnchelogbook/pages/home/CV_Screen.dart';
 void main()
 {
   runApp(MyApp());
@@ -43,8 +44,9 @@ class MyApp extends StatelessWidget{
             '/mission' : (context) => Mission(),
             '/rotation' : (context) => Rotation(),
             '/casereport' : (context) => CaseReport(),
-            '/caseroutines' : (context) => CaseRoutine(),
+            '/caserotation' : (context) => CaseRoutine(),
             '/logofcases' : (context) => LogOfCases(),
+            '/CV' : (context) => CV_Screen(),
           }
       ),
     );
