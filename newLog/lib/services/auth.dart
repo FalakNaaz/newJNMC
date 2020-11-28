@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/services/database.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService{
     final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,8 +25,9 @@ class AuthService{
         FirebaseUser user = result.user;
 
 
-        await DatabaseService(uid:user.uid).updateUserData('', '', '', '','','','','','','','','','','',);
+        await DatabaseService(uid:user.uid).updateUserData('', '', '', '','','','','','','','','','','','');
         await DatabaseService(uid:user.uid).updateUserDataForMission(false,'');
+        await DatabaseService(uid:user.uid).updatePublicationsData('', '', '','','');
         return _userFromFirebaseUser(user);
       }catch(e){
         print(e.toString());

@@ -177,7 +177,9 @@ class _MyApp2State extends State<MyApp2> {
               createDrawerBodyItem(
                   icon: Icons.publish, text: 'Uploads'),
               createDrawerBodyItem(
-                  icon: Icons.public, text: 'Publications'),
+                  icon: Icons.public, text: 'Publications', onTap: () {
+                Navigator.pushNamed(context, '/publications');
+              }),
               createDrawerBodyItem(
                 icon: Icons.exit_to_app, text: 'Log Out', onTap:
                   () async {

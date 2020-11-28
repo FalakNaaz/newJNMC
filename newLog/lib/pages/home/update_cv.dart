@@ -27,6 +27,7 @@ class _UpdateCVState extends State<UpdateCV> {
   String _currentjoiningDate;
   String _currentappearDate;
   String _currenthobby;
+  String _currentreason;
 
   @override
   Widget build(BuildContext context) {
@@ -193,8 +194,19 @@ class _UpdateCVState extends State<UpdateCV> {
                       onChanged: (val) => setState(() => _currenthobby = val),
                     ),
                     SizedBox(height: 20.0,),
+                    TextFormField(
+                      decoration: textInputDecoration('Why I want to be an Obstetrics and Gynaecology Specialist?'),
+                      maxLines: 20,
+                      initialValue: userData.reason,
+                      validator: (val) =>
+                      val.isEmpty
+                          ? 'Please enter the reason to be a gynaecologist'
+                          : null,
+                      onChanged: (val) => setState(() => _currentreason = val),
+                    ),
+                    SizedBox(height: 20.0,),
                     RaisedButton(
-                      color: Colors.pink,
+                      color: Color.fromRGBO(273, 146, 158, 1),
                       child: Text(
                         'update',
                         style: TextStyle(color: Colors.white),
@@ -217,6 +229,7 @@ class _UpdateCVState extends State<UpdateCV> {
                              _currentjoiningDate ?? userData.joiningDate,
                              _currentappearDate ?? userData.appearDate,
                              _currenthobby ?? userData.hobby,
+                             _currentreason ?? userData.reason,
 
                           );
                           Navigator.pop(context);

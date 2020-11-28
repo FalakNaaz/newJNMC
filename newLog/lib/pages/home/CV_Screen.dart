@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jmnchelogbook/models/CV_model.dart';
+import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/update_cv.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:provider/provider.dart';
@@ -11,15 +11,18 @@ class CV_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void _showSettingsPanel(){
-      showModalBottomSheet(context: context, builder: (context){
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-          child: UpdateCV(),
+      showModalBottomSheet(context: context, isScrollControlled: true,builder: (context){
+
+        return SafeArea(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+            child: UpdateCV(),
+          ),
         );
       });
     }
-    return StreamProvider<List<CV_model>>.value(
-      value: DatabaseService().CV,
+    return StreamProvider<UserData>.value(
+      value: DatabaseService().userData,
       child: Scaffold(
           extendBodyBehindAppBar: true,
           appBar: AppBar(
