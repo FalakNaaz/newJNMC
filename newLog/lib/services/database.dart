@@ -7,18 +7,32 @@ class DatabaseService {
   DatabaseService({this.uid});
 
   //collection reference
-  final CollectionReference CVCollection = Firestore.instance.collection(
-      'CVCollection');
-  final CollectionReference missionCollection = Firestore.instance.collection(
-      'missionCollection');
-  final CollectionReference publicationsCollection = Firestore.instance
-      .collection('publicationsCollection');
+  final CollectionReference CVCollection =
+      Firestore.instance.collection('CVCollection');
+  final CollectionReference missionCollection =
+      Firestore.instance.collection('missionCollection');
+  final CollectionReference publicationsCollection =
+      Firestore.instance.collection('publicationsCollection');
 
-  Future updateUserData(String name, String dob, String p_add, String l_add,
-      String mob, String email, String degreeDetail, String degreeRecord,
-      String iDetail, String other, String regNo, String joiningDate,
-      String appearDate, String hobby, String reason) async
-  {
+  final CollectionReference caseroutineCollection =
+      Firestore.instance.collection('caseroutineCollection');
+
+  Future updateUserData(
+      String name,
+      String dob,
+      String p_add,
+      String l_add,
+      String mob,
+      String email,
+      String degreeDetail,
+      String degreeRecord,
+      String iDetail,
+      String other,
+      String regNo,
+      String joiningDate,
+      String appearDate,
+      String hobby,
+      String reason) async {
     return await CVCollection.document(uid).setData({
       'name': name,
       'dob': dob,
@@ -38,22 +52,33 @@ class DatabaseService {
     });
   }
 
-  Future updateUserDataForMission(bool agree, String sign) async
-  {
+  Future updateUserDataForMission(bool agree, String sign) async {
     return await missionCollection.document(uid).setData({
       'agree': agree,
       'sign': sign,
     });
   }
-Future updatePublicationsData(String papers, String conferences, String publications, String organization, String achievement) async
-  {
+
+  Future updatePublicationsData(String papers, String conferences,
+      String publications, String organization, String achievement) async {
     return await publicationsCollection.document(uid).setData({
       'papers': papers,
       'conferences': conferences,
       'publications': publications,
       'organization': organization,
       'achievement': achievement,
+    });
+  }
 
+  Future updateCaseroutineData(String pdate, String pname, String l1, String l2,
+      String l3, String strategy) async {
+    return await caseroutineCollection.document(uid).setData({
+      'pdate': pdate,
+      'pname': pname,
+      'l1': l1,
+      'l2': l2,
+      'l3': l3,
+      'strategy': strategy,
     });
   }
 
@@ -87,7 +112,6 @@ Future updatePublicationsData(String papers, String conferences, String publicat
       appearDate: snapshot.data['appearDate'],
       hobby: snapshot.data['hobby'],
       reason: snapshot.data['reason'],
-
     );
   }
 
@@ -112,6 +136,17 @@ Future updatePublicationsData(String papers, String conferences, String publicat
     );
   }
 
+  CaseroutineData _caseroutineDataFromSnapshot(DocumentSnapshot snapshot) {
+    return CaseroutineData(
+      uid: uid,
+      pdate: snapshot.data['pdate'],
+      pname: snapshot.data['pname'],
+      l1: snapshot.data['l1'],
+      l2: snapshot.data['l2'],
+      l3: snapshot.data['l3'],
+      strategy: snapshot.data['strategy'],
+    );
+  }
 
   //get CVCollection stream
   // Stream<List<CV_model>> get CV {
@@ -121,17 +156,27 @@ Future updatePublicationsData(String papers, String conferences, String publicat
 
 // get user doc stream
   Stream<UserData> get userData {
-    return CVCollection.document(uid).snapshots()
-        .map(_userDataFromSnapshot);
+    return CVCollection.document(uid).snapshots().map(_userDataFromSnapshot);
   }
 
   Stream<MissionData> get missionData {
-    return missionCollection.document(uid).snapshots()
+    return missionCollection
+        .document(uid)
+        .snapshots()
         .map(_missionDataFromSnapshot);
   }
 
   Stream<PublicationsData> get publicationsData {
-    return publicationsCollection.document(uid).snapshots()
+    return publicationsCollection
+        .document(uid)
+        .snapshots()
         .map(_publicationsDataFromSnapshot);
+  }
+
+  Stream<CaseroutineData> get caseroutineData {
+    return caseroutineCollection
+        .document(uid)
+        .snapshots()
+        .map(_caseroutineDataFromSnapshot);
   }
 }
