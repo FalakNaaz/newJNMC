@@ -33,6 +33,7 @@ class _CV_InfoState extends State<CV_Info> {
     //     return CV_Tile(CV_item: CV[index]);
     //   },
     // );
+
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {

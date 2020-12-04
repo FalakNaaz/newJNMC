@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jmnchelogbook/models/user.dart';
+import 'package:jmnchelogbook/services/auth.dart';
 
 class DatabaseService {
   final String uid;
@@ -13,6 +15,51 @@ class DatabaseService {
       'missionCollection');
   final CollectionReference publicationsCollection = Firestore.instance
       .collection('publicationsCollection');
+  final CollectionReference testCollection = Firestore.instance.collection('testCollection');
+  final CollectionReference thesisCollection = Firestore.instance.collection('thesisCollection');
+  //final CollectionReference tryingSubCollection = Firestore.instance.collection('tryingCollection').document(uid.toString()).collection('subCollection');
+  //final databaseReference = Firestore.instance;
+  //databaseReference.collection('main collection name').document(uid).collection('string name').document().setData();
+  static List<CourseModel> FinalCoursesList = [] ;
+  // print() {
+  //   for(int i=0; i<FinalCoursesList.length; i++)
+  //     {
+  //
+  //     }
+  // }
+  // Future updateTestCollection(String name)async
+  // {
+  //   List list_of_masters = await Firestore.instance.collection("masters")
+  //       .getDocuments()
+  //       .then((val) => val.documents);
+  //   for (int i=0; i<list_of_masters.length; i++)
+  //   {
+  //     Firestore.instance.collection("masters").document(
+  //         list_of_masters[i].documentID.toString()).collection("courses").snapshots().listen(CreateListofCourses);
+  //   }
+  // }
+
+  MastersList() async
+  {
+    List list_of_masters = await Firestore.instance.collection("masters")
+        .getDocuments()
+        .then((val) => val.documents);
+    //test();
+    for (int i=0; i<list_of_masters.length; i++)
+    {
+      Firestore.instance.collection("masters").document(
+          list_of_masters[i].documentID.toString()).collection("courses").snapshots().listen(CreateListofCourses);
+    }
+  }
+  CreateListofCourses(QuerySnapshot snapshot)async
+  {
+    var docs = snapshot.documents;
+    for (var Doc in docs)
+    {
+      FinalCoursesList.add(CourseModel.fromFireStore(Doc));
+      print(Doc.data);
+    }
+  }
 
   Future updateUserData(String name, String dob, String p_add, String l_add,
       String mob, String email, String degreeDetail, String degreeRecord,
@@ -56,7 +103,15 @@ Future updatePublicationsData(String papers, String conferences, String publicat
 
     });
   }
-
+Future updateTestData(String date, String result, String assessment, String goals) async
+{
+  return await testCollection.document(uid).setData({
+    'date' : date,
+    'result' : result,
+    'assessment' : assessment,
+    'goals' : goals,
+  });
+}
   // //CV list from snapshot
   // List<CV_model> _CVListFromSnapshot(QuerySnapshot snapshot) {
   //   return snapshot.documents.map((doc) {
@@ -67,7 +122,14 @@ Future updatePublicationsData(String papers, String conferences, String publicat
   //     );
   //   }).toList();
   // }
-
+  Future updateThesisData(String consult, String collect, String pre) async
+  {
+    return await thesisCollection.document(uid).setData({
+      'consult' : consult,
+      'collect' : collect,
+      'pre' : pre,
+    });
+  }
   //userdata from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
@@ -111,14 +173,24 @@ Future updatePublicationsData(String papers, String conferences, String publicat
       sign: snapshot.data['sign'],
     );
   }
+  TestData _testDataFromSnapshot(DocumentSnapshot snapshot){
+    return TestData(
+      uid: uid,
+      date: snapshot.data['date'],
+       result: snapshot.data['result'],
+       assessment: snapshot.data['assessment'],
+       goals: snapshot.data['goals'],
 
-
-  //get CVCollection stream
-  // Stream<List<CV_model>> get CV {
-  //   return CVCollection.snapshots()
-  //       .map(_CVListFromSnapshot);
-  // }
-
+    );
+  }
+  ThesisData _thesisDataFromSnapshot(DocumentSnapshot snapshot){
+    return ThesisData(
+      uid: uid,
+      consult: snapshot.data['consult'],
+      collect: snapshot.data['collect'],
+      pre: snapshot.data['pre'],
+    );
+  }
 // get user doc stream
   Stream<UserData> get userData {
     return CVCollection.document(uid).snapshots()
@@ -133,5 +205,13 @@ Future updatePublicationsData(String papers, String conferences, String publicat
   Stream<PublicationsData> get publicationsData {
     return publicationsCollection.document(uid).snapshots()
         .map(_publicationsDataFromSnapshot);
+  }
+   Stream<TestData> get testData {
+    return testCollection.document(uid).snapshots()
+        .map(_testDataFromSnapshot);
+  }
+  Stream<ThesisData> get thesisData{
+    return thesisCollection.document(uid).snapshots()
+        .map(_thesisDataFromSnapshot);
   }
 }

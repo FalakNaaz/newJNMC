@@ -21,26 +21,23 @@ class CV_Screen extends StatelessWidget {
         );
       });
     }
-    return StreamProvider<UserData>.value(
-      value: DatabaseService().userData,
-      child: Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            // Here we take the value from the MyHomePage object that was created by
-            // the App.build method, and use it to set our appbar title.
-            title: Text('JNMCH eLogBook'),
-            backgroundColor: Color.fromRGBO(273, 146, 158, 1),
-            actions:<Widget> [
-              FlatButton.icon(
-                  onPressed: () => _showSettingsPanel(),
-                  icon: Icon(Icons.edit, color: Colors.white,),
-                  label: Text('Edit CV',
-                  style: TextStyle( color: Colors.white,),)),
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text('JNMCH eLogBook'),
+          backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+          actions:<Widget> [
+            FlatButton.icon(
+                onPressed: () => _showSettingsPanel(),
+                icon: Icon(Icons.edit, color: Colors.white,),
+                label: Text('Edit CV',
+                style: TextStyle( color: Colors.white,),)),
 
-            ],
-          ),
-        body: CV_Info(),
-      ),
+          ],
+        ),
+      body: CV_Info(),
     );
   }
 }

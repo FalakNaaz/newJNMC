@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/pages/home/publications.dart';
+import 'package:jmnchelogbook/pages/home/uploads.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'pages/authenticate/baseApp.dart';
 import 'pages/authenticate/login.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget{
             '/logofcases' : (context) => LogOfCases(),
             '/CV' : (context) => CV_Screen(),
             '/publications' : (context) => PublicationsScreen(),
+            '/imageCapture' : (context) => ImageCapture(),
           }
       ),
     );

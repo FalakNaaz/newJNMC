@@ -28,6 +28,9 @@ class AuthService{
         await DatabaseService(uid:user.uid).updateUserData('', '', '', '','','','','','','','','','','','');
         await DatabaseService(uid:user.uid).updateUserDataForMission(false,'');
         await DatabaseService(uid:user.uid).updatePublicationsData('', '', '','','');
+        await DatabaseService(uid: user.uid).updateTestData('','','','');
+        await DatabaseService(uid: user.uid).updateThesisData('A','A','A');
+
         return _userFromFirebaseUser(user);
       }catch(e){
         print(e.toString());

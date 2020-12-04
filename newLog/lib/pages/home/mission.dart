@@ -360,7 +360,8 @@ class _MissionState extends State<Mission>  {
                         child: FractionallySizedBox(
                           widthFactor: 0.25,
                           child: RaisedButton(
-                            child: Text('Agree'),
+                            color: value1 ? Color.fromRGBO(273, 146, 158, 1) : Colors.white38,
+                            child: Text('Agree', style: TextStyle(color: Colors.white),),
                             onPressed: () async {
                               setState(() {
                                 if(value1) {

@@ -68,7 +68,7 @@ class _MyApp2State extends State<MyApp2> {
     if(snapshot.hasData) {
       UserData userData = snapshot.data;
       return Scaffold(
-        extendBodyBehindAppBar: true,
+        //extendBodyBehindAppBar: true,
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
@@ -103,7 +103,7 @@ class _MyApp2State extends State<MyApp2> {
                       "Keep your Log Book with yourselves!",
                       //alignment:Alignment(10,20),
                       style: TextStyle(
-                        fontSize: 27, fontFamily: "DancingScript",),
+                        fontSize: 26, fontFamily: "DancingScript",),
                     ),
                   ),
                 ),
@@ -175,7 +175,9 @@ class _MyApp2State extends State<MyApp2> {
               createDrawerBodyItem(
                   icon: Icons.person_add, text: 'Add Mentor'),
               createDrawerBodyItem(
-                  icon: Icons.publish, text: 'Uploads'),
+                  icon: Icons.publish, text: 'Uploads', onTap: () {
+                Navigator.pushNamed(context, '/imageCapture');
+              }),
               createDrawerBodyItem(
                   icon: Icons.public, text: 'Publications', onTap: () {
                 Navigator.pushNamed(context, '/publications');
