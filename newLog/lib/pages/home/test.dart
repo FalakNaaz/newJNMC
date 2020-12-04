@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:jmnchelogbook/models/user.dart';
-import 'package:jmnchelogbook/pages/home/testBase.dart';
 import 'package:jmnchelogbook/pages/home/updateTest.dart';
-import 'package:jmnchelogbook/pages/home/update_cv.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:provider/provider.dart';
-import '../authenticate/baseApp.dart';
-import '../authenticate/login.dart';
 
 
 class Test extends StatefulWidget  {
