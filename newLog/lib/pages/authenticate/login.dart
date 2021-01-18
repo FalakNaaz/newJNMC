@@ -193,10 +193,10 @@ class _LogInResidentState extends State<LogInResident> {
                       if(result == null)
                       {
                         setState(() =>
-                        error = 'COULD NOT SIGN IN WITH THOSE CREDENTIALS!');
+                        error = 'Incorrect email or password!');
                         loading = false;
                       }else {
-                        Navigator.pushNamed(context, '/home');
+                        //Navigator.pushNamed(context, '/home');
                       }
                     }
 

@@ -25,7 +25,7 @@ class _UpdatePublicationsState extends State<UpdatePublications> {
     final user = Provider.of<User>(context) ;
 
     return StreamBuilder<PublicationsData>(
-        stream: DatabaseService(uid: user.uid).publicationsData,
+        stream: DatabaseService(uid: user?.uid).publicationsData,
         builder: (context, snapshot) {
           if(snapshot.hasData)
           {
@@ -123,7 +123,9 @@ class _UpdatePublicationsState extends State<UpdatePublications> {
             );
           }
           else
-          {
+          { setState(() {
+
+          });
             return Container();
           }
 

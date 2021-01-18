@@ -208,7 +208,7 @@ class _BaseAppState extends State<BaseApp> {
                             setState(() => error = 'Please supply valid email');
                             loading = false;
                           }else {
-                          Navigator.pushNamed(context, '/home');
+                          //Navigator.pushNamed(context, '/home');
                         }
                       }
 

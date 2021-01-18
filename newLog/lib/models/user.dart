@@ -47,10 +47,10 @@ class PublicationsData{
 }
 class Trying{
   String field1;
-   String field2;
-   String field3;
-   String field4;
-   Trying({this.field1,this.field2,this.field3,this.field4});
+  String field2;
+  String field3;
+  String field4;
+  Trying({this.field1,this.field2,this.field3,this.field4});
 
 }
 class CourseModel {
@@ -66,13 +66,13 @@ class CourseModel {
   {
     Map data = doc.data ;
     return CourseModel(
-        course_name: data['course_name'],
-        master_name: data['master_name'],
-        master_email: data['master_email'],
-        course_uid: doc.documentID,
-        pic_url: data['pic_url'],
-        details: data['details'],
-        price: data['price'],
+      course_name: data['course_name'],
+      master_name: data['master_name'],
+      master_email: data['master_email'],
+      course_uid: doc.documentID,
+      pic_url: data['pic_url'],
+      details: data['details'],
+      price: data['price'],
     );
   }
 }
@@ -91,4 +91,22 @@ class ThesisData{
   String collect;
   String pre;
   ThesisData({this.uid,this.consult, this.collect, this.pre});
+}
+class CaseroutineData {
+  final String uid;
+  final String pdate;
+  final String pname;
+  final String l1;
+  final String l2;
+  final String l3;
+  final String strategy;
+
+  CaseroutineData(
+      {this.uid,
+        this.pdate,
+        this.pname,
+        this.l1,
+        this.l2,
+        this.l3,
+        this.strategy});
 }

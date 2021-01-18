@@ -73,7 +73,7 @@ class _TestState extends State<Test> {
                 'Self Assessment. How \ndid I perform                       :   ${testData
                     .assessment}'),
             SizedBox(height: 20.0,),
-            Text('Future Goals                       :   ${testData.goals}'),
+            Text('Reasons for level of \nperformance                         :   ${testData.goals}'),
           ],
         ),
       );

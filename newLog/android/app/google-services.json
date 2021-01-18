@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "492497867322",
-    "firebase_url": "https://newlog-1fde7.firebaseio.com",
-    "project_id": "newlog-1fde7",
-    "storage_bucket": "newlog-1fde7.appspot.com"
+    "project_number": "597074171829",
+    "firebase_url": "https://newlog-4d172.firebaseio.com",
+    "project_id": "newlog-4d172",
+    "storage_bucket": "newlog-4d172.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:492497867322:android:cba49438edf1cfbbb41b03",
+        "mobilesdk_app_id": "1:597074171829:android:6b3827a095acaa11092bfc",
         "android_client_info": {
           "package_name": "com.example.newLog"
         }
       },
       "oauth_client": [
         {
-          "client_id": "492497867322-dndbsphme2lf2qn5abu4kc9be3orq7ou.apps.googleusercontent.com",
+          "client_id": "597074171829-7im3ndqugndum2vnd5msi0pl39qna2f3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDXcc4SZMUx5ozVupnPmzTqJRxf29JUPjU"
+          "current_key": "AIzaSyCzlYRCIrHECqRmyuA-HS57bCa5r8CXdGs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "492497867322-dndbsphme2lf2qn5abu4kc9be3orq7ou.apps.googleusercontent.com",
+              "client_id": "597074171829-7im3ndqugndum2vnd5msi0pl39qna2f3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jmnchelogbook/pages/authenticate/authenticate.dart';
 import 'package:jmnchelogbook/pages/home/publications.dart';
+import 'package:jmnchelogbook/pages/home/uploadScreen.dart';
 import 'package:jmnchelogbook/pages/home/uploads.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'pages/authenticate/baseApp.dart';
@@ -46,11 +48,14 @@ class MyApp extends StatelessWidget{
             '/mission' : (context) => Mission(),
             '/rotation' : (context) => Rotation(),
             '/casereport' : (context) => CaseReport(),
-            '/caserotation' : (context) => CaseRoutine(),
+            '/caserotation' : (context) => CaseroutineScreen(),
             '/logofcases' : (context) => LogOfCases(),
             '/CV' : (context) => CV_Screen(),
             '/publications' : (context) => PublicationsScreen(),
-            '/imageCapture' : (context) => ImageCapture(),
+            '/authenticate' : (context) => Authenticate(),
+            //'/imageCapture' : (context) => ImageCapture(),
+            '/uploadScreen' : (context) => UploadScreen(),
+            //'/imageCaptureState' : (context) => ImageCaptureState(),
           }
       ),
     );

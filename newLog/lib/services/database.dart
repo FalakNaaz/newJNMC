@@ -17,27 +17,8 @@ class DatabaseService {
       .collection('publicationsCollection');
   final CollectionReference testCollection = Firestore.instance.collection('testCollection');
   final CollectionReference thesisCollection = Firestore.instance.collection('thesisCollection');
-  //final CollectionReference tryingSubCollection = Firestore.instance.collection('tryingCollection').document(uid.toString()).collection('subCollection');
-  //final databaseReference = Firestore.instance;
-  //databaseReference.collection('main collection name').document(uid).collection('string name').document().setData();
+  final CollectionReference caseroutineCollection = Firestore.instance.collection('caseroutineCollection');
   static List<CourseModel> FinalCoursesList = [] ;
-  // print() {
-  //   for(int i=0; i<FinalCoursesList.length; i++)
-  //     {
-  //
-  //     }
-  // }
-  // Future updateTestCollection(String name)async
-  // {
-  //   List list_of_masters = await Firestore.instance.collection("masters")
-  //       .getDocuments()
-  //       .then((val) => val.documents);
-  //   for (int i=0; i<list_of_masters.length; i++)
-  //   {
-  //     Firestore.instance.collection("masters").document(
-  //         list_of_masters[i].documentID.toString()).collection("courses").snapshots().listen(CreateListofCourses);
-  //   }
-  // }
 
   MastersList() async
   {
@@ -92,7 +73,7 @@ class DatabaseService {
       'sign': sign,
     });
   }
-Future updatePublicationsData(String papers, String conferences, String publications, String organization, String achievement) async
+  Future updatePublicationsData(String papers, String conferences, String publications, String organization, String achievement) async
   {
     return await publicationsCollection.document(uid).setData({
       'papers': papers,
@@ -103,15 +84,15 @@ Future updatePublicationsData(String papers, String conferences, String publicat
 
     });
   }
-Future updateTestData(String date, String result, String assessment, String goals) async
-{
-  return await testCollection.document(uid).setData({
-    'date' : date,
-    'result' : result,
-    'assessment' : assessment,
-    'goals' : goals,
-  });
-}
+  Future updateTestData(String date, String result, String assessment, String goals) async
+  {
+    return await testCollection.document(uid).setData({
+      'date' : date,
+      'result' : result,
+      'assessment' : assessment,
+      'goals' : goals,
+    });
+  }
   // //CV list from snapshot
   // List<CV_model> _CVListFromSnapshot(QuerySnapshot snapshot) {
   //   return snapshot.documents.map((doc) {
@@ -129,6 +110,28 @@ Future updateTestData(String date, String result, String assessment, String goal
       'collect' : collect,
       'pre' : pre,
     });
+  }
+  Future updateCaseroutineData(String pdate, String pname, String l1, String l2,
+      String l3, String strategy) async {
+    return await caseroutineCollection.document(uid).setData({
+      'pdate': pdate,
+      'pname': pname,
+      'l1': l1,
+      'l2': l2,
+      'l3': l3,
+      'strategy': strategy,
+    });
+  }
+  CaseroutineData _caseroutineDataFromSnapshot(DocumentSnapshot snapshot) {
+    return CaseroutineData(
+      uid: uid,
+      pdate: snapshot.data['pdate'],
+      pname: snapshot.data['pname'],
+      l1: snapshot.data['l1'],
+      l2: snapshot.data['l2'],
+      l3: snapshot.data['l3'],
+      strategy: snapshot.data['strategy'],
+    );
   }
   //userdata from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
@@ -177,9 +180,9 @@ Future updateTestData(String date, String result, String assessment, String goal
     return TestData(
       uid: uid,
       date: snapshot.data['date'],
-       result: snapshot.data['result'],
-       assessment: snapshot.data['assessment'],
-       goals: snapshot.data['goals'],
+      result: snapshot.data['result'],
+      assessment: snapshot.data['assessment'],
+      goals: snapshot.data['goals'],
 
     );
   }
@@ -206,12 +209,18 @@ Future updateTestData(String date, String result, String assessment, String goal
     return publicationsCollection.document(uid).snapshots()
         .map(_publicationsDataFromSnapshot);
   }
-   Stream<TestData> get testData {
+  Stream<TestData> get testData {
     return testCollection.document(uid).snapshots()
         .map(_testDataFromSnapshot);
   }
   Stream<ThesisData> get thesisData{
     return thesisCollection.document(uid).snapshots()
         .map(_thesisDataFromSnapshot);
+  }
+  Stream<CaseroutineData> get caseroutineData {
+    return caseroutineCollection
+        .document(uid)
+        .snapshots()
+        .map(_caseroutineDataFromSnapshot);
   }
 }
