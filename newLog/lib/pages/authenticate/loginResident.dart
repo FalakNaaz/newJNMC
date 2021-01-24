@@ -111,7 +111,8 @@ import 'package:jmnchelogbook/shared/loading.dart';
 
 class LogInResident extends StatefulWidget {
   final Function toggleView;
-  LogInResident({this.toggleView});
+  final Function toggleScreen;
+  LogInResident({this.toggleView, this.toggleScreen});
   @override
   _LogInResidentState createState() => _LogInResidentState();
 }
@@ -128,7 +129,7 @@ class _LogInResidentState extends State<LogInResident> {
 
   @override
   Widget build(BuildContext context) {
-    return loading? Loading() : Scaffold(
+    return  loading ? Loading() : Scaffold(
       resizeToAvoidBottomInset : false,
       backgroundColor: Colors.white,
       /*appBar: AppBar(
@@ -144,10 +145,24 @@ class _LogInResidentState extends State<LogInResident> {
             children: <Widget>[
               //SizedBox(height: 30.0),
               Container(
-                height: 320,
+                height: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/Icon1.png'), fit: BoxFit.fill )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: ButtonTheme(
+                  minWidth: 200,
+                  height: 50,
+                  child: RaisedButton(
+                      color: Color.fromRGBO(146, 180, 237, 1),
+                      child: Text('Switch to mentor',  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,)),
+                      onPressed: () {
+                        widget.toggleScreen();
+                      }
+                  ),
+                ),
               ),
               SizedBox(height: 20.0),
               TextFormField(
@@ -241,6 +256,7 @@ class _LogInResidentState extends State<LogInResident> {
                   ),
                 ),
               ),
+
             ],
           ),
         ),

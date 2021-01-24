@@ -5,28 +5,28 @@ import 'package:jmnchelogbook/shared/constants.dart';
 import 'package:provider/provider.dart';
 
 class UpdateThesis extends StatefulWidget {
+  int tabNo;
+
+  UpdateThesis({this.tabNo});
+
   @override
   _UpdateThesisState createState() => _UpdateThesisState();
 }
 
 class _UpdateThesisState extends State<UpdateThesis> {
-
   String _currentconsult;
   String _currentcollect;
   String _currentpre;
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
 
-    final user = Provider.of<User>(context) ;
-
-    return StreamBuilder<ThesisData>(
-        stream: DatabaseService(uid: user.uid).thesisData,
+    return StreamBuilder<List<ThesisData>>(
+        stream: DatabaseService(uid: user.uid).listOfThesisData,
         builder: (context, snapshot) {
-
-          if(snapshot.hasData)
-          {
-            ThesisData thesisData = snapshot.data;
+          if (snapshot.hasData) {
+            List<ThesisData> listOfThesisData = snapshot.data;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -35,26 +35,27 @@ class _UpdateThesisState extends State<UpdateThesis> {
                   // crossAxisAlignment: CrossAxisAlignment.baseline,
                   // textBaseline: TextBaseline.ideographic,
                   children: <Widget>[
-                    Text('Periodic Consultation with Mentor :',
-                      style: TextStyle(color: Colors.black, fontSize: 20),),
+                    Text(
+                      'Periodic Consultation with Mentor :',
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
                     new DropdownButton<String>(
                       //value: 'A',
-                      value:  _currentconsult ?? thesisData.consult ,
-                      items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                      value: _currentconsult ?? listOfThesisData[widget.tabNo].consult,
+                      items:
+                          <String>['A', 'B', 'C', 'D', 'E'].map((String value) {
                         return new DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),
                         );
                       }).toList(),
                       onChanged: (String newValueSelected) {
-                        setState((){
+                        setState(() {
                           this._currentconsult = newValueSelected;
                         });
                       },
                       dropdownColor: Color.fromRGBO(273, 146, 158, 1),
-
                     ),
-
                   ],
                 ),
                 Row(
@@ -62,25 +63,26 @@ class _UpdateThesisState extends State<UpdateThesis> {
                   //crossAxisAlignment: CrossAxisAlignment.baseline,
                   //textBaseline: TextBaseline.ideographic,
                   children: <Widget>[
-                    Text('Regular Collection of Data               :',
-                      style: TextStyle(color: Colors.black, fontSize: 20),),
+                    Text(
+                      'Regular Collection of Data               :',
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
                     new DropdownButton<String>(
-                      value: _currentcollect?? thesisData.collect ,
-                      items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                      value: _currentcollect ?? listOfThesisData[widget.tabNo].collect,
+                      items:
+                          <String>['A', 'B', 'C', 'D', 'E'].map((String value) {
                         return new DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),
                         );
                       }).toList(),
                       onChanged: (String newValueSelected) {
-                        setState((){
+                        setState(() {
                           this._currentcollect = newValueSelected;
                         });
                       },
-
                       dropdownColor: Color.fromRGBO(273, 146, 158, 1),
                     ),
-
                   ],
                 ),
                 Row(
@@ -88,25 +90,27 @@ class _UpdateThesisState extends State<UpdateThesis> {
                   // crossAxisAlignment: CrossAxisAlignment.baseline,
                   // textBaseline: TextBaseline.ideographic,
                   children: <Widget>[
-                    Text('Departmental Presentation             :',
-                      style: TextStyle(color: Colors.black, fontSize: 20),),
+                    Text(
+                      'Departmental Presentation             :',
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
                     new DropdownButton<String>(
-                      items: <String>['A', 'B', 'C', 'D','E'].map((String value) {
+                      items:
+                          <String>['A', 'B', 'C', 'D', 'E'].map((String value) {
                         return new DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),
                         );
                       }).toList(),
                       onChanged: (String newValueSelected) {
-                        setState((){
+                        setState(() {
                           _currentpre = newValueSelected;
                         });
                       },
                       //value: 'A',
-                      value: _currentpre ??  thesisData.pre,
+                      value: _currentpre ?? listOfThesisData[widget.tabNo].pre,
                       dropdownColor: Color.fromRGBO(273, 146, 158, 1),
                     ),
-
                   ],
                 ),
                 Center(
@@ -119,11 +123,15 @@ class _UpdateThesisState extends State<UpdateThesis> {
                     onPressed: () async {
                       // if (_formKey.currentState.validate())
                       {
-                        await DatabaseService(uid: user.uid).updateThesisData(
-                          _currentconsult?? thesisData.consult,
-                          _currentcollect ?? thesisData.collect,
-                          _currentpre ?? thesisData.pre,
+                        /*print('consult= $_currentconsult');
+                        print('collect= $_currentcollect');
+                        print('pre= $_currentpre');*/
 
+                        await DatabaseService(uid: user.uid).updateThesis(
+                          (widget.tabNo).toString(),
+                          _currentconsult ?? listOfThesisData[widget.tabNo].consult,
+                          _currentcollect ?? listOfThesisData[widget.tabNo].collect,
+                          _currentpre ?? listOfThesisData[widget.tabNo].pre,
                         );
                         Navigator.pop(context);
                       }
@@ -135,14 +143,9 @@ class _UpdateThesisState extends State<UpdateThesis> {
                 )
               ],
             );
-          }
-          else
-          {
+          } else {
             return Container();
           }
-
-
-        }
-    );
+        });
   }
 }

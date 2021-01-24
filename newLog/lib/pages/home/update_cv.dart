@@ -214,7 +214,7 @@ class _UpdateCVState extends State<UpdateCV> {
                       onPressed: () async {
                        // if (_formKey.currentState.validate())
                         {
-                          await DatabaseService(uid: user.uid).MastersList();
+                          //await DatabaseService(uid: user.uid).mastersList();
                           //await DatabaseService(uid: user.uid).updateTestData();
                           await DatabaseService(uid: user.uid).updateUserData(
                             _currentName ?? userData.name,

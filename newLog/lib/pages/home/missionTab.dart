@@ -350,7 +350,14 @@ class _MissionTabState extends State<MissionTab> {
                   ),
                 );
               } else {
-                return Container();
+                return Container(
+                  child: Center(
+                    child: Text('Loading...',
+                    style: TextStyle(
+                      fontSize: 30.0
+                    ),),
+                  )
+                );
               }
             });
       },

@@ -109,26 +109,27 @@ import 'package:flutter/services.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 
-class BaseApp extends StatefulWidget {
+class LogInMentor extends StatefulWidget {
   final Function toggleView;
-  BaseApp({this.toggleView});
+  final Function toggleScreen;
+  LogInMentor({this.toggleView, this.toggleScreen});
   @override
-  _BaseAppState createState() => _BaseAppState();
+  _LogInMentorState createState() => _LogInMentorState();
 }
 
-class _BaseAppState extends State<BaseApp> {
-
+class _LogInMentorState extends State<LogInMentor> {
+  bool loading = false;
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+
   // text field state
   String email = '';
   String password = '';
   String error = '';
-  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() :  Scaffold(
+    return  loading ? Loading() : Scaffold(
       resizeToAvoidBottomInset : false,
       backgroundColor: Colors.white,
       /*appBar: AppBar(
@@ -144,10 +145,24 @@ class _BaseAppState extends State<BaseApp> {
             children: <Widget>[
               //SizedBox(height: 30.0),
               Container(
-                height: 320,
+                height: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/Icon1.png'), fit: BoxFit.fill )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: ButtonTheme(
+                  minWidth: 200,
+                  height: 50,
+                  child: RaisedButton(
+                      color: Color.fromRGBO(146, 180, 237, 1),
+                      child: Text('Switch to Resident',  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,)),
+                      onPressed: () {
+                        widget.toggleScreen();
+                      }
+                  ),
+                ),
               ),
               SizedBox(height: 20.0),
               TextFormField(
@@ -182,8 +197,26 @@ class _BaseAppState extends State<BaseApp> {
                   minWidth: 200,
                   height: 50,
                   child: RaisedButton(onPressed: () async {
+                    if(_formKey.currentState.validate())
+                    {
+                      setState(() {
+                        loading = true;
+                      });
+                      dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+
+                      //print('valid');
+                      if(result == null)
+                      {
+                        setState(() =>
+                        error = 'Incorrect email or password!');
+                        loading = false;
+                      }else {
+                        //Navigator.pushNamed(context, '/home');
+                      }
+                    }
+
                     // Navigator.pushNamed(context, '/home');
-                    /*final AuthService _auth = AuthService();
+                    /*  final AuthService _auth = AuthService();
                     dynamic result = await _auth.signInAnon();
                     if(result == null)
                     {
@@ -197,20 +230,6 @@ class _BaseAppState extends State<BaseApp> {
                       print(email);
                       Navigator.pushNamed(context, '/home');
                     }*/
-                    if(_formKey.currentState.validate())
-                      {
-                        setState(() {
-                          loading = true;
-                        });
-                        dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                        if(result == null)
-                          {
-                            setState(() => error = 'Please supply valid email');
-                            loading = false;
-                          }else {
-                          //Navigator.pushNamed(context, '/home');
-                        }
-                      }
 
                   },
                     color: Color.fromRGBO(146, 180, 237, 1),
@@ -222,7 +241,6 @@ class _BaseAppState extends State<BaseApp> {
                   ),
                 ),
               ),
-
               // SizedBox(height: 5.0),
               Padding(
                 padding: const EdgeInsets.all(20),
@@ -231,13 +249,14 @@ class _BaseAppState extends State<BaseApp> {
                   height: 50,
                   child: RaisedButton(
                       color: Color.fromRGBO(146, 180, 237, 1),
-                      child: Text('Login',  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,)),
+                      child: Text('Register',  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,)),
                       onPressed: () {
                         widget.toggleView();
                       }
                   ),
                 ),
               ),
+
             ],
           ),
         ),

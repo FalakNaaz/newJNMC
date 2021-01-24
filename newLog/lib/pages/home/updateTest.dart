@@ -5,13 +5,14 @@ import 'package:jmnchelogbook/shared/constants.dart';
 import 'package:provider/provider.dart';
 
 class UpdateTest extends StatefulWidget {
+  int tabNo;
+  UpdateTest({this.tabNo});
   @override
   _UpdateTestState createState() => _UpdateTestState();
 }
 
 class _UpdateTestState extends State<UpdateTest> {
   final _formKey = GlobalKey<FormState>();
-
   //form values
   String _currentdate;
   String _currentresult;
@@ -23,12 +24,12 @@ class _UpdateTestState extends State<UpdateTest> {
 
     final user = Provider.of<User>(context) ;
 
-    return StreamBuilder<TestData>(
-        stream: DatabaseService(uid: user.uid).testData,
+    return StreamBuilder<List<TestData>>(
+        stream: DatabaseService(uid: user.uid).listOfTestData,
         builder: (context, snapshot) {
           if(snapshot.hasData)
           {
-            TestData testData = snapshot.data;
+            List<TestData> listOfTestData = snapshot.data;
             return SingleChildScrollView(
               child: Form(
                 key: _formKey,
@@ -42,7 +43,7 @@ class _UpdateTestState extends State<UpdateTest> {
                     TextFormField(
                       decoration: textInputDecoration(' Date of Test: '),
                       maxLines: 4,
-                      initialValue: testData.date,
+                      initialValue: listOfTestData[widget.tabNo].date,
                       validator: (val) => val.isEmpty ? 'Please enter the date of test' : null,
                       onChanged: (val) => setState(() => _currentdate = val),
                     ),
@@ -50,7 +51,7 @@ class _UpdateTestState extends State<UpdateTest> {
                     TextFormField(
                       decoration: textInputDecoration('Result'),
                       maxLines: 4,
-                      initialValue: testData.result,
+                      initialValue: listOfTestData[widget.tabNo].result,
                       validator: (val) =>
                       val.isEmpty
                           ? 'Please enter result'
@@ -61,7 +62,7 @@ class _UpdateTestState extends State<UpdateTest> {
                     TextFormField(
                       decoration: textInputDecoration('Self Assessment:How did i perform? Grade yourself from good, satisfactory, poor. '),
                       maxLines: 4,
-                      initialValue: testData.assessment,
+                      initialValue: listOfTestData[widget.tabNo].assessment,
                       validator: (val) =>
                       val.isEmpty
                           ? 'Please enter assessment:'
@@ -72,7 +73,7 @@ class _UpdateTestState extends State<UpdateTest> {
                     TextFormField(
                       decoration: textInputDecoration('Reflection: Reasons for level of performance.'),
                       maxLines: 4,
-                      initialValue: testData.goals,
+                      initialValue: listOfTestData[widget.tabNo].reason,
                       validator: (val) =>
                       val.isEmpty
                           ? 'Please enter future goals:'
@@ -89,11 +90,12 @@ class _UpdateTestState extends State<UpdateTest> {
                       onPressed: () async {
                         // if (_formKey.currentState.validate())
                         {
-                          await DatabaseService(uid: user.uid).updateTestData(
-                            _currentdate ?? testData.date,
-                            _currentresult ?? testData.result,
-                            _currentassessment ?? testData.assessment,
-                            _currentgoals ?? testData.goals,
+                          await DatabaseService(uid: user.uid).updateTest2(
+                            (widget.tabNo).toString(),
+                            _currentdate ?? listOfTestData[widget.tabNo].date,
+                            _currentresult ?? listOfTestData[widget.tabNo].result,
+                            _currentassessment ?? listOfTestData[widget.tabNo].assessment,
+                            _currentgoals ?? listOfTestData[widget.tabNo].reason,
                           );
                           Navigator.pop(context);
                         }

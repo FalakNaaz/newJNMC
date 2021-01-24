@@ -81,8 +81,8 @@ class TestData{
   String date;
   String result;
   String assessment;
-  String goals;
-  TestData({this.uid,this.date, this.result, this.assessment,this.goals});
+  String reason;
+  TestData({this.uid,this.date, this.result, this.assessment,this.reason});
 
 }
 class ThesisData{
@@ -92,7 +92,7 @@ class ThesisData{
   String pre;
   ThesisData({this.uid,this.consult, this.collect, this.pre});
 }
-class CaseroutineData {
+class Learning {
   final String uid;
   final String pdate;
   final String pname;
@@ -101,7 +101,7 @@ class CaseroutineData {
   final String l3;
   final String strategy;
 
-  CaseroutineData(
+  Learning(
       {this.uid,
         this.pdate,
         this.pname,

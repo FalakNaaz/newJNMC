@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jmnchelogbook/pages/authenticate/authenticate.dart';
+import 'package:jmnchelogbook/pages/authenticate/authenticateMaster.dart';
+import 'package:jmnchelogbook/pages/authenticate/authenticateResident.dart';
+import 'package:jmnchelogbook/pages/home/firstPage.dart';
 import 'package:provider/provider.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/home.dart';
-import 'authenticate/baseApp.dart';
+import 'authenticate/registerResident.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -12,6 +14,6 @@ class Wrapper extends StatelessWidget {
     print(user);
     //return either home or authenticate widget
     //return Authenticate();
-    return (user != null) ? MyApp2() : Authenticate();
+    return (user != null) ? MyApp2() : AuthenticateMaster();
   }
 }

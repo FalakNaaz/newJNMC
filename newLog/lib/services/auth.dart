@@ -23,13 +23,14 @@ class AuthService{
     try{
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
-
-
+      //await DatabaseService(uid:user.uid).mastersList();
+      await DatabaseService(uid:user.uid).createTest2('','','','',);
+      await DatabaseService(uid:user.uid).createThesis('A','A','A',);
       await DatabaseService(uid:user.uid).updateUserData('', '', '', '','','','','','','','','','','','');
       await DatabaseService(uid:user.uid).updateUserDataForMission(false,'');
       await DatabaseService(uid:user.uid).updatePublicationsData('', '', '','','');
       await DatabaseService(uid: user.uid).updateTestData('','','','');
-      await DatabaseService(uid: user.uid).updateThesisData('A','A','A');
+      //await DatabaseService(uid: user.uid).updateThesisData('A','A','A');
       await DatabaseService(uid: user.uid).updateCaseroutineData('', '', '', '', '', '');
       return _userFromFirebaseUser(user);
     }catch(e){

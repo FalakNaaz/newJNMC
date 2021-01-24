@@ -4,6 +4,8 @@ import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/homeTab.dart';
 import 'package:jmnchelogbook/pages/home/missionTab.dart';
+import 'package:jmnchelogbook/pages/home/test.dart';
+import 'package:jmnchelogbook/pages/home/thesis.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
@@ -21,8 +23,8 @@ class _MyApp2State extends State<MyApp2> {
   static List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
     MissionTab(),
-    HomeTab(),
-    HomeTab()
+    ThesisTab(),
+    TestBar(),
   ];
 
   void _onItemTapped(int index) {
@@ -78,7 +80,7 @@ class _MyApp2State extends State<MyApp2> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: user.uid).userData,
+        stream: DatabaseService(uid: user?.uid).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;

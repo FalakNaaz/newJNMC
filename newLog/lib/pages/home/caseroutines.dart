@@ -27,7 +27,7 @@ class CaseroutineScreen extends StatelessWidget {
           });
     }
 
-    return StreamProvider<CaseroutineData>.value(
+    return StreamProvider<Learning>.value(
       value: DatabaseService().caseroutineData,
       child: Scaffold(
         extendBodyBehindAppBar: true,

@@ -24,11 +24,11 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
 
-    return StreamBuilder<CaseroutineData>(
+    return StreamBuilder<Learning>(
         stream: DatabaseService(uid: user.uid).caseroutineData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            CaseroutineData caseroutineData = snapshot.data;
+            Learning caseroutineData = snapshot.data;
             return SingleChildScrollView(
               child: Form(
                 key: _formKey,

@@ -31,11 +31,11 @@ class _CaseroutineInfoState extends State<CaseroutineInfo> {
     //     return Publications_Tile(Publications_item: Publications[index]);
     //   },
     // );
-    return StreamBuilder<CaseroutineData>(
+    return StreamBuilder<Learning>(
         stream: DatabaseService(uid: caseroutine.uid).caseroutineData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            CaseroutineData caseroutineData = snapshot.data;
+            Learning caseroutineData = snapshot.data;
             return SafeArea(
               child: SingleChildScrollView(
                 child: Column(
