@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/pages/authenticate/authenticateResident.dart';
+import 'package:jmnchelogbook/pages/home/caseReport.dart';
 import 'package:jmnchelogbook/pages/home/publications.dart';
 import 'package:jmnchelogbook/pages/home/uploadScreen.dart';
 import 'package:jmnchelogbook/pages/home/uploads.dart';
@@ -11,7 +12,7 @@ import 'pages/home/thesis.dart';
 import 'pages/home/test.dart';
 import 'pages/home/mission.dart';
 import 'pages/home/rotation.dart';
-import 'pages/home/casereport.dart';
+import 'pages/home/updateCaseReport.dart';
 import 'pages/home/caseroutines.dart';
 import 'pages/home/logofcases.dart';
 import 'pages/wrapper.dart';

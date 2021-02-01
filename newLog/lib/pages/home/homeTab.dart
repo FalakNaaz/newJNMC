@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:jmnchelogbook/pages/home/caseroutines.dart';
+import 'package:jmnchelogbook/pages/home/rotation.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
 
@@ -22,7 +24,12 @@ class _HomeTabState extends State<HomeTab> {
           children: <Widget>[
            //Icon(IconData(59470,fontFamily: 'MaterialIcons')),
             for(int i=0; i<n; i++)
-              RotationNo(Icon(IconData(iconCode[i],fontFamily:'MaterialIcons', ),), () { Navigator.pushNamed(context, '/rotation');}),
+              RotationNo(Icon(IconData(iconCode[i],fontFamily:'MaterialIcons', ),), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Rotation(rotationNo: i,)),
+                );
+              }),
 
 
           ],
@@ -99,7 +106,7 @@ Widget build(BuildContext context) {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                IconButton(
+               /* IconButton(
                   icon: new Icon(Icons.library_add),
                   onPressed: ()async {
                     var user = await FirebaseAuth.instance.currentUser();
@@ -111,13 +118,13 @@ Widget build(BuildContext context) {
                   },
                   color: Colors.white,
                   iconSize: 35,
-                ),
+                ),*/
               ]),
         ),
         Container(
           //color: Colors.white,
           height: 260,
-          child: Rotations(num),
+          child: Rotations(6),
           /*Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

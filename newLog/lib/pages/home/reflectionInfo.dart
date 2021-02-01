@@ -3,14 +3,14 @@ import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:provider/provider.dart';
 
-class CaseRoutineInfo extends StatefulWidget {
+class ReflectionInfo extends StatefulWidget {
   final int rotationNo;
-  CaseRoutineInfo({this.rotationNo});
+  ReflectionInfo({this.rotationNo});
   @override
-  _CaseRoutineInfoState createState() => _CaseRoutineInfoState();
+  _ReflectionInfoState createState() => _ReflectionInfoState();
 }
 
-class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
+class _ReflectionInfoState extends State<ReflectionInfo> {
   Widget _createTextArea(String label, String text) {
 
     return Container(
@@ -26,7 +26,7 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
   @override
   Widget build(BuildContext context) {
     //final Publications = Provider.of<List<Publications_model>>(context) ?? [];
-    final caseroutine = Provider.of<User>(context);
+    final user = Provider.of<User>(context);
 
     // return ListView.builder(
     //   itemCount: Publications.length,
@@ -34,14 +34,14 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
     //     return Publications_Tile(Publications_item: Publications[index]);
     //   },
     // );
-    return StreamBuilder<List<Learning>>(
-        stream: DatabaseService(uid: caseroutine.uid).listOfLearningData,
+    return StreamBuilder<List<ReflectionData1>>(
+        stream: DatabaseService(uid: user.uid).listOfReflectionData,
         builder: (context, snapshot) {
-          //print(snapshot.hasData);
+          print('reflection data ${snapshot.hasData}');
           if (snapshot.hasData) {
-            List<Learning> caseroutineData = snapshot.data;
+            List<ReflectionData1> listOfReflectionData = snapshot.data;
             return SafeArea(
-              child: (caseroutineData[widget.rotationNo].pdate != '') ? Padding(
+              child: (listOfReflectionData[widget.rotationNo].level != '') ? Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Card(
                   color: Colors.white,
@@ -66,26 +66,28 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
                         // Text('Falak'),
                         // Text('Naz'),
                         //_createTextArea('Name', userData.name),
-                        _createTextArea('Posting/Rotation dd/mm/year: ', caseroutineData[widget.rotationNo].pdate),
-                        _createTextArea('Preceptor\'s Name: ', caseroutineData[widget.rotationNo].pname),
+                        _createTextArea('I am at the following level of clinical training of RIME model: ', listOfReflectionData[widget.rotationNo].level),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-                          child: Text('Three things I want to learn  in this rotation: '),
+                          child: Text('My level in core competencies(rated from 1 to 5): '),
                         ),
-                        _createTextArea('1. ', caseroutineData[widget.rotationNo].l1),
-                        _createTextArea('2.', caseroutineData[widget.rotationNo].l2),
-                        _createTextArea('3.', caseroutineData[widget.rotationNo].l3),
-                        _createTextArea('My strategy for accomplishing above goals:', caseroutineData[widget.rotationNo].strategy),
+                        _createTextArea('Medical Care: ', listOfReflectionData[widget.rotationNo].mKnowledge),
+                        _createTextArea('Patient care: ', listOfReflectionData[widget.rotationNo].pCare),
+
+                        _createTextArea('Professionalism ', listOfReflectionData[widget.rotationNo].professionalism),
+                        _createTextArea('Interpersonal Communication', listOfReflectionData[widget.rotationNo].iCommunication),
+                        _createTextArea('Practice-based learning: personal improvement:', listOfReflectionData[widget.rotationNo].pImprovement),
+                        _createTextArea('System-based Practice: systems improvement', listOfReflectionData[widget.rotationNo].sImprovement),
                       ]),
                 ),
               )
-              :
+                  :
               Align(
                 alignment: Alignment.center,
                 child: Text(
                   'No information available! Edit to Update',
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic, color: Colors.grey),
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, color: Colors.grey),
                 ),
               ),
             );

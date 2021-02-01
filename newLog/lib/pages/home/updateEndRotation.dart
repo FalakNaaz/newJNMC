@@ -4,14 +4,14 @@ import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/constants.dart';
 import 'package:provider/provider.dart';
 
-class UpdateCaseroutine extends StatefulWidget {
+class UpdateEndRotation extends StatefulWidget {
   final int rotationNo;
-  UpdateCaseroutine({this.rotationNo});
+  UpdateEndRotation({this.rotationNo});
   @override
-  _UpdateCaseroutineState createState() => _UpdateCaseroutineState();
+  _UpdateEndRotationState createState() => _UpdateEndRotationState();
 }
 
-class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
+class _UpdateEndRotationState extends State<UpdateEndRotation> {
   final _formKey = GlobalKey<FormState>();
 
   //form values
@@ -42,8 +42,8 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                     Text(
                       'Update your Case Routine Info',
                       style: TextStyle(fontSize: 20.0,
-                        color: Color.fromRGBO(273, 146, 158, 1),
-                      fontWeight: FontWeight.w600),
+                          color: Color.fromRGBO(273, 146, 158, 1),
+                          fontWeight: FontWeight.w600),
 
                     ),
                     SizedBox(
@@ -72,10 +72,10 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                       height: 20.0,
                     ),
                     Text('3 things I want to learn in this rotation:',
-                    style: TextStyle(
-                      color: Color.fromRGBO(273, 146, 158, 1),
-                      fontSize: 16.0,
-                    ),),
+                      style: TextStyle(
+                        color: Color.fromRGBO(273, 146, 158, 1),
+                        fontSize: 16.0,
+                      ),),
                     SizedBox(
                       height: 20.0,
                     ),

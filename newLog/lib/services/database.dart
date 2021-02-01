@@ -9,153 +9,148 @@ class DatabaseService {
   DatabaseService({this.uid});
 
   //collection reference
-  final CollectionReference CVCollection = Firestore.instance.collection(
-      'CVCollection');
-  final CollectionReference missionCollection = Firestore.instance.collection(
-      'missionCollection');
-  final CollectionReference publicationsCollection = Firestore.instance
-      .collection('publicationsCollection');
-  final CollectionReference testCollection = Firestore.instance.collection('testCollection');
+  final CollectionReference CVCollection =
+      Firestore.instance.collection('CVCollection');
+  final CollectionReference missionCollection =
+      Firestore.instance.collection('missionCollection');
+  final CollectionReference publicationsCollection =
+      Firestore.instance.collection('publicationsCollection');
+
+  //final CollectionReference testCollection = Firestore.instance.collection('testCollection');
   final CollectionReference test2 = Firestore.instance.collection('test2');
-  final CollectionReference rotation = Firestore.instance.collection('Rotation');
-  final CollectionReference thesisCollection = Firestore.instance.collection('thesisCollection3');
-  final CollectionReference caseroutineCollection = Firestore.instance.collection('caseroutineCollection');
-  static List<CourseModel> FinalCoursesList = [] ;
+  final CollectionReference rotation2 =
+      Firestore.instance.collection('Rotation2');
+  final CollectionReference thesisCollection =
+      Firestore.instance.collection('thesisCollection3');
 
+  //final CollectionReference caseroutineCollection = Firestore.instance.collection('caseroutineCollection');
 
-  Future<void> createTest2(String date, String result, String asses, String reason) async{
-    for(int i=0; i<4;i++)
-     await test2.document(uid).collection('tabs').document(i.toString()).setData({
-       'date' : date,
-       'result' : result,
-       'assessment' : asses,
-       'reason' : reason,
-     });
+  Future<void> createTest2(
+      String date, String result, String asses, String reason) async {
+    for (int i = 0; i < 4; i++)
+      await test2
+          .document(uid)
+          .collection('tabs')
+          .document(i.toString())
+          .setData({
+        'date': date,
+        'result': result,
+        'assessment': asses,
+        'reason': reason,
+      });
   }
-   Future<void> createThesis(String consult, String collect, String pre) async{
-    for(int i=0; i<4;i++)
-     await thesisCollection.document(uid).collection('tabs').document(i.toString()).setData({
-       'consult': consult,
-       'collect': collect,
-       'pre': pre,
-     });
+
+  Future<void> createThesis(String consult, String collect, String pre) async {
+    for (int i = 0; i < 4; i++)
+      await thesisCollection
+          .document(uid)
+          .collection('tabs')
+          .document(i.toString())
+          .setData({
+        'consult': consult,
+        'collect': collect,
+        'pre': pre,
+      });
   }
-  Future<void> createRotations(int n) async {
-    for (int i = 0; i < n; i++) {
-      await rotation.document(uid)
-          .collection('Rotation ${i + 1}')
-          .document('learning').setData({
-        'date': '',
-        'name': '',
-        'L1' :'',
-        'L2' : '',
-        'L3' : '',
+
+  Future<void> createRotations() async {
+    for (int i = 0; i < 6; i++) {
+      //await rotation2.document(uid).setData({'text': 'dummy'});
+      await rotation2
+          .document(uid)
+          .collection('learning')
+          .document('Rotation$i')
+          .setData({
+        'pdate': '',
+        'pname': '',
+        'l1': '',
+        'l2': '',
+        'l3': '',
         'strategy': '',
-      }
-      );
-      await rotation.document(uid)
-          .collection('Rotation ${i + 1}')
-          .document('log').setData({
+      });
+      await rotation2
+          .document(uid)
+          .collection('log')
+          .document('Rotation$i')
+          .setData({
         'date': '',
         'name': '',
-        'diagnosis' :'',
-        'procedure' : '',
-        'level' : '',
-      }
-      );
-      await rotation.document(uid)
-          .collection('Rotation ${i + 1}')
-          .document('report').setData({
-        'report': '',
-      }
-      );
-      await rotation.document(uid)
-          .collection('Rotation ${i + 1}')
-          .document('assessment').setData({
-        'patientCare': '',
+        'diagnosis': '',
+        'procedure': '',
+        'level': '',
+      });
+      await rotation2
+          .document(uid)
+          .collection('report')
+          .document('Rotation$i')
+          .setData({
+        'reportText': '',
+      });
+      await rotation2
+          .document(uid)
+          .collection('assessment')
+          .document('Rotation$i')
+          .setData({
+        'antCareL': 'antCareL',
+        'iCarePatientsL': 'antCarePatientsL',
+      });
+      await rotation2
+          .document(uid)
+          .collection('reflection')
+          .document('Rotation$i')
+          .setData({
+        'level': '',
+        'mKnowledge': '',
+        'pCare': '',
         'professionalism': '',
-        'communication' :'',
-      }
-      );
-      await rotation.document(uid)
-          .collection('Rotation ${i + 1}')
-          .document('reflection').setData({
-        'reflection': '',
-      }
-      );
-
+        'iCommunication': '',
+        'pImprovement': '',
+        'sImprovement': '',
+      });
     }
   }
-  Future<void> updateCaseRotation(int rNo,String date,String name,String l1,String l2,String l3, strategy)async{
-    await rotation.document(uid)
-        .collection('Rotation ${rNo.toString()}')
-        .document('learning').setData({
-      'date': date,
-      'name': name,
-      'L1' : l1,
-      'L2' : l2,
-      'L3' : l3,
-      'strategy': strategy,
-    }
-    );
 
-  }
-  Future<void> updateTest2(String tabNo, String date, String result, String asses, String reason) async{
+  Future<void> updateTest2(String tabNo, String date, String result,
+      String asses, String reason) async {
     //for(int i=1; i<=4;i++)
-     await test2.document(uid).collection('tabs').document(tabNo).setData({
-       'date' : date,
-       'result' : result,
-       'assessment' : asses,
-       'reason' : reason,
-     });
+    await test2.document(uid).collection('tabs').document(tabNo).setData({
+      'date': date,
+      'result': result,
+      'assessment': asses,
+      'reason': reason,
+    });
   }
-  Future<void> updateThesis(String tabNo, String consult, String collect, String pre) async{
-       await thesisCollection.document(uid).collection('tabs').document(tabNo).setData({
-         'consult': consult,
-         'collect': collect,
-         'pre': pre,
 
-       });
-    }
+  Future<void> updateThesis(
+      String tabNo, String consult, String collect, String pre) async {
+    await thesisCollection
+        .document(uid)
+        .collection('tabs')
+        .document(tabNo)
+        .setData({
+      'consult': consult,
+      'collect': collect,
+      'pre': pre,
+    });
+  }
 
-  // mastersList() async
-  // {
-  //   // Firestore.instance.collection("you_Collection_Path").add({
-  //   //   "key":'falak' //your data which will be added to the collection and collection will be created after this
-  //   // }).then((_){
-  //   //   print("collection created");
-  //   // }).catchError((_){
-  //   //   print("an error occured");
-  //   // });
-  //   //createTest2();
-  //   print('hi master');
-  //   List listOfMasters = await Firestore.instance.collection("masters")
-  //       .getDocuments()
-  //       .then((val) => val.documents);
-  //   //test();
-  //   for (int i=0; i<listOfMasters.length; i++)
-  //   {
-  //     Firestore.instance.collection("masters").document(
-  //         listOfMasters[i].documentID.toString()).collection("courses").snapshots().listen(createListOfCourses);
-  //   }
-  // }
-  // createListOfCourses(QuerySnapshot snapshot)async
-  // {
-  //   var docs = snapshot.documents;
-  //   for (var Doc in docs)
-  //   {
-  //     FinalCoursesList.add(CourseModel.fromFireStore(Doc));
-  //     print(Doc.data);
-  //   }
-  // }
-
-  Future updateUserData(String name, String dob, String p_add, String l_add,
-      String mob, String email, String degreeDetail, String degreeRecord,
-      String iDetail, String other, String regNo, String joiningDate,
-      String appearDate, String hobby, String reason) async
-  {
-
-      return await CVCollection.document(uid).setData({
+  Future updateUserData(
+      String name,
+      String dob,
+      String p_add,
+      String l_add,
+      String mob,
+      String email,
+      String degreeDetail,
+      String degreeRecord,
+      String iDetail,
+      String other,
+      String regNo,
+      String joiningDate,
+      String appearDate,
+      String hobby,
+      String reason) async {
+    return await CVCollection.document(uid).setData({
       'name': name,
       'dob': dob,
       'p_add': p_add,
@@ -174,25 +169,25 @@ class DatabaseService {
     });
   }
 
-  Future updateUserDataForMission(bool agree, String sign) async
-  {
+  Future updateUserDataForMission(bool agree, String sign) async {
     return await missionCollection.document(uid).setData({
       'agree': agree,
       'sign': sign,
     });
   }
-  Future updatePublicationsData(String papers, String conferences, String publications, String organization, String achievement) async
-  {
+
+  Future updatePublicationsData(String papers, String conferences,
+      String publications, String organization, String achievement) async {
     return await publicationsCollection.document(uid).setData({
       'papers': papers,
       'conferences': conferences,
       'publications': publications,
       'organization': organization,
       'achievement': achievement,
-
     });
   }
-  Future updateTestData(String date, String result, String assessment, String goals) async
+
+  /*Future updateTestData(String date, String result, String assessment, String goals) async
   {
     //await DatabaseService(uid:uid).createTest2('dummyData','dummyData','dummyData','dummyData',);
     //await DatabaseService(uid:uid).updateTest2('2','newData','newData','newData','newData',);
@@ -202,28 +197,14 @@ class DatabaseService {
       'assessment' : assessment,
       'goals' : goals,
     });
-  }
-  // //CV list from snapshot
-  // List<CV_model> _CVListFromSnapshot(QuerySnapshot snapshot) {
-  //   return snapshot.documents.map((doc) {
-  //     return CV_model(
-  //       name: doc.data['name'] ?? '',
-  //       enrl: doc.data['enrl'] ?? '',
-  //       facultyno: doc.data['facultyno'] ?? '',
-  //     );
-  //   }).toList();
-  // }
-  // Future updateThesisData(String consult, String collect, String pre) async
-  // {
-  //   return await thesisCollection.document(uid).setData({
-  //     'consult' : consult,
-  //     'collect' : collect,
-  //     'pre' : pre,
-  //   });
-  // }
-  Future updateCaseroutineData(String pdate, String pname, String l1, String l2,
-      String l3, String strategy) async {
-    return await caseroutineCollection.document(uid).setData({
+  }*/
+  Future updateCaseroutineData(int rotationNo, String pdate, String pname,
+      String l1, String l2, String l3, String strategy) async {
+    return await rotation2
+        .document(uid)
+        .collection('learning')
+        .document('Rotation$rotationNo')
+        .setData({
       'pdate': pdate,
       'pname': pname,
       'l1': l1,
@@ -232,21 +213,111 @@ class DatabaseService {
       'strategy': strategy,
     });
   }
-  // List<TestData> _testListFromSnapshot(){
-  //   List<TestData> list = [];
-  //   for(int i=1; i<=4; i++) {
-  //     var doc = test2.document(uid).collection('tabs').document(i.toString());
-  //   }
-  // }
-  // List<TestData> _testListFromSnapshot1(QuerySnapshot snapshot){
-  //   var docSnapshots = snapshot.documents;
-  //   for(int i=0; i< docSnapshots.length ; i++){
-  //     var doc = docSnapshots[i].data();
-  //   }
-  //
-  // }
-  List<TestData> _testDataFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.documents.map((doc){
+
+  Future updateEndRotation(
+      int rotationNo,
+      String antCareL,
+      String iCarePatientsL,
+      String pCarePatientsL,
+      String obTechL,
+      String gynaeTech1L,
+      String gynaeTech2L,
+      String familyPlanningL,
+      String accAndResL,
+      String respectL,
+      String comm1L,
+      String comm2L,
+      String informedL,
+      String patientSafetyL,
+      String systemImpL,
+      String antCareR,
+      String iCarePatientsR,
+      String pCarePatientsR,
+      String obTechR,
+      String gynaeTech1R,
+      String gynaeTech2R,
+      String familyPlanningR,
+      String accAndResR,
+      String respectR,
+      String comm1R,
+      String comm2R,
+      String informedR,
+      String patientSafetyR,
+      String systemImpR) async {
+    return await rotation2
+        .document(uid)
+        .collection('assessment')
+        .document('Rotation$rotationNo')
+        .setData({
+       'antCareL' : antCareL,
+       'iCarePatientsL': iCarePatientsL,
+       'pCarePatientsL': pCarePatientsL,
+       'obTechL': obTechL,
+       'gynaeTech1L': gynaeTech1L,
+       'gynaeTech2L': gynaeTech2L,
+       'familyPlanningL': familyPlanningL,
+       'accAndResL': accAndResL,
+       'respectL': respectL,
+       'comm1L': comm1L,
+       'comm2L': comm2L,
+       'informedL': informedL,
+       'patientSafetyL': patientSafetyL,
+       'systemImpL': systemImpL,
+       'antCareR': antCareR,
+       'iCarePatientsR': iCarePatientsR,
+       'pCarePatientsR': pCarePatientsR,
+       'obTechR': obTechR,
+       'gynaeTech1R': gynaeTech1R,
+       'gynaeTech2R': gynaeTech2R,
+       'familyPlanningR': familyPlanningR,
+       'accAndResR': accAndResR,
+       'respectR': respectR,
+       'comm1R': comm1R,
+       'comm2R': comm2R,
+       'informedR': informedR,
+       'patientSafetyR': patientSafetyR,
+       'systemImpR': systemImpR,
+
+    });
+  }
+
+  Future updateReflectionData(
+    int rotationNo,
+    String level,
+    String mKnowledge,
+    String pCare,
+    String professionalism,
+    String iCommunication,
+    String pImprovement,
+    String sImprovement,
+  ) async {
+    return await rotation2
+        .document(uid)
+        .collection('reflection')
+        .document('Rotation$rotationNo')
+        .setData({
+      'level': level,
+      'mKnowledge': mKnowledge,
+      'pCare': pCare,
+      'professionalism': professionalism,
+      'iCommunication': iCommunication,
+      'pImprovement': pImprovement,
+      'sImprovement': sImprovement,
+    });
+  }
+
+  Future updateReport(int rotationNo, String reportText) async {
+    return await rotation2
+        .document(uid)
+        .collection('report')
+        .document('Rotation$rotationNo')
+        .setData({
+      'reportText': reportText,
+    });
+  }
+
+  List<TestData> _testDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
       return TestData(
         date: doc.data['date'] ?? '',
         result: doc.data['result'] ?? '',
@@ -255,27 +326,88 @@ class DatabaseService {
       );
     }).toList();
   }
-  List<ThesisData> _thesisDataFromSnapshot(QuerySnapshot snapshot){
-      return snapshot.documents.map((doc){
-        return ThesisData(
-          consult: doc.data['consult'] ?? '',
-          collect: doc.data['collect'] ?? '',
-          pre: doc.data['pre'] ?? '',
-        );
-      }).toList();
-    }
 
-  Learning _caseroutineDataFromSnapshot(DocumentSnapshot snapshot) {
-    return Learning(
-      uid: uid,
-      pdate: snapshot.data['pdate'],
-      pname: snapshot.data['pname'],
-      l1: snapshot.data['l1'],
-      l2: snapshot.data['l2'],
-      l3: snapshot.data['l3'],
-      strategy: snapshot.data['strategy'],
-    );
+  List<ThesisData> _thesisDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return ThesisData(
+        consult: doc.data['consult'] ?? '',
+        collect: doc.data['collect'] ?? '',
+        pre: doc.data['pre'] ?? '',
+      );
+    }).toList();
   }
+
+  List<Learning> _learningDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Learning(
+        pdate: doc.data['pdate'] ?? '',
+        pname: doc.data['pname'] ?? '',
+        l1: doc.data['l1'] ?? '',
+        l2: doc.data['l2'] ?? '',
+        l3: doc.data['l3'] ?? '',
+        strategy: doc.data['strategy'] ?? '',
+      );
+    }).toList();
+  }
+ List<EndRotation> _endRotationFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return EndRotation(
+        antCareL: doc.data['antCareL'] ?? '',
+        iCarePatientsL: doc.data['iCarePatientsL'] ?? '',
+        pCarePatientsL: doc.data['pCarePatientsL'] ?? '',
+        obTechL: doc.data['obTechL'] ?? '',
+        gynaeTech1L: doc.data['gynaeTech1L'] ?? '',
+        gynaeTech2L: doc.data['gynaeTech2L'] ?? '',
+        familyPlanningL: doc.data['familyPlanningL'] ?? '',
+        accAndResL: doc.data['accAndResL'] ?? '',
+        respectL: doc.data['respectL'] ?? '',
+        comm1L: doc.data['comm1L'] ?? '',
+        comm2L: doc.data['comm2L'] ?? '',
+        informedL: doc.data['informedL'] ?? '',
+        patientSafetyL: doc.data['patientSafetyL'] ?? '',
+        systemImpL: doc.data['systemImpL'] ?? '',
+        antCareR: doc.data['antCareR'] ?? '',
+        iCarePatientsR: doc.data['iCarePatientsR'] ?? '',
+        pCarePatientsR: doc.data['pCarePatientsR'] ?? '',
+        obTechR: doc.data['obTechR'] ?? '',
+        gynaeTech1R: doc.data['gynaeTech1R'] ?? '',
+        gynaeTech2R: doc.data['gynaeTech2R'] ?? '',
+        familyPlanningR: doc.data['familyPlanningR'] ?? '',
+        accAndResR: doc.data['accAndResR'] ?? '',
+        respectR: doc.data['respectR'] ?? '',
+        comm1R: doc.data['comm1R'] ?? '',
+        comm2R: doc.data['comm2R'] ?? '',
+        informedR: doc.data['informedR'] ?? '',
+        patientSafetyR: doc.data['patientSafetyR'] ?? '',
+        systemImpR: doc.data['systemImpR'] ?? '',
+
+
+      );
+    }).toList();
+  }
+
+  List<ReflectionData1> _reflectionDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return ReflectionData1(
+        level: doc.data['level'] ?? '',
+        mKnowledge: doc.data['mKnowledge'] ?? '',
+        pCare: doc.data['pCare'] ?? '',
+        professionalism: doc.data['professionalism'] ?? '',
+        iCommunication: doc.data['iCommunication'] ?? '',
+        pImprovement: doc.data['pImprovement'] ?? '',
+        sImprovement: doc.data['sImprovement'] ?? '',
+      );
+    }).toList();
+  }
+
+  List<Report> _reportDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Report(
+        reportText: doc.data['reportText'] ?? '',
+      );
+    }).toList();
+  }
+
   //userdata from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
@@ -295,7 +427,6 @@ class DatabaseService {
       appearDate: snapshot.data['appearDate'],
       hobby: snapshot.data['hobby'],
       reason: snapshot.data['reason'],
-
     );
   }
 
@@ -319,63 +450,92 @@ class DatabaseService {
       sign: snapshot.data['sign'],
     );
   }
-  // TestData _testDataFromSnapshot(DocumentSnapshot snapshot){
-  //   return TestData(
-  //     uid: uid,
-  //     date: snapshot.data['date'],
-  //     result: snapshot.data['result'],
-  //     assessment: snapshot.data['assessment'],
-  //     goals: snapshot.data['goals'],
-  //
-  //   );
-  // }
-  // ThesisData _thesisDataFromSnapshot(DocumentSnapshot snapshot){
-  //   return ThesisData(
-  //     uid: uid,
-  //     consult: snapshot.data['consult'],
-  //     collect: snapshot.data['collect'],
-  //     pre: snapshot.data['pre'],
-  //   );
-  // }
-  Stream<List<TestData>> get listOfTestData{
-    return test2.document(uid).collection('tabs').snapshots()
+
+  Stream<List<TestData>> get listOfTestData {
+    return test2
+        .document(uid)
+        .collection('tabs')
+        .snapshots()
         .map(_testDataFromSnapshot);
   }
-  Stream<List<ThesisData>> get listOfThesisData{
-    return thesisCollection.document(uid).collection('tabs').snapshots()
+
+  Stream<List<ThesisData>> get listOfThesisData {
+    return thesisCollection
+        .document(uid)
+        .collection('tabs')
+        .snapshots()
         .map(_thesisDataFromSnapshot);
   }
-  // Stream<List<Learning>> get listOfLearning{
-  //   return rotation.document(uid).collection('rotation $(').snapshots()
-  //       .map(_thesisDataFromSnapshot);
-  // }
+
+  Stream<List<Learning>> get listOfLearningData {
+    return rotation2
+        .document(uid)
+        .collection('learning')
+        .snapshots()
+        .map(_learningDataFromSnapshot);
+  }
+   Stream<List<EndRotation>> get listOfEndRotation {
+    return rotation2
+        .document(uid)
+        .collection('assessment')
+        .snapshots()
+        .map(_endRotationFromSnapshot);
+  }
+
+  Stream<List<Report>> get listOfReportData {
+    return rotation2
+        .document(uid)
+        .collection('report')
+        .snapshots()
+        .map(_reportDataFromSnapshot);
+  }
+
+  Stream<List<ReflectionData1>> get listOfReflectionData {
+    return rotation2
+        .document(uid)
+        .collection('reflection')
+        .snapshots()
+        .map(_reflectionDataFromSnapshot);
+  }
+
 // get user doc stream
   Stream<UserData> get userData {
-    return CVCollection.document(uid).snapshots()
-        .map(_userDataFromSnapshot);
+    return CVCollection.document(uid).snapshots().map(_userDataFromSnapshot);
   }
 
   Stream<MissionData> get missionData {
-    return missionCollection.document(uid).snapshots()
+    return missionCollection
+        .document(uid)
+        .snapshots()
         .map(_missionDataFromSnapshot);
   }
 
   Stream<PublicationsData> get publicationsData {
-    return publicationsCollection.document(uid).snapshots()
-        .map(_publicationsDataFromSnapshot);
-  }
-  // Stream<TestData> get testData {
-  //   return testCollection.document(uid).snapshots()
-  //       .map(_testDataFromSnapshot);
-  // }
-  // Stream<ThesisData> get thesisData{
-  //   return thesisCollection.document(uid).snapshots()
-  //       .map(_thesisDataFromSnapshot);
-  // }
-  Stream<Learning> get caseroutineData {
-    return caseroutineCollection
+    return publicationsCollection
         .document(uid)
         .snapshots()
-        .map(_caseroutineDataFromSnapshot);
+        .map(_publicationsDataFromSnapshot);
   }
+
+/*List<Stream<Learning>> get caseroutineData1 {
+  final List<CollectionReference> rotationNo = [Firestore.instance.collection(
+      'Rotation').document(uid).collection('Rotation1'),
+  Firestore.instance.collection(
+      'Rotation').document(uid).collection('Rotation2'),
+  Firestore.instance.collection(
+      'Rotation').document(uid).collection('Rotation3'),
+  Firestore.instance.collection(
+      'Rotation').document(uid).collection('Rotation4'),
+  Firestore.instance.collection(
+      'Rotation').document(uid).collection('Rotation5'),
+  Firestore.instance.collection(
+      'Rotation').document(uid).collection('Rotation6'),
+
+  ];
+  return rotationNo.map((oneRotation)=>oneRotation
+      .document('learning')
+      .snapshots()
+      .map(_caseroutineDataFromSnapshot)).toList();
+
+}*/
 }

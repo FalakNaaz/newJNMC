@@ -110,3 +110,61 @@ class Learning {
         this.l3,
         this.strategy});
 }
+class Report{
+  final String uid;
+  final String reportText;
+  Report({this.uid, this.reportText});
+}
+class ReflectionData1{
+  final String uid;
+  final String level;
+  final String mKnowledge;
+  final String pCare;
+  final String professionalism;
+  final String iCommunication;
+  final String pImprovement;
+  final String sImprovement;
+  ReflectionData1({this.uid, this.level, this.mKnowledge, this.pCare,
+    this.professionalism,this.iCommunication, this.pImprovement, this.sImprovement});
+
+}
+class EndRotation{
+  final String uid;
+  final String antCareL;
+  final String iCarePatientsL;
+  final String pCarePatientsL;
+  final String obTechL;
+  final String gynaeTech1L;
+  final String gynaeTech2L;
+  final String familyPlanningL;
+  final String accAndResL;
+  final String respectL;
+  final String comm1L;
+  final String comm2L;
+  final String informedL;
+  final String patientSafetyL;
+  final String systemImpL;
+  final String antCareR;
+  final String iCarePatientsR;
+  final String pCarePatientsR;
+  final String obTechR;
+  final String gynaeTech1R;
+  final String gynaeTech2R;
+  final String familyPlanningR;
+  final String accAndResR;
+  final String respectR;
+  final String comm1R;
+  final String comm2R;
+  final String informedR;
+  final String patientSafetyR;
+  final String systemImpR;
+  EndRotation({this.uid, this.antCareL, this.iCarePatientsL,
+    this.pCarePatientsL, this.obTechL, this.gynaeTech1L, this.gynaeTech2L,
+    this.familyPlanningL, this.accAndResL, this.respectL, this.comm1L, this.comm2L,
+    this.informedL, this.patientSafetyL, this.systemImpL, this.antCareR, this.iCarePatientsR,
+    this.pCarePatientsR, this.obTechR, this.gynaeTech1R, this.gynaeTech2R,
+    this.familyPlanningR, this.accAndResR, this.respectR, this.comm1R, this.comm2R,
+    this.informedR, this.patientSafetyR, this.systemImpR,
+  });
+
+}

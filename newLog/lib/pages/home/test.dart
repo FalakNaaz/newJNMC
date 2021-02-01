@@ -130,36 +130,9 @@ class _TestBarState extends State<TestBar> {
                     displayTest(listOfTestData[0],0),
                     displayTest(listOfTestData[1],1),
                     displayTest(listOfTestData[2],2),
-                    //displayTest(listOfTestData[3],3),
-                    Icon(IconData(60577, fontFamily: 'MaterialIcons')),
-                    /*Center(
-                        child: Text('No information available! Edit to update!',
-                            style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.grey))),
-                    Center(
-                        child: Text('No information available! Edit to update!',
-                            style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.grey))),
-                    Center(
-                        child: Text('No information available! Edit to update!',
-                            style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.grey))),*/
+                    displayTest(listOfTestData[3],3),
                   ],
                 ),
-                // floatingActionButton: FloatingActionButton(
-                //   backgroundColor: Color.fromRGBO(273, 146, 158, 1),
-                //   foregroundColor: Colors.black,
-                //   onPressed: () {
-                //     _showSettingsPanel();
-                //   },
-                //   child: Icon(
-                //     Icons.edit,
-                //     color: Colors.white,
-                //   ),
-                // ),
               ),
             );
           } else {
