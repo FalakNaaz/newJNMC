@@ -18,6 +18,22 @@ class MyApp2 extends StatefulWidget {
 }
 
 class _MyApp2State extends State<MyApp2> {
+  @override
+ /* void initState() {
+    super.initState();
+    createCollections();
+  }
+  Future createCollections() async {
+    //super.initState();
+    User user = Provider.of<User>(context);
+    //await DatabaseService(uid:user.uid).mastersList();
+    await DatabaseService(uid:user.uid).createTest2('','','','',);
+    await DatabaseService(uid:user.uid).createThesis('A','A','A',);
+    await DatabaseService(uid:user.uid).createRotations();
+    await DatabaseService(uid:user.uid).updateUserData('', '', '', '','','','','','','','','','','','');
+    await DatabaseService(uid:user.uid).updateUserDataForMission(false,'');
+    await DatabaseService(uid:user.uid).updatePublicationsData('', '', '','','');
+  }*/
   final AuthService _auth = AuthService();
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[

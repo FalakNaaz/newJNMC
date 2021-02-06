@@ -106,6 +106,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 
@@ -119,7 +120,7 @@ class LogInMentor extends StatefulWidget {
 
 class _LogInMentorState extends State<LogInMentor> {
   bool loading = false;
-  final AuthService _auth = AuthService();
+  final MentorAuthService _auth = MentorAuthService();
   final _formKey = GlobalKey<FormState>();
 
   // text field state

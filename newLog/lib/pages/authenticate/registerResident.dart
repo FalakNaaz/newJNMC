@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 
@@ -19,6 +17,7 @@ class _BaseAppState extends State<BaseApp> {
   // text field state
   String email = '';
   String password = '';
+  String role='';
   String error = '';
   bool loading = false;
 
@@ -67,6 +66,18 @@ class _BaseAppState extends State<BaseApp> {
                 },
               ),
               SizedBox(height: 10.0),
+              TextFormField(
+                validator: (val) => val.length < 4 ? 'Enter a password 6+ char long' : null,
+                decoration: InputDecoration(
+                    hintText: 'role'
+                ),
+                obscureText: true,
+                onChanged: (val) {
+                  setState(() => role = val);
+                },
+              ),
+              SizedBox(height: 10.0),
+
               Text(error,
                 style: TextStyle(color: Colors.red, fontSize: 14.0),
 
@@ -98,7 +109,7 @@ class _BaseAppState extends State<BaseApp> {
                         setState(() {
                           loading = true;
                         });
-                        dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                        dynamic result = await _auth.registerWithEmailAndPassword(email, password,role);
                         if(result == null)
                           {
                             setState(() => error = 'Please supply valid email');

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 
@@ -14,7 +15,7 @@ class RegisterMentor extends StatefulWidget {
 
 class _RegisterMentorState extends State<RegisterMentor> {
 
-  final AuthService _auth = AuthService();
+  final MentorAuthService _auth2 = MentorAuthService();
   final _formKey = GlobalKey<FormState>();
   // text field state
   String email = '';
@@ -49,7 +50,7 @@ class _RegisterMentorState extends State<RegisterMentor> {
               TextFormField(
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 decoration: InputDecoration(
-                    hintText: 'Email ID'
+                    hintText: 'Email IDD'
                 ),
                 onChanged: (val) {
                   setState(() => email = val);
@@ -98,7 +99,7 @@ class _RegisterMentorState extends State<RegisterMentor> {
                       setState(() {
                         loading = true;
                       });
-                      dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                      dynamic result = await _auth2.registerWithEmailAndPassword(email, password);
                       if(result == null)
                       {
                         setState(() => error = 'Please supply valid email');

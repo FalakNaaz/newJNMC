@@ -6,6 +6,11 @@ class User
   User({this.uid});
 
 }
+class RoleData{
+  final String uid;
+  final String role;
+  RoleData({this.uid, this.role});
+}
 class UserData{
   final String uid;
   final String name;

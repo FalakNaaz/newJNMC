@@ -11,6 +11,8 @@ class DatabaseService {
   //collection reference
   final CollectionReference CVCollection =
       Firestore.instance.collection('CVCollection');
+  final CollectionReference roleCollection =
+      Firestore.instance.collection('roleCollection');
   final CollectionReference missionCollection =
       Firestore.instance.collection('missionCollection');
   final CollectionReference publicationsCollection =
@@ -52,7 +54,11 @@ class DatabaseService {
         'pre': pre,
       });
   }
-
+  Future<void> createRole(String role) async {
+    await roleCollection.document(uid).setData({
+      'role': role,
+    });
+  }
   Future<void> createRotations() async {
     for (int i = 0; i < 6; i++) {
       //await rotation2.document(uid).setData({'text': 'dummy'});
@@ -407,7 +413,6 @@ class DatabaseService {
       );
     }).toList();
   }
-
   //userdata from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
@@ -429,7 +434,12 @@ class DatabaseService {
       reason: snapshot.data['reason'],
     );
   }
-
+RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot){
+    return RoleData(
+      uid: uid,
+      role: snapshot.data['role'],
+    );
+}
   //publication data from snapshot
   PublicationsData _publicationsDataFromSnapshot(DocumentSnapshot snapshot) {
     return PublicationsData(
@@ -501,6 +511,9 @@ class DatabaseService {
 // get user doc stream
   Stream<UserData> get userData {
     return CVCollection.document(uid).snapshots().map(_userDataFromSnapshot);
+  }
+  Stream<RoleData> get roleData {
+    return roleCollection.document(uid).snapshots().map(_roleDataFromSnapshot);
   }
 
   Stream<MissionData> get missionData {
