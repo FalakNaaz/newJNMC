@@ -24,6 +24,10 @@ class DatabaseService {
       Firestore.instance.collection('Rotation2');
   final CollectionReference thesisCollection =
       Firestore.instance.collection('thesisCollection3');
+final CollectionReference listOfUsersCollectionForMentor =
+      Firestore.instance.collection('listOfUsersCollectionForMentor');
+final CollectionReference listOfUsersCollectionForResident =
+      Firestore.instance.collection('listOfUsersCollectionForResident');
 
   //final CollectionReference caseroutineCollection = Firestore.instance.collection('caseroutineCollection');
 
@@ -41,7 +45,24 @@ class DatabaseService {
         'reason': reason,
       });
   }
+  Future<void> updateListForMentor(String email, String uid) async {
+    await listOfUsersCollectionForMentor.document(uid).setData({
+      'email': email,
+      'uid' : uid,
+    });
+  }
+/*   Future<void> addResidentForMentor( String resident) async {
+    await listOfUsersCollectionForMentor.document(uid).updateData({
+      'resident': resident,
+    });
+  }*/
 
+  Future<void> updateListForResident(String email, String uid) async {
+    await listOfUsersCollectionForResident.document(uid).setData({
+      'email': email,
+      'uid' : uid,
+    });
+  }
   Future<void> createThesis(String consult, String collect, String pre) async {
     for (int i = 0; i < 4; i++)
       await thesisCollection
@@ -342,6 +363,24 @@ class DatabaseService {
       );
     }).toList();
   }
+  List<ListOfMentorData> _listOfMentorDataFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc) {
+      return ListOfMentorData(
+        email: doc.data['email'] ?? '',
+        uid: doc.data['uid'] ?? '',
+
+      );
+    }).toList();
+  }
+   List<ListOfResidentData> _listOfResidentDataFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc) {
+      return ListOfResidentData(
+        email: doc.data['email'] ?? '',
+        uid: doc.data['uid'] ?? '',
+
+      );
+    }).toList();
+  }
 
   List<Learning> _learningDataFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
@@ -475,6 +514,16 @@ RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot){
         .collection('tabs')
         .snapshots()
         .map(_thesisDataFromSnapshot);
+  }
+ Stream<List<ListOfMentorData>> get listOfMentorData {
+    return listOfUsersCollectionForMentor
+        .snapshots()
+        .map(_listOfMentorDataFromSnapshot);
+  }
+Stream<List<ListOfResidentData>> get listOfResidentData {
+    return listOfUsersCollectionForResident
+        .snapshots()
+        .map(_listOfResidentDataFromSnapshot);
   }
 
   Stream<List<Learning>> get listOfLearningData {

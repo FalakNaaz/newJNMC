@@ -11,6 +11,17 @@ class RoleData{
   final String role;
   RoleData({this.uid, this.role});
 }
+class ListOfMentorData{
+  final String uid;
+  final String email;
+  ListOfMentorData({this.uid, this.email});
+}
+class ListOfResidentData{
+  final String uid;
+  final String email;
+  ListOfResidentData({this.uid, this.email});
+}
+
 class UserData{
   final String uid;
   final String name;

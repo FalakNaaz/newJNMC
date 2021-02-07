@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jmnchelogbook/pages/MentorPages/DetailPage.dart';
 import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
 import 'package:jmnchelogbook/pages/authenticate/authenticateResident.dart';
 import 'package:jmnchelogbook/pages/home/caseReport.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
             '/authenticate': (context) => AuthenticateResident(),
             //'/imageCapture' : (context) => ImageCapture(),
             '/uploadScreen': (context) => UploadScreen(),
+            '/detailPage': (context) => Detail(),
             //'/imageCaptureState' : (context) => ImageCaptureState(),
           }),
     );

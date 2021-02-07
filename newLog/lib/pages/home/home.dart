@@ -98,6 +98,7 @@ class _MyApp2State extends State<MyApp2> {
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user?.uid).userData,
         builder: (context, snapshot) {
+
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
             return Scaffold(
@@ -123,7 +124,11 @@ class _MyApp2State extends State<MyApp2> {
                           Navigator.pushNamed(context, '/CV');
                         }),
                     createDrawerBodyItem(
-                        icon: Icons.person_add, text: 'Add Mentor'),
+                        icon: Icons.person_add,
+                        text: 'Add Mentor',
+                        onTap: () {
+                          Navigator.pushNamed(context, '/addMentorScreen');
+                        }),
                     createDrawerBodyItem(
                         icon: Icons.publish,
                         text: 'Uploads',

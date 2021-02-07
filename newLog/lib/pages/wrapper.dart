@@ -16,11 +16,12 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+    print(user);
     return StreamBuilder<RoleData>(
         stream: DatabaseService(uid: user?.uid).roleData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data.role);
+            //print(snapshot.data.role);
             if(user!=null){
               if((snapshot.data.role == 'mentor') ){
                 return MentorHomePage();

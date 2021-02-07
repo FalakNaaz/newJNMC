@@ -24,9 +24,13 @@ class AuthService{
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       await DatabaseService(uid: user.uid).createRole(role);
-      await DatabaseService(uid:user.uid).createTest2('','','','',);
+      if(role == 'mentor')
+      await DatabaseService(uid: user.uid).updateListForMentor(email, user.uid);
+      if(role == 'resident')
+      await DatabaseService(uid: user.uid).updateListForResident(email, user.uid);
+     /* await DatabaseService(uid:user.uid).createTest2('','','','',);
       await DatabaseService(uid:user.uid).createThesis('A','A','A',);
-      await DatabaseService(uid:user.uid).createRotations();
+      await DatabaseService(uid:user.uid).createRotations();*/
       await DatabaseService(uid:user.uid).updateUserData('', '', '', '','','','','','','','','','','','');
       await DatabaseService(uid:user.uid).updateUserDataForMission(false,'');
       await DatabaseService(uid:user.uid).updatePublicationsData('', '', '','','');

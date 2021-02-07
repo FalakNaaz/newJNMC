@@ -54,7 +54,6 @@ class _BaseAppState extends State<BaseApp> {
                   setState(() => email = val);
                 },
               ),
-              SizedBox(height: 20.0),
               TextFormField(
                 validator: (val) => val.length < 6 ? 'Enter a password 6+ char long' : null,
                 decoration: InputDecoration(
