@@ -15,6 +15,7 @@ class _BaseAppState extends State<BaseApp> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   // text field state
+  String name = '';
   String email = '';
   String password = '';
   String role='';
@@ -39,10 +40,20 @@ class _BaseAppState extends State<BaseApp> {
             children: <Widget>[
               //SizedBox(height: 30.0),
               Container(
-                height: 320,
+                height: 20,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/Icon1.png'), fit: BoxFit.fill )),
+              ),
+              SizedBox(height: 20.0),
+              TextFormField(
+                validator: (val) => val.isEmpty ? 'Enter your full name' : null,
+                decoration: InputDecoration(
+                    hintText: 'Full Name'
+                ),
+                onChanged: (val) {
+                  setState(() => name = val);
+                },
               ),
               SizedBox(height: 20.0),
               TextFormField(
@@ -66,11 +77,22 @@ class _BaseAppState extends State<BaseApp> {
               ),
               SizedBox(height: 10.0),
               TextFormField(
-                validator: (val) => val.length < 4 ? 'Enter a password 6+ char long' : null,
+                validator: (val) => (val != password) ? 'confirm password doesn\'t match' : null,
+                decoration: InputDecoration(
+                    hintText: 'Confirm Password'
+                ),
+                obscureText: true,
+                onChanged: (val) {
+                  setState(() => password = val);
+                },
+              ),
+              SizedBox(height: 10.0),
+
+              TextFormField(
+                validator: (val) => val.length < 0 ? 'Role cannot be empty' : null,
                 decoration: InputDecoration(
                     hintText: 'role'
                 ),
-                obscureText: true,
                 onChanged: (val) {
                   setState(() => role = val);
                 },

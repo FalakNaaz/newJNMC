@@ -111,8 +111,7 @@ import 'package:jmnchelogbook/shared/loading.dart';
 
 class LogInResident extends StatefulWidget {
   final Function toggleView;
-  final Function toggleScreen;
-  LogInResident({this.toggleView, this.toggleScreen});
+  LogInResident({this.toggleView});
   @override
   _LogInResidentState createState() => _LogInResidentState();
 }
@@ -150,7 +149,7 @@ class _LogInResidentState extends State<LogInResident> {
                     image: DecorationImage(
                         image: AssetImage('assets/images/Icon1.png'), fit: BoxFit.fill )),
               ),
-              Padding(
+             /* Padding(
                 padding: const EdgeInsets.all(20),
                 child: ButtonTheme(
                   minWidth: 200,
@@ -163,7 +162,7 @@ class _LogInResidentState extends State<LogInResident> {
                       }
                   ),
                 ),
-              ),
+              ),*/
               SizedBox(height: 20.0),
               TextFormField(
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,

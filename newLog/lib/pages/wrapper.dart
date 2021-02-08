@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/pages/MentorPages/AdminHomePage.dart';
 import 'package:jmnchelogbook/pages/MentorPages/MentorHomePage.dart';
-import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
-import 'package:jmnchelogbook/pages/authenticate/authenticateMaster.dart';
 import 'package:jmnchelogbook/pages/authenticate/authenticateResident.dart';
-import 'package:jmnchelogbook/pages/home/firstPage.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/home.dart';
-import 'authenticate/registerResident.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -33,10 +29,10 @@ class Wrapper extends StatelessWidget {
                 return MyApp2();
               }
             } else {
-              return AuthenticateMaster();
+              return AuthenticateResident();
             }
           } else {
-            return (user == null) ? AuthenticateMaster() : Loading();
+            return (user == null) ? AuthenticateResident() : Loading();
           }
         });
   }

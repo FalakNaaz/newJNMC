@@ -3,8 +3,8 @@ import 'package:jmnchelogbook/pages/authenticate/registerResident.dart';
 import 'package:jmnchelogbook/pages/authenticate/loginResident.dart';
 
 class AuthenticateResident extends StatefulWidget {
-  final Function toggleScreen;
-  AuthenticateResident({this.toggleScreen});
+ /* final Function toggleScreen;
+  AuthenticateResident({this.toggleScreen});*/
   @override
   _AuthenticateResidentState createState() => _AuthenticateResidentState();
 }
@@ -19,6 +19,6 @@ class _AuthenticateResidentState extends State<AuthenticateResident> {
 
   @override
   Widget build(BuildContext context) {
-   return showSignIn ? LogInResident(toggleView: toggleView,toggleScreen: widget.toggleScreen,) : BaseApp(toggleView: toggleView);
+   return showSignIn ? LogInResident(toggleView: toggleView) : BaseApp(toggleView: toggleView);
   }
 }
