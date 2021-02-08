@@ -18,6 +18,7 @@ class _BaseAppState extends State<BaseApp> {
   String name = '';
   String email = '';
   String password = '';
+  String confirmPassword = '';
   String role='';
   String error = '';
   bool loading = false;
@@ -77,19 +78,19 @@ class _BaseAppState extends State<BaseApp> {
               ),
               SizedBox(height: 10.0),
               TextFormField(
-                validator: (val) => (val != password) ? 'confirm password doesn\'t match' : null,
+                validator: (val) => val != password ? 'confirm password doesn\'t match' : null,
                 decoration: InputDecoration(
                     hintText: 'Confirm Password'
                 ),
                 obscureText: true,
                 onChanged: (val) {
-                  setState(() => password = val);
+                  setState(() => confirmPassword = val);
                 },
               ),
               SizedBox(height: 10.0),
 
               TextFormField(
-                validator: (val) => val.length < 0 ? 'Role cannot be empty' : null,
+                validator: (val) => val.length <= 0 ? 'Role cannot be empty' : null,
                 decoration: InputDecoration(
                     hintText: 'role'
                 ),
@@ -130,7 +131,7 @@ class _BaseAppState extends State<BaseApp> {
                         setState(() {
                           loading = true;
                         });
-                        dynamic result = await _auth.registerWithEmailAndPassword(email, password,role);
+                        dynamic result = await _auth.registerWithEmailAndPassword(email, password,role, name);
                         if(result == null)
                           {
                             setState(() => error = 'Please supply valid email');

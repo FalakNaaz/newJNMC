@@ -95,12 +95,12 @@ class _MyApp2State extends State<MyApp2> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: user?.uid).userData,
+    return StreamBuilder<ResidentData>(
+        stream: DatabaseService(uid: user?.uid).residentData,
         builder: (context, snapshot) {
 
           if (snapshot.hasData) {
-            UserData userData = snapshot.data;
+            ResidentData residentData = snapshot.data;
             return Scaffold(
               //extendBodyBehindAppBar: true,
               appBar: AppBar(
@@ -116,7 +116,7 @@ class _MyApp2State extends State<MyApp2> {
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: <Widget>[
-                    createDrawerHeader(userData.name, userData.email),
+                    createDrawerHeader(residentData.name, residentData.email),
                     createDrawerBodyItem(
                         icon: Icons.account_circle,
                         text: 'Profile',

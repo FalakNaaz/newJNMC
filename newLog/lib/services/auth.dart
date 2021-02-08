@@ -18,16 +18,16 @@ class AuthService{
   }
 
   //register with email and password
-  Future registerWithEmailAndPassword(String email, String password, String role) async
+  Future registerWithEmailAndPassword(String email, String password, String role, String name) async
   {
     try{
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       await DatabaseService(uid: user.uid).createRole(role);
       if(role == 'mentor')
-      await DatabaseService(uid: user.uid).updateListForMentor(email, user.uid);
+      await DatabaseService(uid: user.uid).updateListForMentor(email, user.uid, name);
       if(role == 'resident') {
-      await DatabaseService(uid: user.uid).updateListForResident(email, user.uid);
+      await DatabaseService(uid: user.uid).updateListForResident(email, user.uid, name);
       await DatabaseService(uid:user.uid).createTest2('','','','',);
       await DatabaseService(uid:user.uid).createThesis('A','A','A',);
       await DatabaseService(uid:user.uid).createRotations();

@@ -22,7 +22,7 @@ class _MentorHomePageState extends State<MentorHomePage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<ListOfResidentData> listOfResidentData = snapshot.data;
-            print(listOfResidentData[0].email);
+            print(listOfResidentData[2].name);
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.teal,
@@ -46,7 +46,7 @@ class _MentorHomePageState extends State<MentorHomePage> {
                       child: Row(
                         children: [
                           Text(
-                            'Resident: ${i.email} ',
+                            'Resident: ${i.name} ',
                             style: TextStyle(
                               fontSize: 20.0,
                             ),

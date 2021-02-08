@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jmnchelogbook/models/user.dart';
+import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 
 class DatabaseService {
@@ -45,10 +46,11 @@ final CollectionReference listOfUsersCollectionForResident =
         'reason': reason,
       });
   }
-  Future<void> updateListForMentor(String email, String uid) async {
+  Future<void> updateListForMentor(String email, String uid, String name) async {
     await listOfUsersCollectionForMentor.document(uid).setData({
       'email': email,
       'uid' : uid,
+      'name' : name,
     });
   }
 /*   Future<void> addResidentForMentor( String resident) async {
@@ -57,10 +59,11 @@ final CollectionReference listOfUsersCollectionForResident =
     });
   }*/
 
-  Future<void> updateListForResident(String email, String uid) async {
+  Future<void> updateListForResident(String email, String uid, String name) async {
     await listOfUsersCollectionForResident.document(uid).setData({
       'email': email,
       'uid' : uid,
+      'name' : name,
     });
   }
   Future<void> createThesis(String consult, String collect, String pre) async {
@@ -368,6 +371,7 @@ final CollectionReference listOfUsersCollectionForResident =
       return ListOfMentorData(
         email: doc.data['email'] ?? '',
         uid: doc.data['uid'] ?? '',
+        name: doc.data['name'] ?? '',
 
       );
     }).toList();
@@ -377,9 +381,26 @@ final CollectionReference listOfUsersCollectionForResident =
       return ListOfResidentData(
         email: doc.data['email'] ?? '',
         uid: doc.data['uid'] ?? '',
+        name: doc.data['name'] ?? '',
 
       );
     }).toList();
+  }
+ ResidentData _residentDataFromSnapshot(DocumentSnapshot snapshot){
+      return ResidentData(
+        uid: snapshot.data['uid'] ??'',
+        email: snapshot.data['email'] ?? '',
+        name: snapshot.data['name'] ?? '',
+
+      );
+  }
+ MentorData _mentorDataFromSnapshot(DocumentSnapshot snapshot){
+      return MentorData(
+        uid: snapshot.data['uid'] ??'',
+        email: snapshot.data['email'] ?? '',
+        name: snapshot.data['name'] ?? '',
+
+      );
   }
 
   List<Learning> _learningDataFromSnapshot(QuerySnapshot snapshot) {
@@ -525,6 +546,16 @@ Stream<List<ListOfResidentData>> get listOfResidentData {
         .snapshots()
         .map(_listOfResidentDataFromSnapshot);
   }
+Stream<ResidentData> get residentData {
+    return listOfUsersCollectionForResident
+        .document(uid).snapshots()
+        .map(_residentDataFromSnapshot);
+}
+Stream<MentorData> get mentorData {
+    return listOfUsersCollectionForMentor
+        .document(uid).snapshots()
+        .map(_mentorDataFromSnapshot);
+}
 
   Stream<List<Learning>> get listOfLearningData {
     return rotation2
