@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
             '/CV': (context) => CV_Screen(),
             '/publications': (context) => PublicationsScreen(),
             '/authenticate': (context) => AuthenticateResident(),
-            //'/imageCapture' : (context) => ImageCapture(),
+            '/imageCapture' : (context) => ImageCapture(),
             '/uploadScreen': (context) => UploadScreen(),
             '/detailPage': (context) => Detail(),
             //'/imageCaptureState' : (context) => ImageCaptureState(),

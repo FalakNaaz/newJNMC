@@ -40,15 +40,15 @@ class _CV_InfoState extends State<CV_Info> {
     var url;
 
     Future<String> printImage() async{
-      final ref = FirebaseStorage.instance.ref().child('images/falak.png');
+      final ref = FirebaseStorage.instance.ref().child('images/${user.uid}.jpeg');
       // no need of the file extension, the name will do fine.
       url = await ref.getDownloadURL();
       print(url);
-      // setState(() {
-      //
-      // });
-      // Image image = Image.network(url);
-      // Image thumbnail = copyResize(image, width: 120);
+      /*setState(() {
+
+      });
+      Image image = Image.network(url);
+      Image thumbnail = copyResize(image, width: 120);*/
       return url;
     }
     // void printtt()
@@ -93,16 +93,16 @@ class _CV_InfoState extends State<CV_Info> {
                                       'Date of Birth(DD/MM//YY) : ', userData.dob),
                                 ],
                               ),
-                              // if(snapshot.connectionState == ConnectionState.waiting )
-                              //   Text('Loading...'),
-                              // if(snapshot.connectionState == ConnectionState.done)
-                              //   Container(
-                              //     padding: EdgeInsets.fromLTRB(75, 0, 0, 0),
-                              //     height: 100,
-                              //     width: 150,
-                              //     //child: Text('falkk  ${snapshot.data}'),
-                              //     child: Image.network(snapshot.data),
-                              //   ),
+                              if(snapshot.connectionState == ConnectionState.waiting )
+                                Text('Loading...'),
+                              if(snapshot.connectionState == ConnectionState.done)
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(75, 0, 0, 0),
+                                  height: 100,
+                                  width: 150,
+                                  //child: Text('falkk  ${snapshot.data}'),
+                                  child: Image.network(snapshot.data),
+                                ),
                             ],
                           ),
                           _createTextArea('Permanent Address : ', userData.p_add),

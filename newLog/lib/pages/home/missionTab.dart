@@ -16,12 +16,12 @@ class _MissionTabState extends State<MissionTab> {
     return StreamBuilder<MissionData>(
       stream: DatabaseService(uid: user.uid).missionData,
       builder: (context, snapshot1) {
-        return StreamBuilder<UserData>(
-            stream: DatabaseService(uid: user.uid).userData,
+        return StreamBuilder<ResidentData>(
+            stream: DatabaseService(uid: user.uid).residentData,
             builder: (context, snapshot2) {
               if (snapshot1.hasData && snapshot2.hasData) {
                 MissionData missionData = snapshot1.data;
-                UserData userData = snapshot2.data;
+                ResidentData residentData = snapshot2.data;
                 return Scaffold(
 
                   body: Padding(
@@ -327,7 +327,7 @@ class _MissionTabState extends State<MissionTab> {
                                     DatabaseService(uid: user.uid)
                                         .updateUserDataForMission(
                                         !missionData.agree,
-                                        userData.name);
+                                        residentData.name);
                                   }
                                 });
                               },
@@ -338,7 +338,7 @@ class _MissionTabState extends State<MissionTab> {
                           padding:
                           const EdgeInsets.fromLTRB(250, 10, 10, 0),
                           child: Text(
-                            userData.name,
+                            residentData.name,
                             style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 23.0,

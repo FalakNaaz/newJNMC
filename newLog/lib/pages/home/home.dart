@@ -6,6 +6,7 @@ import 'package:jmnchelogbook/pages/home/homeTab.dart';
 import 'package:jmnchelogbook/pages/home/missionTab.dart';
 import 'package:jmnchelogbook/pages/home/test.dart';
 import 'package:jmnchelogbook/pages/home/thesis.dart';
+import 'package:jmnchelogbook/pages/home/uploadScreen.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
@@ -133,7 +134,10 @@ class _MyApp2State extends State<MyApp2> {
                         icon: Icons.publish,
                         text: 'Uploads',
                         onTap: () {
-                          Navigator.pushNamed(context, '/uploadScreen');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => UploadScreen(uid: user?.uid)),
+                          );
                         }),
                     createDrawerBodyItem(
                         icon: Icons.public,
