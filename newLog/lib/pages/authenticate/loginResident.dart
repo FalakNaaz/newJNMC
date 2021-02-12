@@ -22,7 +22,6 @@ class _LogInResidentState extends State<LogInResident> {
   // text field state
   String email = '';
   String password = '';
-  String error= '';
   String hint = '';
   String warning;
 
@@ -40,11 +39,10 @@ class _LogInResidentState extends State<LogInResident> {
   void submit() async {
     if (validate()) {
       try {
-
           String uid = await _auth.signInWithEmailAndPassword(email, password);
           print("Signed in with Id $uid");
         }
-       catch (e) {
+      catch (e) {
         print(e);
         setState(() {
           warning = e.message;
@@ -53,6 +51,20 @@ class _LogInResidentState extends State<LogInResident> {
     }
   }
 
+  void forgetPassword() async {
+    if (validate()) {
+      try {
+        String uid = await _auth.sendPasswordRestEmail(email);
+        warning = "Password reset lik has been sent to $email";
+      }
+      catch (e) {
+        print(e);
+        setState(() {
+          warning = e.message;
+        });
+      }
+    }
+  }
 
 
   @override
@@ -65,96 +77,99 @@ class _LogInResidentState extends State<LogInResident> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.teal,
       body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: _height * 0.025),
-              showAlert(),
-              SizedBox(height: _height * 0.2),
-              buildHeader(),
-              SizedBox(height: 20.0),
-              Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: TextFormField(
-                  validator: EmailValidator.validate,
-                  style: TextStyle(fontSize: 22.0),
-                  decoration: buildSignUpInputDecoration("Email"),
-                  onSaved: (value) => email = value,
-                  onChanged: (val) {
-                    setState(() {
-                      email = val;
-                    });
-                  },
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: _height * 0.025),
+                showAlert(),
+                SizedBox(height: _height * 0.2),
+                buildHeader(),
+                SizedBox(height: 20.0),
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: TextFormField(
+                    validator: EmailValidator.validate,
+                    style: TextStyle(fontSize: 22.0),
+                    decoration: buildSignUpInputDecoration("Email"),
+                    onSaved: (value) => email = value,
+                    onChanged: (val) {
+                      setState(() {
+                        email = val;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(height: _height *0.01),
-              Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: TextFormField(
-                  validator: PasswordValidator.validate,
-                  style: TextStyle(fontSize: 22.0),
-                  decoration: buildSignUpInputDecoration("Password"),
-                  obscureText: true,
-                  onSaved: (value) => password = value,
-                  onChanged: (val) {
-                    setState(() {
-                      password = val;
-                    });
-                  },
+                SizedBox(height: _height *0.01),
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: TextFormField(
+                    validator: PasswordValidator.validate,
+                    style: TextStyle(fontSize: 22.0),
+                    decoration: buildSignUpInputDecoration("Password"),
+                    obscureText: true,
+                    onSaved: (value) => password = value,
+                    onChanged: (val) {
+                      setState(() {
+                        password = val;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(height: _height *0.01),
+                SizedBox(height: _height *0.01),
 
-              Padding(
-                padding: const EdgeInsets.all(0),
-                child: ButtonTheme(
-                  minWidth: 200,
-                  height: 50,
-                  child: RaisedButton(
-                    onPressed: submit,
-                    color: Colors.greenAccent,
-                    child:
-                    Text(
-                      'Submit',
-                      style: TextStyle(color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,),
+                Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: ButtonTheme(
+                    minWidth: 200,
+                    height: 50,
+                    child: RaisedButton(
+                      onPressed:() {
+                        submit();
+                      },
+                      color: Colors.greenAccent,
+                      child:
+                      Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
+                      )
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
-                    )
                   ),
                 ),
-              ),
 
-              FlatButton(
-                child: Text("Forget Password?", style:  TextStyle(color: Colors.white),),
-                onPressed: () {
+                FlatButton(
+                  child: Text("Forget Password?", style:  TextStyle(color: Colors.white),),
+                  onPressed: () {
+                      forgetPassword();
 
-                },
-              ),
-              // SizedBox(height: 5.0),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30,),
-                child: ButtonTheme(
-                  child: FlatButton(
-                      child: Text('Need an account? Register !', style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,)),
-                      onPressed: () {
-                        widget.toggleView();
-                      }
+                  },
+                ),
+                // SizedBox(height: 5.0),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30,),
+                  child: ButtonTheme(
+                    child: FlatButton(
+                        child: Text('Need an account? Register !', style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,)),
+                        onPressed: () {
+                          widget.toggleView();
+                        }
 
+                    ),
                   ),
                 ),
-              ),
 
-            ],
+              ],
+            ),
           ),
-        ),
       ),
     );
   }
@@ -178,7 +193,7 @@ class _LogInResidentState extends State<LogInResident> {
                   icon: Icon(Icons.close),
                   onPressed: () {
                     setState(() {
-                      warning = '';
+                      warning = null;
                     });
                   }
               ),

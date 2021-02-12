@@ -77,6 +77,11 @@ class AuthService {
     }
   }
 
+  // Send Link to change password
+  Future sendPasswordRestEmail(String email) async
+  {
+    return _auth.sendPasswordResetEmail(email: email);
+  }
   //Sign out
   Future signOut() async {
     try {
@@ -128,7 +133,7 @@ class PasswordValidator{
   {
     if(value.isEmpty)
     {
-      return "Password can't be empty";
+      return "Password can't be empty, if you have forget password then enter your last password that you remembered & click on forget password button";
     }
     return null;
   }

@@ -22,14 +22,19 @@ class _BaseAppState extends State<BaseApp> {
   String password = '';
   String confirmPassword = '';
   String role='';
-  String error = '';
+  String _error;
   bool loading = false;
-  String warning;
+
 
   List listItems = [
     "Resident", "Mentor"
   ];
 
+  @override
+  void initState(){
+    super.initState();
+    role = "resident";
+  }
 
   bool validate(){
     final form = _formKey.currentState;
@@ -45,11 +50,9 @@ class _BaseAppState extends State<BaseApp> {
     if (validate()) {
       try {
         String uid = await _auth.registerWithEmailAndPassword(email, password,role, name);
-      }
-      catch (e) {
-        print(e);
+      }catch (e) {
         setState(() {
-          warning = e.message;
+          _error = e.message;
         });
       }
     }
@@ -61,7 +64,7 @@ class _BaseAppState extends State<BaseApp> {
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
 
-    return  loading ? Loading() : Scaffold(
+    return loading? Loading() :Scaffold(
       resizeToAvoidBottomInset : false,
       backgroundColor: Colors.teal,
 
@@ -111,7 +114,7 @@ class _BaseAppState extends State<BaseApp> {
                   validator: PasswordValidator.validate,
                   style: TextStyle(fontSize: 22.0),
                   decoration: buildSignUpInputDecoration("Password"),
-                  obscureText: false,
+                  obscureText: true,
                   onSaved: (value) => password = value,
                   onChanged: (val) {
                     setState(() {
@@ -127,7 +130,7 @@ class _BaseAppState extends State<BaseApp> {
                   validator: (val) => val != password ? 'Confirm password doesn\'t match' : null,
                   style: TextStyle(fontSize: 22.0),
                   decoration: buildSignUpInputDecoration("Confirm Password"),
-                  obscureText: false,
+                  obscureText: true,
                   onSaved: (value) => confirmPassword = value,
                   onChanged: (val) {
                     setState(() {
@@ -168,10 +171,9 @@ class _BaseAppState extends State<BaseApp> {
 
                 ),
               ),
-              Text(error,
-                style: TextStyle(color: Colors.red, fontSize: 14.0),
-              ),
+
               SizedBox(height: 10.0),
+
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: ButtonTheme(
@@ -218,9 +220,9 @@ class _BaseAppState extends State<BaseApp> {
   }
 
   showAlert() {
-    if (warning != null) {
+    if (_error!= null) {
       return Container(
-        color: Colors.amberAccent,
+        color: Colors.pink,
         width: double.infinity,
         padding: EdgeInsets.all(8.0),
         child: Row(
@@ -229,14 +231,14 @@ class _BaseAppState extends State<BaseApp> {
               padding: const EdgeInsets.only(right: 8.0),
               child: Icon(Icons.error_outline),
             ),
-            Expanded(child: AutoSizeText(warning, maxLines: 3,)),
+            Expanded(child: AutoSizeText(_error, maxLines: 3,)),
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: IconButton(
                   icon: Icon(Icons.close),
                   onPressed: () {
                     setState(() {
-                      warning = '';
+                      _error = null;
                     });
                   }
               ),
