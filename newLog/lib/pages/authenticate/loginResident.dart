@@ -22,7 +22,6 @@ class _LogInResidentState extends State<LogInResident> {
   // text field state
   String email = '';
   String password = '';
-  String error= '';
   String hint = '';
   String warning;
 
@@ -39,13 +38,10 @@ class _LogInResidentState extends State<LogInResident> {
   }
   void submit() async {
     if (validate()) {
-      try {
+      try { await _auth.signInWithEmailAndPassword(email, password);
 
-           await _auth.signInWithEmailAndPassword(email, password);
-         // print("Signed in with Id $uid");
-        }
-       catch (e) {
-        print(e);
+      }
+      catch (e) {
         setState(() {
           warning = e.message;
         });
@@ -53,6 +49,20 @@ class _LogInResidentState extends State<LogInResident> {
     }
   }
 
+  void forgetPassword() async {
+    if (validate()) {
+      try {
+        String uid = await _auth.sendPasswordRestEmail(email);
+        warning = "Password reset lik has been sent to $email";
+      }
+      catch (e) {
+        print(e);
+        setState(() {
+          warning = e.message;
+        });
+      }
+    }
+  }
 
 
   @override
@@ -112,19 +122,21 @@ class _LogInResidentState extends State<LogInResident> {
                   minWidth: 200,
                   height: 50,
                   child: RaisedButton(
-                    onPressed: submit,
-                    color: Colors.greenAccent,
-                    child:
-                    Text(
-                      'Submit',
-                      style: TextStyle(color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
-                    )
+                      onPressed:() {
+                        submit();
+                      },
+                      color: Colors.greenAccent,
+                      child:
+                      Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,),
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
+                      )
                   ),
                 ),
               ),
@@ -132,6 +144,7 @@ class _LogInResidentState extends State<LogInResident> {
               FlatButton(
                 child: Text("Forget Password?", style:  TextStyle(color: Colors.white),),
                 onPressed: () {
+                  forgetPassword();
 
                 },
               ),
@@ -178,7 +191,7 @@ class _LogInResidentState extends State<LogInResident> {
                   icon: Icon(Icons.close),
                   onPressed: () {
                     setState(() {
-                      warning = '';
+                      warning = null;
                     });
                   }
               ),

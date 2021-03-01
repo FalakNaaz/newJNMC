@@ -19,12 +19,15 @@ import 'pages/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/CV_Screen.dart';
+import 'pages/authenticate/forgetPassword.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     //User user = Provider.of<User>(context);
@@ -57,6 +60,7 @@ class MyApp extends StatelessWidget {
             '/imageCapture' : (context) => ImageCapture(),
             '/uploadScreen': (context) => UploadScreen(),
             '/detailPage': (context) => Detail(),
+            '/forgetPassword': (context) => ForgetPassword(),
             //'/imageCaptureState' : (context) => ImageCaptureState(),
           }),
     );

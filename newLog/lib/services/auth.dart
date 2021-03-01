@@ -21,7 +21,6 @@ class AuthService {
   Future registerWithEmailAndPassword(String email, String password,
       String role, String name) async
   {
-    try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
@@ -58,26 +57,22 @@ class AuthService {
         await DatabaseService(uid: user.uid).createImageVar(false);
       }
       return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
   }
 
   //Sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async
   {
-    try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
       return _userFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
   }
 
+  // Send Link to change password
+  Future sendPasswordRestEmail(String email) async
+  {
+    return _auth.sendPasswordResetEmail(email: email);
+  }
   //Sign out
   Future signOut() async {
     try {
@@ -129,7 +124,7 @@ class PasswordValidator{
   {
     if(value.isEmpty)
     {
-      return "Password can't be empty";
+      return "Password can't be empty, if you have forget password then enter your last password that you remembered & click on forget password button";
     }
     return null;
   }
