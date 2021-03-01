@@ -4,31 +4,35 @@ class User
 {
   final String uid;
   User({this.uid});
-
 }
+
 class RoleData{
   final String uid;
   final String role;
   RoleData({this.uid, this.role});
 }
+
 class ListOfMentorData{
   final String uid;
   final String email;
   final String name;
   ListOfMentorData({this.uid, this.email, this.name});
 }
+
 class MentorData{
   final String uid;
   final String email;
   final String name;
   MentorData({ this.uid,this.email, this.name});
 }
+
 class ListOfResidentData{
   final String uid;
   final String email;
   final String name;
   ListOfResidentData({this.uid, this.email, this.name});
 }
+
 class ResidentData{
   final String uid;
   final String email;
@@ -53,19 +57,19 @@ class UserData{
   final String appearDate;
   final String hobby;
   final String reason;
-
-
   UserData({this.uid, this.name, this.dob, this.p_add,
     this.l_add, this.mob, this.email, this.degreeDetail, this.degreeRecord,
     this.iDetail, this.other, this.regNo, this.joiningDate,this.appearDate,
     this.hobby,this.reason});
 }
+
 class MissionData{
   String uid;
   bool agree;
   String sign;
   MissionData({this.uid, this.agree, this.sign});
 }
+
 class PublicationsData{
   String uid;
   String papers;
@@ -75,6 +79,7 @@ class PublicationsData{
   String achievement;
   PublicationsData({this.uid, this.papers, this.conferences, this.social, this.organization, this.achievement});
 }
+
 class Trying{
   String field1;
   String field2;
@@ -83,6 +88,7 @@ class Trying{
   Trying({this.field1,this.field2,this.field3,this.field4});
 
 }
+
 class CourseModel {
   String course_name;
   String price;
@@ -113,8 +119,8 @@ class TestData{
   String assessment;
   String reason;
   TestData({this.uid,this.date, this.result, this.assessment,this.reason});
-
 }
+
 class ThesisData{
   String uid;
   String consult;
@@ -156,7 +162,6 @@ class ReflectionData1{
   final String sImprovement;
   ReflectionData1({this.uid, this.level, this.mKnowledge, this.pCare,
     this.professionalism,this.iCommunication, this.pImprovement, this.sImprovement});
-
 }
 class EndRotation{
   final String uid;
@@ -196,5 +201,4 @@ class EndRotation{
     this.familyPlanningR, this.accAndResR, this.respectR, this.comm1R, this.comm2R,
     this.informedR, this.patientSafetyR, this.systemImpR,
   });
-
 }
