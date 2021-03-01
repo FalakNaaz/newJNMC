@@ -3,7 +3,7 @@ import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/constants.dart';
 import 'package:provider/provider.dart';
-enum SingingCharacter { reporter, interpreter, manager, educator }
+enum SingingCharacter { Reporter, Interpreter, Manager, Educator }
 class UpdateReflection extends StatefulWidget {
   final int rotationNo;
 
@@ -24,7 +24,7 @@ class _UpdateReflectionState extends State<UpdateReflection> {
   String _currentICommunication;
   String _currentPImprovement;
   String _currentSImprovement;
-  SingingCharacter _character = SingingCharacter.reporter;
+  SingingCharacter _character = SingingCharacter.Reporter;
   @override
   Widget build(BuildContext context) {
 
@@ -39,6 +39,7 @@ class _UpdateReflectionState extends State<UpdateReflection> {
               child: Form(
                 key: _formKey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
                       height: 5.0,
@@ -53,58 +54,52 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                     SizedBox(
                       height: 25.0,
                     ),
-                    Column(
-                      children: <Widget>[
-                        ListTile(
-                          title: const Text('Reporter'),
-                          leading: Radio(
-                            value: SingingCharacter.reporter,
-                            groupValue: _character,
-                            onChanged: (SingingCharacter value) {
-                              setState(() {
-                                _character = value;
-                              });
-                            },
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Interpreter'),
-                          leading: Radio(
-                            value: SingingCharacter.interpreter,
-                            groupValue: _character,
-                            onChanged: (SingingCharacter value) {
-                              setState(() {
-                                _character = value;
-                              });
-                            },
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Manager'),
-                          leading: Radio(
-                            value: SingingCharacter.manager,
-                            groupValue: _character,
-                            onChanged: (SingingCharacter value) {
-                              setState(() {
-                                _character = value;
-                              });
-                            },
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Educator'),
-                          leading: Radio(
-                            value: SingingCharacter.educator,
-                            groupValue: _character,
-                            onChanged: (SingingCharacter value) {
-                              setState(() {
-                                _character = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
+                    Text(
+                      'I am at the following level of clinical training of RIME Model: ',
+                      style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),fontSize: 16,),
                     ),
+                    RadioListTile<SingingCharacter>(
+                      title: const Text('Reporter'),
+                      value: SingingCharacter.Reporter,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
+                   RadioListTile<SingingCharacter>(
+                      title: const Text('Interpreter'),
+                      value: SingingCharacter.Interpreter,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
+                   RadioListTile<SingingCharacter>(
+                      title: const Text('Manager'),
+                      value: SingingCharacter.Manager,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
+                   RadioListTile<SingingCharacter>(
+                      title: const Text('Educator'),
+                      value: SingingCharacter.Educator,
+                      groupValue: _character,
+                      onChanged: (SingingCharacter value) {
+                        setState(() {
+                          _character = value;
+                        });
+                      },
+                    ),
+
+
                     SizedBox(
                       height: 20.0,
                     ),
@@ -118,144 +113,276 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                     SizedBox(
                       height: 20.0,
                     ),
-                    TextFormField(
-                      decoration: textInputDecoration('Medical Care'),
-                      maxLines: 4,
-                      initialValue:
-                          reflectionData[widget.rotationNo].mKnowledge,
-                      validator: (val) =>
-                          val.isEmpty ? 'Please enter Name' : null,
-                      onChanged: (val) =>
-                          setState(() => _currentMKnowledge = val),
-                    ),
-                   /* Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       // crossAxisAlignment: CrossAxisAlignment.baseline,
                       // textBaseline: TextBaseline.ideographic,
                       children: <Widget>[
                         Text(
-                          'Periodic Consultation with Mentor :',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          'Medical Knowledge:   ',
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                         ),
-                        new DropdownButton<String>(
-                          //value: 'A',
-                          value: _currentMKnowledge ?? reflectionData[widget.rotationNo].mKnowledge,
-                          items:
-                          <String>['A', 'B', 'C', 'D', 'E'].map((String value) {
-                            return new DropdownMenuItem<String>(
-                              value: value,
-                              child: new Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (String newValueSelected) {
+                        DropdownButton<String>(
+                          value:  _currentMKnowledge ?? reflectionData[widget.rotationNo].mKnowledge,
+                          icon: Icon(Icons.arrow_drop_down),
+                          iconSize: 28,
+                          elevation: 16,
+                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          underline: Container(
+                            height: 2,
+                            color: Color.fromRGBO(273, 146, 158, 1),
+                          ),
+                          onChanged: (String newValue) {
                             setState(() {
-                              this._currentMKnowledge = newValueSelected;
+                              this._currentMKnowledge = newValue;
                             });
                           },
-                          dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                          items: <String>['1', '2', '3', '4','5']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
                       ],
-                    ),*/
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TextFormField(
-                      decoration: textInputDecoration('Patient Care'),
-                      maxLines: 4,
-                      initialValue: reflectionData[widget.rotationNo].pCare,
-                      validator: (val) =>
-                          val.isEmpty ? 'Please enter l1' : null,
-                      onChanged: (val) => setState(() => _currentPCare = val),
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    TextFormField(
-                      decoration: textInputDecoration('Professionalism'),
-                      maxLines: 4,
-                      initialValue:
-                          reflectionData[widget.rotationNo].professionalism,
-                      validator: (val) =>
-                          val.isEmpty ? 'Please enter l1' : null,
-                      onChanged: (val) =>
-                          setState(() => _currentProfessionalism = val),
+                    Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.baseline,
+                      // textBaseline: TextBaseline.ideographic,
+                      children: <Widget>[
+                        Text(
+                          'Patient Care:  ',
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
+                        DropdownButton<String>(
+                          value:  _currentPCare ??  reflectionData[widget.rotationNo].pCare,
+                          icon: Icon(Icons.arrow_drop_down),
+                          iconSize: 28,
+                          elevation: 16,
+                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          underline: Container(
+                            height: 2,
+                            color: Color.fromRGBO(273, 146, 158, 1),
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              this._currentPCare = newValue;
+                            });
+                          },
+                          items: <String>['1', '2', '3', '4','5']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.baseline,
+                      // textBaseline: TextBaseline.ideographic,
+                      children: <Widget>[
+                        Text(
+                          'Professionalism:    ',
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
+                        DropdownButton<String>(
+                          value:  _currentProfessionalism ??  reflectionData[widget.rotationNo].professionalism,
+                          icon: Icon(Icons.arrow_drop_down),
+                          iconSize: 28,
+                          elevation: 16,
+                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          underline: Container(
+                            height: 2,
+                            color: Color.fromRGBO(273, 146, 158, 1),
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              this._currentProfessionalism = newValue;
+                            });
+                          },
+                          items: <String>['1', '2', '3', '4','5']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    TextFormField(
-                      decoration:
-                          textInputDecoration('Interpersonal Communication'),
-                      maxLines: 4,
-                      initialValue:
-                          reflectionData[widget.rotationNo].iCommunication,
-                      validator: (val) =>
-                          val.isEmpty ? 'Please enter l2 ' : null,
-                      onChanged: (val) =>
-                          setState(() => _currentProfessionalism = val),
+                    Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.baseline,
+                      // textBaseline: TextBaseline.ideographic,
+                      children: <Widget>[
+                        Text(
+                          'Interpersonal Communication:    ',
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
+                        DropdownButton<String>(
+                          value:  _currentICommunication ??  reflectionData[widget.rotationNo].iCommunication,
+                          icon: Icon(Icons.arrow_drop_down),
+                          iconSize: 28,
+                          elevation: 16,
+                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          underline: Container(
+                            height: 2,
+                            color: Color.fromRGBO(273, 146, 158, 1),
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              this._currentICommunication = newValue;
+                            });
+                          },
+                          items: <String>['1', '2', '3', '4','5']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    TextFormField(
-                      decoration: textInputDecoration(
-                          'Practice-based learning: personal improvement: '),
-                      maxLines: 4,
-                      initialValue:
-                          reflectionData[widget.rotationNo].pImprovement,
-                      validator: (val) => val.isEmpty ? 'Any other l3' : null,
-                      onChanged: (val) =>
-                          setState(() => _currentICommunication = val),
+                    Text(
+                      'Practice-based Learning: personal ',
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'improvement:    ',
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
+                        DropdownButton<String>(
+                          value:  _currentPImprovement ??  reflectionData[widget.rotationNo].pImprovement,
+                          icon: Icon(Icons.arrow_drop_down),
+                          iconSize: 28,
+                          elevation: 16,
+                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          underline: Container(
+                            height: 2,
+                            color: Color.fromRGBO(273, 146, 158, 1),
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              this._currentPImprovement = newValue;
+                            });
+                          },
+                          items: <String>['1', '2', '3', '4','5']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    TextFormField(
-                      decoration: textInputDecoration(
-                          'System-based Practice: systems improvement'),
-                      maxLines: 4,
-                      initialValue:
-                          reflectionData[widget.rotationNo].sImprovement,
-                      validator: (val) => val.isEmpty ? ' Strategy' : null,
-                      onChanged: (val) =>
-                          setState(() => _currentPImprovement = val),
+                    Text(
+                      'System-based Practice: systems ',
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    ),
+                    Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.baseline,
+                      // textBaseline: TextBaseline.ideographic,
+                      children: <Widget>[
+                        Text(
+                          'improvement:   ',
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
+                        DropdownButton<String>(
+                          value:  _currentSImprovement ??  reflectionData[widget.rotationNo].sImprovement,
+                          icon: Icon(Icons.arrow_drop_down),
+                          iconSize: 28,
+                          elevation: 16,
+                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          underline: Container(
+                            height: 2,
+                            color: Color.fromRGBO(273, 146, 158, 1),
+                          ),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              this._currentSImprovement = newValue;
+                            });
+                          },
+                          items: <String>['1', '2', '3', '4','5']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
-                      child: Text(
-                        'Update',
-                        style: TextStyle(color: Colors.white),
+                    Center(
+                      child: RaisedButton(
+                        color: Color.fromRGBO(273, 146, 158, 1),
+                        child: Text(
+                          'Update',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () async {
+                          // if (_formKey.currentState.validate())
+                          {
+                            //print(_currentpdate);
+                            await DatabaseService(uid: user.uid)
+                                .updateReflectionData(
+                              widget.rotationNo,
+                              _character.toString().split('.').last ??
+                                  reflectionData[widget.rotationNo].level,
+                              _currentMKnowledge ??
+                                  reflectionData[widget.rotationNo].mKnowledge,
+                              _currentPCare ??
+                                  reflectionData[widget.rotationNo].pCare,
+                              _currentProfessionalism ??
+                                  reflectionData[widget.rotationNo]
+                                      .professionalism,
+                              _currentICommunication ??
+                                  reflectionData[widget.rotationNo]
+                                      .iCommunication,
+                              _currentPImprovement ??
+                                  reflectionData[widget.rotationNo].pImprovement,
+                              _currentSImprovement ??
+                                  reflectionData[widget.rotationNo].sImprovement,
+                            );
+                            Navigator.pop(context);
+                          }
+                        },
                       ),
-                      onPressed: () async {
-                        // if (_formKey.currentState.validate())
-                        {
-                          //print(_currentpdate);
-                          await DatabaseService(uid: user.uid)
-                              .updateReflectionData(
-                            widget.rotationNo,
-                            _character.toString().split('.').last ??
-                                reflectionData[widget.rotationNo].level,
-                            _currentMKnowledge ??
-                                reflectionData[widget.rotationNo].mKnowledge,
-                            _currentPCare ??
-                                reflectionData[widget.rotationNo].pCare,
-                            _currentProfessionalism ??
-                                reflectionData[widget.rotationNo]
-                                    .professionalism,
-                            _currentICommunication ??
-                                reflectionData[widget.rotationNo]
-                                    .iCommunication,
-                            _currentPImprovement ??
-                                reflectionData[widget.rotationNo].pImprovement,
-                            _currentSImprovement ??
-                                reflectionData[widget.rotationNo].sImprovement,
-                          );
-                          Navigator.pop(context);
-                        }
-                      },
                     )
                   ],
                 ),

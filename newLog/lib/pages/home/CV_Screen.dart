@@ -26,7 +26,7 @@ class CV_Screen extends StatelessWidget {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text('JNMCH eLogBook'),
+          title: Text('Curriculum Vitae'),
           backgroundColor: Color.fromRGBO(273, 146, 158, 1),
           actions:<Widget> [
             FlatButton.icon(

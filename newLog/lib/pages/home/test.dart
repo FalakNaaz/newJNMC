@@ -48,7 +48,7 @@ class _TestBarState extends State<TestBar> {
     }
     Widget displayTest(TestData testData, int tabNo) {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           (testData.date != '')
               ? Padding(
@@ -73,17 +73,23 @@ class _TestBarState extends State<TestBar> {
                 ),
                 Text(
                     'Reasons for level of \nperformance                         :   ${testData.reason}'),
+                RaisedButton(
+                  child: Text('Update'),
+                  onPressed: () => _showSettingsPanel(tabNo),
+                ),
               ],
             ),
           )
               : Center(
-              child: Text('No information available! Edit to Update',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.grey))),
-          RaisedButton(
-            child: Text('Update'),
-            onPressed: () => _showSettingsPanel(tabNo),
+              child: FlatButton(
+                onPressed:  () => _showSettingsPanel(tabNo),
+                child: Text('No information available! Tap to Update',
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic, color: Colors.grey)),
+              ),
           ),
+          SizedBox(height: 20.0,),
+
         ],
       );
     }

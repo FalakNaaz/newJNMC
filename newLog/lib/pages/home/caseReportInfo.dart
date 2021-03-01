@@ -19,7 +19,6 @@ class _CaseReportInfoState extends State<CaseReportInfo> {
       padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
       child: Text(
         '$label $text',
-        //textAlign: TextAlign.right,
         style: TextStyle(),
       ),
     );
@@ -27,15 +26,7 @@ class _CaseReportInfoState extends State<CaseReportInfo> {
 
   @override
   Widget build(BuildContext context) {
-    //final Publications = Provider.of<List<Publications_model>>(context) ?? [];
     final user = Provider.of<User>(context);
-
-    // return ListView.builder(
-    //   itemCount: Publications.length,
-    //   itemBuilder: (context, index) {
-    //     return Publications_Tile(Publications_item: Publications[index]);
-    //   },
-    // );
     return StreamBuilder<List<Report>>(
         stream: DatabaseService(uid: user.uid).listOfReportData,
         builder: (context, snapshot) {

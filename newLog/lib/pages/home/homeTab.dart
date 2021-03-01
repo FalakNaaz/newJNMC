@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/caseroutines.dart';
 import 'package:jmnchelogbook/pages/home/rotation.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -50,6 +53,17 @@ class _HomeTabState extends State<HomeTab> {
 
 @override
 Widget build(BuildContext context) {
+  final user = Provider.of<User>(context);
+  /*Firestore.instance.collection('Rotation2')
+      .document(user.uid)
+      .collection('log')
+      .document('Rotation0')
+  .collection('allPatients')
+  .document('patient1')
+      .get().then((querySnapshot) {
+    print('querySnapshot.data is');
+    print(querySnapshot.data);
+  });*/
   return SafeArea(
     child: Column(
       children: <Widget>[

@@ -1,42 +1,51 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User
-{
+class User {
   final String uid;
-  User({this.uid});
 
+  User({this.uid});
 }
-class RoleData{
+
+class RoleData {
   final String uid;
   final String role;
+
   RoleData({this.uid, this.role});
 }
-class ListOfMentorData{
+
+class ListOfMentorData {
   final String uid;
   final String email;
   final String name;
+
   ListOfMentorData({this.uid, this.email, this.name});
 }
-class MentorData{
+
+class MentorData {
   final String uid;
   final String email;
   final String name;
-  MentorData({ this.uid,this.email, this.name});
+
+  MentorData({this.uid, this.email, this.name});
 }
-class ListOfResidentData{
+
+class ListOfResidentData {
   final String uid;
   final String email;
   final String name;
+
   ListOfResidentData({this.uid, this.email, this.name});
 }
-class ResidentData{
+
+class ResidentData {
   final String uid;
   final String email;
   final String name;
+
   ResidentData({this.uid, this.email, this.name});
 }
 
-class UserData{
+class UserData {
   final String uid;
   final String name;
   final String dob;
@@ -54,35 +63,66 @@ class UserData{
   final String hobby;
   final String reason;
 
-
-  UserData({this.uid, this.name, this.dob, this.p_add,
-    this.l_add, this.mob, this.email, this.degreeDetail, this.degreeRecord,
-    this.iDetail, this.other, this.regNo, this.joiningDate,this.appearDate,
-    this.hobby,this.reason});
+  UserData(
+      {this.uid,
+      this.name,
+      this.dob,
+      this.p_add,
+      this.l_add,
+      this.mob,
+      this.email,
+      this.degreeDetail,
+      this.degreeRecord,
+      this.iDetail,
+      this.other,
+      this.regNo,
+      this.joiningDate,
+      this.appearDate,
+      this.hobby,
+      this.reason});
 }
-class MissionData{
+
+class MissionData {
   String uid;
   bool agree;
   String sign;
+
   MissionData({this.uid, this.agree, this.sign});
 }
-class PublicationsData{
+
+class PublicationsData {
   String uid;
   String papers;
   String conferences;
   String social;
   String organization;
   String achievement;
-  PublicationsData({this.uid, this.papers, this.conferences, this.social, this.organization, this.achievement});
+  bool isApproved;
+  String mentorName;
+  String mentorMail;
+  bool approvalReady;
+
+  PublicationsData(
+      {this.uid,
+      this.papers,
+      this.conferences,
+      this.social,
+      this.organization,
+      this.achievement,
+      this.isApproved,
+      this.mentorName,
+      this.mentorMail, this.approvalReady});
 }
-class Trying{
+
+class Trying {
   String field1;
   String field2;
   String field3;
   String field4;
-  Trying({this.field1,this.field2,this.field3,this.field4});
 
+  Trying({this.field1, this.field2, this.field3, this.field4});
 }
+
 class CourseModel {
   String course_name;
   String price;
@@ -91,10 +131,18 @@ class CourseModel {
   String master_name;
   String master_email;
   String course_uid;
-  CourseModel({this.details,this.course_name,this.pic_url,this.price,this.master_name,this.master_email,this.course_uid});
-  factory CourseModel.fromFireStore(DocumentSnapshot doc)
-  {
-    Map data = doc.data ;
+
+  CourseModel(
+      {this.details,
+      this.course_name,
+      this.pic_url,
+      this.price,
+      this.master_name,
+      this.master_email,
+      this.course_uid});
+
+  factory CourseModel.fromFireStore(DocumentSnapshot doc) {
+    Map data = doc.data;
     return CourseModel(
       course_name: data['course_name'],
       master_name: data['master_name'],
@@ -106,22 +154,43 @@ class CourseModel {
     );
   }
 }
-class TestData{
+
+class TestData {
   String uid;
   String date;
   String result;
   String assessment;
   String reason;
-  TestData({this.uid,this.date, this.result, this.assessment,this.reason});
 
+  TestData({this.uid, this.date, this.result, this.assessment, this.reason});
 }
-class ThesisData{
+
+class PatientData {
+  String uid;
+  String date;
+  String diagnosis;
+  String level;
+  String name;
+  String procedure;
+
+  PatientData(
+      {this.uid,
+      this.date,
+      this.diagnosis,
+      this.level,
+      this.name,
+      this.procedure});
+}
+
+class ThesisData {
   String uid;
   String consult;
   String collect;
   String pre;
-  ThesisData({this.uid,this.consult, this.collect, this.pre});
+
+  ThesisData({this.uid, this.consult, this.collect, this.pre});
 }
+
 class Learning {
   final String uid;
   final String pdate;
@@ -133,19 +202,22 @@ class Learning {
 
   Learning(
       {this.uid,
-        this.pdate,
-        this.pname,
-        this.l1,
-        this.l2,
-        this.l3,
-        this.strategy});
+      this.pdate,
+      this.pname,
+      this.l1,
+      this.l2,
+      this.l3,
+      this.strategy});
 }
-class Report{
+
+class Report {
   final String uid;
   final String reportText;
+
   Report({this.uid, this.reportText});
 }
-class ReflectionData1{
+
+class ReflectionData1 {
   final String uid;
   final String level;
   final String mKnowledge;
@@ -154,11 +226,19 @@ class ReflectionData1{
   final String iCommunication;
   final String pImprovement;
   final String sImprovement;
-  ReflectionData1({this.uid, this.level, this.mKnowledge, this.pCare,
-    this.professionalism,this.iCommunication, this.pImprovement, this.sImprovement});
 
+  ReflectionData1(
+      {this.uid,
+      this.level,
+      this.mKnowledge,
+      this.pCare,
+      this.professionalism,
+      this.iCommunication,
+      this.pImprovement,
+      this.sImprovement});
 }
-class EndRotation{
+
+class EndRotation {
   final String uid;
   final String antCareL;
   final String iCarePatientsL;
@@ -188,13 +268,42 @@ class EndRotation{
   final String informedR;
   final String patientSafetyR;
   final String systemImpR;
-  EndRotation({this.uid, this.antCareL, this.iCarePatientsL,
-    this.pCarePatientsL, this.obTechL, this.gynaeTech1L, this.gynaeTech2L,
-    this.familyPlanningL, this.accAndResL, this.respectL, this.comm1L, this.comm2L,
-    this.informedL, this.patientSafetyL, this.systemImpL, this.antCareR, this.iCarePatientsR,
-    this.pCarePatientsR, this.obTechR, this.gynaeTech1R, this.gynaeTech2R,
-    this.familyPlanningR, this.accAndResR, this.respectR, this.comm1R, this.comm2R,
-    this.informedR, this.patientSafetyR, this.systemImpR,
-  });
 
+  EndRotation({
+    this.uid,
+    this.antCareL,
+    this.iCarePatientsL,
+    this.pCarePatientsL,
+    this.obTechL,
+    this.gynaeTech1L,
+    this.gynaeTech2L,
+    this.familyPlanningL,
+    this.accAndResL,
+    this.respectL,
+    this.comm1L,
+    this.comm2L,
+    this.informedL,
+    this.patientSafetyL,
+    this.systemImpL,
+    this.antCareR,
+    this.iCarePatientsR,
+    this.pCarePatientsR,
+    this.obTechR,
+    this.gynaeTech1R,
+    this.gynaeTech2R,
+    this.familyPlanningR,
+    this.accAndResR,
+    this.respectR,
+    this.comm1R,
+    this.comm2R,
+    this.informedR,
+    this.patientSafetyR,
+    this.systemImpR,
+  });
+}
+
+class PatientNo {
+  final int no;
+
+  PatientNo({this.no});
 }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
 import 'package:jmnchelogbook/services/auth.dart';
@@ -29,9 +30,20 @@ final CollectionReference listOfUsersCollectionForMentor =
       Firestore.instance.collection('listOfUsersCollectionForMentor');
 final CollectionReference listOfUsersCollectionForResident =
       Firestore.instance.collection('listOfUsersCollectionForResident');
-
+final CollectionReference imageVar = Firestore.instance.collection('ImageVar');
   //final CollectionReference caseroutineCollection = Firestore.instance.collection('caseroutineCollection');
 
+  Future<void> createImageVar(bool bool)async {
+  await imageVar.document(uid).setData({
+    'hasImage' : bool,
+  });
+}
+Future<bool> getImageVar()async{
+  return await imageVar.document(uid).get().then((value) {
+    print(value.data['hasImage']);
+    return value.data['hasImage'];
+  });
+}
   Future<void> createTest2(
       String date, String result, String asses, String reason) async {
     for (int i = 0; i < 4; i++)
@@ -81,7 +93,7 @@ final CollectionReference listOfUsersCollectionForResident =
   Future<void> createRole(String role) async {
     await roleCollection.document(uid).setData({
       'role': role,
-    });
+    }); 
   }
   Future<void> createRotations() async {
     for (int i = 0; i < 6; i++) {
@@ -103,11 +115,7 @@ final CollectionReference listOfUsersCollectionForResident =
           .collection('log')
           .document('Rotation$i')
           .setData({
-        'date': '',
-        'name': '',
-        'diagnosis': '',
-        'procedure': '',
-        'level': '',
+        'no' : 0,
       });
       await rotation2
           .document(uid)
@@ -121,8 +129,21 @@ final CollectionReference listOfUsersCollectionForResident =
           .collection('assessment')
           .document('Rotation$i')
           .setData({
-        'antCareL': 'antCareL',
-        'iCarePatientsL': 'antCarePatientsL',
+        'antCareL': '1',
+        'iCarePatientsL': '1',
+        'pCarePatientsL': '1',
+        'obTechL': '1',
+        'gynaeTech1L': '1',
+        'gynaeTech2L': '1',
+        'familyPlanningL': '1',
+        'accAndResL': '1',
+        'respectL': '1',
+        'comm1L': '1',
+        'comm2L': '1',
+        'informedL': '1',
+        'patientSafetyL': '1',
+        'systemImpL': '1',
+
       });
       await rotation2
           .document(uid)
@@ -130,12 +151,12 @@ final CollectionReference listOfUsersCollectionForResident =
           .document('Rotation$i')
           .setData({
         'level': '',
-        'mKnowledge': '',
-        'pCare': '',
-        'professionalism': '',
-        'iCommunication': '',
-        'pImprovement': '',
-        'sImprovement': '',
+        'mKnowledge': '1',
+        'pCare': '1',
+        'professionalism': '1',
+        'iCommunication': '1',
+        'pImprovement': '1',
+        'sImprovement': '1',
       });
     }
   }
@@ -206,14 +227,41 @@ final CollectionReference listOfUsersCollectionForResident =
     });
   }
 
-  Future updatePublicationsData(String papers, String conferences,
-      String publications, String organization, String achievement) async {
+  Future updatePublicationsData(bool isApproved, String mentorName, String mentorMail, String papers, String conferences,
+      String social, String organization, String achievement, bool approvalReady) async {
     return await publicationsCollection.document(uid).setData({
+
+      'isApproved' : isApproved,
+      'mentorName' : mentorName,
+      'mentorMail' : mentorMail,
       'papers': papers,
       'conferences': conferences,
-      'publications': publications,
+      'social': social,
       'organization': organization,
       'achievement': achievement,
+      'approvalReady': approvalReady,
+    });
+  }
+  Future updateApprovalReady( bool approvalReady) async {
+    return await publicationsCollection.document(uid).updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+Future updatePatientDoc(int rNo, int pNo, String date, String name, String diagnosis, String procedure, String level) async {
+    return await rotation2.document(uid).collection('log').document('Rotation$rNo').updateData({
+      'Patient$pNo': {
+        'date': date,
+        'diagnosis': diagnosis,
+        'level': level,
+        'name': name,
+        'procedure': procedure,
+      }
+    });
+  }
+Future deletePatientDoc(int rNo, int pNo,) async {
+    return await rotation2.document(uid).collection('log').document('Rotation$rNo').updateData({
+      'Patient$pNo': FieldValue.delete()
+
     });
   }
 
@@ -243,6 +291,85 @@ final CollectionReference listOfUsersCollectionForResident =
       'strategy': strategy,
     });
   }
+  Future incrementPatientDoc(int rotationNo)async {
+    int no ;
+    await rotation2
+        .document(uid)
+        .collection('log')
+        .document('Rotation$rotationNo').get().then((querySnapshot) {
+      no = querySnapshot.data['no'];
+    });
+    ++no;
+   // for(int i=0; i<6;i++){
+   /* Firestore.instance.collection('rotation2').getDocuments().then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        print('result.data is');
+        print(result.data);
+      });
+    });*/
+    /*Firestore.instance.collection('Rotation2')
+        .document(uid)
+        .collection('log')
+        .document('Rotation$rotationNo')
+        .get().then((querySnapshot) {
+      print('from incrementdoc querySnapshot.data is');
+      print(querySnapshot.data);
+    });*/
+   /* Firestore.instance.collection('1collection')
+        .document('1doc')
+        .collection('2collection')
+        .document('2doc')
+        .collection('3collection')
+        .document('3doc')
+        .get().then((querySnapshot) {
+      print('querySnapshot.data is');
+      print(querySnapshot.data);
+    });*/
+   /* Firestore.instance.collection('rotation2')
+        .document(uid)
+        .collection('learning')
+        .document('Rotation0')
+        //.collection('allPatients')
+        //.document('patient1')
+        .get().then((querySnapshot) {
+      print('querySnapshot.data is');
+      print(querySnapshot.data);
+    });*/
+      return await rotation2
+          .document(uid)
+          .collection('log')
+          .document('Rotation$rotationNo')
+          .updateData({
+        'no': no,
+        'Patient$no': {
+          'date': '',
+          'name': '',
+          'diagnosis': '',
+          'procedure': '',
+          'level': '',
+        }
+      });
+    //}
+
+  }
+/*Future updatePatientNo(int rotationNo) async {
+  int no ;
+  await rotation2
+      .document(uid)
+      .collection('log')
+      .document('Rotation$rotationNo').get().then((querySnapshot) {
+    no = querySnapshot.data['no'];
+  });
+  ++no;
+  incrementPatientDoc(rotationNo, no);
+    return await rotation2
+        .document(uid)
+        .collection('log')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'no': no,
+    });
+  }*/
 
   Future updateEndRotation(
       int rotationNo,
@@ -415,6 +542,38 @@ final CollectionReference listOfUsersCollectionForResident =
       );
     }).toList();
   }
+ /* List<PatientData> _patientDataFromSnapshotIntermediate(QuerySnapshot snapshot){
+    print('from immediate');
+    return snapshot.documents.map((doc){
+      print(doc.data['Patient1']['date']);
+      return PatientData(
+        date: doc.data['date'] ?? '',
+        diagnosis: doc.data['diagnosis'] ?? '',
+        level: doc.data['level'] ?? '',
+        name: doc.data['name'] ?? '',
+        procedure: doc.data['procedure'] ?? '',
+      );
+    }).toList();
+  }*/
+ /* List<List<PatientData>> _patientDataFromSnapshot(QuerySnapshot snapshot) {
+    *//*Firestore.instance.collection('1collection')
+        .document('1doc')
+     .collection('2collection')
+     .document('2doc')
+         .collection('3collection')
+         .document('3doc')
+        .get().then((querySnapshot) {
+       print('querySnapshot.data is');
+       print(querySnapshot.data);
+    });*//*
+    return snapshot.documents.map((doc1) {
+      print('doc outsideeee: ${doc1.data['allPatients']}');
+
+      return doc1.data['allPatients'].snapshots.map(_patientDataFromSnapshotIntermediate);
+    }).toList();
+  }*/
+
+
  List<EndRotation> _endRotationFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return EndRotation(
@@ -473,6 +632,14 @@ final CollectionReference listOfUsersCollectionForResident =
       );
     }).toList();
   }
+ /* List<PatientNo> _patientNoDataFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return PatientNo(
+        no: doc.data['no'] ?? '',
+      );
+    }).toList();
+  }*/
+
   //userdata from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
@@ -509,6 +676,11 @@ RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot){
       social: snapshot.data['social'],
       organization: snapshot.data['organization'],
       achievement: snapshot.data['achievement'],
+      isApproved: snapshot.data['isApproved'],
+      mentorName: snapshot.data['mentorName'],
+      mentorMail: snapshot.data['mentorMail'],
+      approvalReady: snapshot.data['approvalReady'],
+
     );
   }
 
@@ -528,7 +700,17 @@ RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot){
         .snapshots()
         .map(_testDataFromSnapshot);
   }
-
+  /*Stream<String> get url {
+    bool isImage = getImageVar();
+    if (isImage) {
+      final ref =
+      FirebaseStorage.instance.ref().child('images/$uid.jpeg');
+      url = await ref.getDownloadURL();
+    }
+    else{
+      url = null;
+    }
+  }*/
   Stream<List<ThesisData>> get listOfThesisData {
     return thesisCollection
         .document(uid)
@@ -564,6 +746,31 @@ Stream<MentorData> get mentorData {
         .snapshots()
         .map(_learningDataFromSnapshot);
   }
+  Stream<QuerySnapshot> get listOfPatientData {
+    //Stream<List<List<PatientData>>> colRef;
+    //for(int i=0; i<6;i++){
+      /*colRef.toSet() =*/
+    return rotation2
+          .document(uid)
+          .collection('log')
+          .snapshots();
+    /*rotation2
+    .document(uid)
+        .collection("log")
+        .getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) => print('f.data is ${f.data}'));
+    });*/
+   /* return rotation2
+        .document(uid)
+        .collection('log')
+        //.document('Rotation0')
+        //.collection('allPatients')
+        .snapshots()
+        .map(_patientDataFromSnapshot);*/
+   //return colRef;
+  }
+
    Stream<List<EndRotation>> get listOfEndRotation {
     return rotation2
         .document(uid)
@@ -587,6 +794,13 @@ Stream<MentorData> get mentorData {
         .snapshots()
         .map(_reflectionDataFromSnapshot);
   }
+/*Stream<List<PatientNo>> get listOfPatientNo {
+    return rotation2
+        .document(uid)
+        .collection('log')
+        .snapshots()
+        .map(_patientNoDataFromSnapshot);
+  }*/
 
 // get user doc stream
   Stream<UserData> get userData {

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:jmnchelogbook/pages/home/caseReport.dart';
 import 'package:jmnchelogbook/pages/home/caseroutines.dart';
 import 'package:jmnchelogbook/pages/home/endRotation.dart';
+import 'package:jmnchelogbook/pages/home/logofcases.dart';
 import 'package:jmnchelogbook/pages/home/reflection.dart';
 
 class Rotation extends StatefulWidget {
@@ -64,7 +65,12 @@ class _RotationState extends State<Rotation> {
               //selected: true,
 
 
-              onTap: () { Navigator.pushNamed(context, '/logofcases');},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogOfCases(rotationNo: widget.rotationNo,)),
+                );
+                },
               ),
             ),
               Card(

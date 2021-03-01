@@ -234,6 +234,7 @@ class _UpdateCVState extends State<UpdateCV> {
                              _currentreason ?? userData.reason,
 
                           );
+                          await DatabaseService(uid: user.uid).createRotations();
                           Navigator.pop(context);
                         }
                         // print(_currentName);

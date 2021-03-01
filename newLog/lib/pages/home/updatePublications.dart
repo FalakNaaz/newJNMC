@@ -103,11 +103,15 @@ class _UpdatePublicationsState extends State<UpdatePublications> {
                         // if (_formKey.currentState.validate())
                         {
                           await DatabaseService(uid: user.uid).updatePublicationsData(
+                            false,
+                            publicationsData.mentorName,
+                            publicationsData.mentorMail,
                             _currentpapers ?? publicationsData.papers,
                             _currentconferences ?? publicationsData.conferences,
                             _currentsocial ?? publicationsData.social,
                             _currentorganization ?? publicationsData.organization,
                             _currentachievement ?? publicationsData.achievement,
+                            publicationsData.approvalReady,
 
                           );
                           Navigator.pop(context);

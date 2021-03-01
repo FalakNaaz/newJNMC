@@ -7,10 +7,13 @@ import 'package:flutter/widgets.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jmnchelogbook/pages/home/uploadScreen.dart';
+import 'package:jmnchelogbook/services/database.dart';
+
 class nav extends StatefulWidget {
   final String uid;
   String url;
   Function(String) callback;
+
   nav({this.uid, this.url, this.callback});
 
 /*final url2 = new ValueNotifier('');
@@ -23,24 +26,25 @@ class nav extends StatefulWidget {
 
 class _navState extends State<nav> {
   //ValueListenable<String> url2;
-  Future fn() async
-  {
-    final ref = FirebaseStorage.instance.ref().child('images/${widget.uid}.jpeg');
+  Future fn() async {
+    final ref =
+        FirebaseStorage.instance.ref().child('images/${widget.uid}.jpeg');
     // no need of the file extension, the name will do fine.
     widget.url = await ref.getDownloadURL();
     print('hi');
     widget.callback(widget.url);
+    await DatabaseService(uid: widget.uid).createImageVar(true);
     //widget.callback('from ');
   }
-  void initState()
-  {
+
+  void initState() {
     super.initState();
     fn();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Navigator.pop(context);
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Container();
@@ -53,9 +57,10 @@ class _navState extends State<nav> {
 /// Widget to capture and crop the image
 class ImageCapture extends StatefulWidget {
   final String uid;
-   String url;
+  String url;
   Function(String) callback;
- /* callback(_url) {
+
+  /* callback(_url) {
     print('entering Image Capture');
     print("urrrl: $url");
     url = _url;
@@ -64,6 +69,7 @@ class ImageCapture extends StatefulWidget {
 
   }*/
   ImageCapture({this.uid, this.url, this.callback});
+
   createState() => _ImageCaptureState();
 }
 
@@ -104,16 +110,14 @@ class _ImageCaptureState extends State<ImageCapture> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-      ),
-      body: ListView(
+      bottomNavigationBar: BottomAppBar(),
+      body:  (_imageFile != null) ?
+      ListView(
         children: <Widget>[
-          if (_imageFile != null) ...[
+
             Container(
-                padding: EdgeInsets.all(32),
-                child: Image.file(_imageFile)),
+                padding: EdgeInsets.all(32), child: Image.file(_imageFile)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -137,37 +141,54 @@ class _ImageCaptureState extends State<ImageCapture> {
                 url: widget.url,
                 callback: widget.callback,
               ),
-            )
-          ]
-          else...[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.photo_camera,
-                    size: 30,
-                  ),
-                  onPressed: () => _pickImage(ImageSource.camera),
-                  color: Colors.blue,
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.photo_library,
-                    size: 30,
-                  ),
-                  onPressed: (){ _pickImage(ImageSource.gallery);
-                  print(widget.url);
-                  widget.callback('heyy');},
-                  color: Colors.pink,
-                ),
-              ],
             ),
           ]
+      )
+    : SizedBox.expand(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 75.0),
+                    child: RaisedButton(
+                      color: Color.fromRGBO(273, 146, 158, 1),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Take photo from camera',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          IconButton(icon: Icon(Icons.photo_camera, color: Colors.white,), onPressed: null),
+                        ],
+                      ),
+                      onPressed: ()  {_pickImage(ImageSource.camera);},
+                    ),
+                  ),
+                  SizedBox(height:10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 75.0),
+                    child: RaisedButton(
+                      color: Color.fromRGBO(273, 146, 158, 1),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Take photo from gallery',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          IconButton(icon: Icon(Icons.photo_library, color: Colors.white,), onPressed: null),
+                        ],
+                      ),
+                      onPressed: ()  {_pickImage(ImageSource.gallery);},
+                    ),
+                  ),
 
-        ],
-      ),
+                ],
+              ),
+            )
+
     );
   }
 }
@@ -178,7 +199,9 @@ class Uploader extends StatefulWidget {
   final File file;
   String url;
   Function(String) callback;
-  Uploader({Key key,this.uid, this.file, this.url, this.callback}) : super(key: key);
+
+  Uploader({Key key, this.uid, this.file, this.url, this.callback})
+      : super(key: key);
 
   createState() => _UploaderState();
 }
@@ -189,7 +212,7 @@ class _UploaderState extends State<Uploader> {
   var url1;
 
   final FirebaseStorage _storage =
-  FirebaseStorage(storageBucket: 'gs://newlog-1fde7.appspot.com');
+      FirebaseStorage(storageBucket: 'gs://newlog-1fde7.appspot.com');
 
   StorageUploadTask _uploadTask;
 
@@ -200,9 +223,10 @@ class _UploaderState extends State<Uploader> {
       _uploadTask = _storage.ref().child(filePath).putFile(widget.file);
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    print("url: $url1");
+    //print("url: $url1");
     if (_uploadTask != null) {
       return StreamBuilder<StorageTaskEvent>(
           stream: _uploadTask.events,
@@ -222,9 +246,11 @@ class _UploaderState extends State<Uploader> {
                     //         color: Colors.greenAccent,
                     //         height: 2,
                     //         fontSize: 30)),
-                  nav(uid: widget.uid, url: widget.url,
-                    callback: widget.callback,),
-
+                    nav(
+                      uid: widget.uid,
+                      url: widget.url,
+                      callback: widget.callback,
+                    ),
                   if (_uploadTask.isPaused)
                     FlatButton(
                       child: Icon(Icons.play_arrow, size: 50),
@@ -235,14 +261,11 @@ class _UploaderState extends State<Uploader> {
                       child: Icon(Icons.pause, size: 50),
                       onPressed: _uploadTask.pause,
                     ),
-
-
                   LinearProgressIndicator(value: progressPercent),
                   Text(
                     '${(progressPercent * 100).toStringAsFixed(2)} % ',
                     style: TextStyle(fontSize: 50),
                   ),
-
                 ]);
           });
     } else {
@@ -253,14 +276,12 @@ class _UploaderState extends State<Uploader> {
               label: Text('Upload to Firebase'),
               icon: Icon(Icons.cloud_upload),
               onPressed: _startUpload),
-         /* if(url1!=null)
+          /* if(url1!=null)
           Container(
             child: Image.network(url1),
           ),*/
         ],
       );
     }
-
   }
 }
-

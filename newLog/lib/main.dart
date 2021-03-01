@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/pages/MentorPages/DetailPage.dart';
-import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
 import 'package:jmnchelogbook/pages/authenticate/authenticateResident.dart';
 import 'package:jmnchelogbook/pages/home/caseReport.dart';
 import 'package:jmnchelogbook/pages/home/publications.dart';
 import 'package:jmnchelogbook/pages/home/uploadScreen.dart';
 import 'package:jmnchelogbook/pages/home/uploads.dart';
 import 'package:jmnchelogbook/services/auth.dart';
-import 'package:jmnchelogbook/services/database.dart';
 import 'pages/authenticate/registerResident.dart';
 import 'pages/authenticate/loginResident.dart';
 import 'pages/home/home.dart';
@@ -15,7 +13,6 @@ import 'pages/home/thesis.dart';
 import 'pages/home/test.dart';
 import 'pages/home/mission.dart';
 import 'pages/home/rotation.dart';
-import 'pages/home/updateCaseReport.dart';
 import 'pages/home/caseroutines.dart';
 import 'pages/home/logofcases.dart';
 import 'pages/wrapper.dart';
@@ -34,6 +31,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: new ThemeData(
               //brightness: Brightness.light,
               //primaryColor: Color.fromRGBO(146, 180, 237, 1),

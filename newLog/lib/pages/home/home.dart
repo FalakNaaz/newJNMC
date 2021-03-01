@@ -1,14 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/models/user.dart';
+import 'package:jmnchelogbook/pages/PdfFirebase/FirstPage2.dart';
 import 'package:jmnchelogbook/pages/home/homeTab.dart';
 import 'package:jmnchelogbook/pages/home/missionTab.dart';
+import 'package:jmnchelogbook/pages/home/publications.dart';
 import 'package:jmnchelogbook/pages/home/test.dart';
 import 'package:jmnchelogbook/pages/home/thesis.dart';
 import 'package:jmnchelogbook/pages/home/uploadScreen.dart';
 import 'package:jmnchelogbook/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +21,9 @@ class MyApp2 extends StatefulWidget {
 }
 
 class _MyApp2State extends State<MyApp2> {
+  //String url;
   @override
- /* void initState() {
+  /* void initState() {
     super.initState();
     createCollections();
   }
@@ -58,6 +61,16 @@ class _MyApp2State extends State<MyApp2> {
             image: DecorationImage(
                 fit: BoxFit.fill, image: AssetImage('assets/images/bg.jpg'))),
         child: Stack(children: <Widget>[
+          /*if(url!=null)
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: CircleAvatar(
+              radius: 40.0,
+              backgroundImage:
+              NetworkImage(url),
+              backgroundColor: Colors.transparent,
+            ),
+          ),*/
           Positioned(
               bottom: 35.0,
               left: 16.0,
@@ -93,13 +106,25 @@ class _MyApp2State extends State<MyApp2> {
     );
   }
 
+  /* getUrl(BuildContext context) async {
+    final user = Provider.of<User>(context);
+    //var url;
+    var isImage = await DatabaseService(uid: user.uid).getImageVar();
+    if (isImage) {
+      final ref = FirebaseStorage.instance.ref().child('images/${user.uid}.jpeg');
+      url = await ref.getDownloadURL();
+    } else
+      url=null;
+  }*/
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+
+     //getUrl(context);
     return StreamBuilder<ResidentData>(
         stream: DatabaseService(uid: user?.uid).residentData,
         builder: (context, snapshot) {
-
           if (snapshot.hasData) {
             ResidentData residentData = snapshot.data;
             return Scaffold(
@@ -125,25 +150,40 @@ class _MyApp2State extends State<MyApp2> {
                           Navigator.pushNamed(context, '/CV');
                         }),
                     createDrawerBodyItem(
-                        icon: Icons.person_add,
-                        text: 'Add Mentor',
+                        icon: Icons.person,
+                        text: 'Mentor approval',
                         onTap: () {
-                          Navigator.pushNamed(context, '/addMentorScreen');
+                          Navigator.pushNamed(context, '/uploadPDFScreen');
                         }),
                     createDrawerBodyItem(
                         icon: Icons.publish,
-                        text: 'Uploads',
+                        text: 'Upload Profile Picture',
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => UploadScreen(uid: user?.uid)),
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    UploadScreen(uid: user?.uid)),
                           );
+                        }),
+                    createDrawerBodyItem(
+                        icon: Icons.menu_book,
+                        text: 'Upload Documents',
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FirstPage2()));
                         }),
                     createDrawerBodyItem(
                         icon: Icons.public,
                         text: 'Publications',
                         onTap: () {
-                          Navigator.pushNamed(context, '/publications');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PublicationsScreen()),
+                          );
                         }),
                     createDrawerBodyItem(
                       icon: Icons.exit_to_app,
@@ -168,35 +208,35 @@ class _MyApp2State extends State<MyApp2> {
                   canvasColor: Color.fromRGBO(273, 146, 158, 1),
                 ),
                 child: BottomNavigationBar(
-                    //currentIndex: 0,
-                    type: BottomNavigationBarType.fixed,
-                    unselectedItemColor: Color.fromRGBO(146, 180, 237, 1),
-                    selectedItemColor: Colors.white,
-                    items: [
-                      BottomNavigationBarItem(
-                        title: Text("Home"),
-                        icon: Icon(Icons.home),
-                      ),
-                      BottomNavigationBarItem(
-                        title: Text("Mission"),
-                        icon: Icon(Icons.verified_user),
-                      ),
-                      BottomNavigationBarItem(
-                        title: Text("Thesis"),
-                        icon: Icon(Icons.edit),
-                      ),
-                      BottomNavigationBarItem(
-                        title: Text("Test"),
-                        icon: Icon(Icons.assignment),
-                      ),
-                    ],
+                  //currentIndex: 0,
+                  type: BottomNavigationBarType.fixed,
+                  unselectedItemColor: Color.fromRGBO(146, 180, 237, 1),
+                  selectedItemColor: Colors.white,
+                  items: [
+                    BottomNavigationBarItem(
+                      title: Text("Home"),
+                      icon: Icon(Icons.home),
+                    ),
+                    BottomNavigationBarItem(
+                      title: Text("Mission"),
+                      icon: Icon(Icons.verified_user),
+                    ),
+                    BottomNavigationBarItem(
+                      title: Text("Thesis"),
+                      icon: Icon(Icons.edit),
+                    ),
+                    BottomNavigationBarItem(
+                      title: Text("Test"),
+                      icon: Icon(Icons.assignment),
+                    ),
+                  ],
                   currentIndex: _selectedIndex,
                   //selectedItemColor: Colors.teal,
                   //unselectedItemColor: Colors.grey[600],
                   showUnselectedLabels: true,
                   //type: BottomNavigationBarType.fixed,
                   onTap: _onItemTapped,
-                   ),
+                ),
               ),
             );
           } else {

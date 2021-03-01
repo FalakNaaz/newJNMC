@@ -1,5 +1,30 @@
 import 'package:flutter/material.dart';
-
+Future<void> showMyDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('You can\'t edit this document!'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('This document has been approved by your mentor'),
+              Text('If you still want to edit, tell your mentor to unapprove!'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 InputDecoration textInputDecoration(String labelText) {
   return InputDecoration(
     fillColor: Colors.white,
@@ -23,4 +48,9 @@ TextStyle textStyle(){
     fontSize: 20,
     color:  Colors.black,
   );
+}
+class Constants{
+  Constants._();
+  static const double padding =20;
+  static const double avatarRadius =45;
 }

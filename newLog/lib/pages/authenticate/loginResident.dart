@@ -1,108 +1,6 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:jmnchelogbook/services/auth.dart';
-class LogInResident extends StatefulWidget{
-  @override
-  _LogInResidentState createState() => _LogInResidentState();
-}
-
-class _LogInResidentState extends State<LogInResident> {
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
-        children: <Widget>[
-          Container(
-            height: 330,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/Icon1.png'), fit: BoxFit.fill )),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(children: <Widget>[
-              IconButton(icon: Icon(Icons.person), onPressed: () {},),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(left: 4, right: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: 'Enrollment Number'
-                    ),
-                  ),
-                ),
-              )
-            ],),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(children: <Widget>[
-              IconButton(icon: Icon(Icons.https), onPressed: () {},),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(left: 4, right: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: 'Password'
-                    ),
-                  ),
-                ),
-              )
-            ],),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: ButtonTheme(
-              minWidth: 200,
-              height: 50,
-              child: RaisedButton(onPressed: () async {
-
-               // Navigator.pushNamed(context, '/home');
-                final AuthService _auth = AuthService();
-                dynamic result = await _auth.signInAnon();
-                if(result == null)
-                 {
-                   print('error signing in');
-                 }
-                else
-                  {
-                    print('signed in');
-                    print(result.uid);
-                    Navigator.pushNamed(context, '/home');
-                  }
-
-              },
-                color: Color.fromRGBO(146, 180, 237, 1),
-                child:
-                Text(
-                  'Submit',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
-                ),
-              ),
-            ),
-          ),
-        ],
-    );
-  }
-}
-
-*/
-
-
-
-/*
-import 'package:brew_crew/services/auth.dart';
-import 'package:flutter/material.dart';
-*/
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -124,134 +22,132 @@ class _LogInResidentState extends State<LogInResident> {
   // text field state
   String email = '';
   String password = '';
-  String error = '';
+  String error= '';
+  String hint = '';
+  String warning;
+
+
+  bool validate(){
+    final form = _formKey.currentState;
+    form.save();
+    if(form.validate()){
+      form.save();
+      return true;
+    }else{
+      return false;
+    }
+  }
+  void submit() async {
+    if (validate()) {
+      try {
+
+           await _auth.signInWithEmailAndPassword(email, password);
+         // print("Signed in with Id $uid");
+        }
+       catch (e) {
+        print(e);
+        setState(() {
+          warning = e.message;
+        });
+      }
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    return  loading ? Loading() : Scaffold(
-      resizeToAvoidBottomInset : false,
-      backgroundColor: Colors.white,
-      /*appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-        title: Text('Sign in to Brew Crew'),
-      ),*/
-      body: Container(
-        //padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+
+    final _height = MediaQuery.of(context).size.height;
+    final _width = MediaQuery.of(context).size.width;
+
+    return loading ? Loading() : Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.teal,
+      body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
-              //SizedBox(height: 30.0),
-              Container(
-                height: 20,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/Icon1.png'), fit: BoxFit.fill )),
-              ),
-             /* Padding(
-                padding: const EdgeInsets.all(20),
-                child: ButtonTheme(
-                  minWidth: 200,
-                  height: 50,
-                  child: RaisedButton(
-                      color: Color.fromRGBO(146, 180, 237, 1),
-                      child: Text('Switch to mentor',  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,)),
-                      onPressed: () {
-                        widget.toggleScreen();
-                      }
-                  ),
-                ),
-              ),*/
+              SizedBox(height: _height * 0.025),
+              showAlert(),
+              SizedBox(height: _height * 0.2),
+              buildHeader(),
               SizedBox(height: 20.0),
-              TextFormField(
-                validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                decoration: InputDecoration(
-                    hintText: 'Email ID'
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: TextFormField(
+                  validator: EmailValidator.validate,
+                  style: TextStyle(fontSize: 22.0),
+                  decoration: buildSignUpInputDecoration("Email"),
+                  onSaved: (value) => email = value,
+                  onChanged: (val) {
+                    setState(() {
+                      email = val;
+                    });
+                  },
                 ),
-                onChanged: (val) {
-                  setState(() => email = val);
-                },
               ),
-              SizedBox(height: 20.0),
-              TextFormField(
-                validator: (val) => val.length < 6 ? 'Enter a password 6+ char long' : null,
-                decoration: InputDecoration(
-                    hintText: 'Password'
+              SizedBox(height: _height *0.01),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: TextFormField(
+                  validator: PasswordValidator.validate,
+                  style: TextStyle(fontSize: 22.0),
+                  decoration: buildSignUpInputDecoration("Password"),
+                  obscureText: true,
+                  onSaved: (value) => password = value,
+                  onChanged: (val) {
+                    setState(() {
+                      password = val;
+                    });
+                  },
                 ),
-                obscureText: true,
-                onChanged: (val) {
-                  setState(() => password = val);
-                },
               ),
-              SizedBox(height: 10.0),
-              Text(error,
-                style: TextStyle(color: Colors.red, fontSize: 14.0),
+              SizedBox(height: _height *0.01),
 
-              ),
-              SizedBox(height: 10.0),
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: ButtonTheme(
                   minWidth: 200,
                   height: 50,
-                  child: RaisedButton(onPressed: () async {
-                    if(_formKey.currentState.validate())
-                    {
-                      setState(() {
-                        loading = true;
-                      });
-                      dynamic result = await _auth.signInWithEmailAndPassword(email, password);
-
-                      //print('valid');
-                      if(result == null)
-                      {
-                        setState(() =>
-                        error = 'Incorrect email or password!');
-                        loading = false;
-                      }else {
-                        //Navigator.pushNamed(context, '/home');
-                      }
-                    }
-
-                    // Navigator.pushNamed(context, '/home');
-                  /*  final AuthService _auth = AuthService();
-                    dynamic result = await _auth.signInAnon();
-                    if(result == null)
-                    {
-                      print('error signing in');
-                    }
-                    else
-                    {
-                      print('signed in');
-                      print(result.uid);
-                      print(password);
-                      print(email);
-                      Navigator.pushNamed(context, '/home');
-                    }*/
-
-                  },
-                    color: Color.fromRGBO(146, 180, 237, 1),
+                  child: RaisedButton(
+                    onPressed: submit,
+                    color: Colors.greenAccent,
                     child:
                     Text(
                       'Submit',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                      style: TextStyle(color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,),
                     ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
+                    )
                   ),
                 ),
               ),
-             // SizedBox(height: 5.0),
+
+              FlatButton(
+                child: Text("Forget Password?", style:  TextStyle(color: Colors.white),),
+                onPressed: () {
+
+                },
+              ),
+              // SizedBox(height: 5.0),
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.only(bottom: 30,),
                 child: ButtonTheme(
-                  minWidth: 200,
-                  height: 50,
-                  child: RaisedButton(
-                      color: Color.fromRGBO(146, 180, 237, 1),
-                      child: Text('Register',  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,)),
+                  child: FlatButton(
+                      child: Text('Need an account? Register !', style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,)),
                       onPressed: () {
                         widget.toggleView();
                       }
+
                   ),
                 ),
               ),
@@ -260,6 +156,62 @@ class _LogInResidentState extends State<LogInResident> {
           ),
         ),
       ),
+    );
+  }
+
+  showAlert() {
+    if (warning != null) {
+      return Container(
+        color: Colors.amberAccent,
+        width: double.infinity,
+        padding: EdgeInsets.all(8.0),
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(Icons.error_outline),
+            ),
+            Expanded(child: AutoSizeText(warning, maxLines: 3,)),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
+                      warning = '';
+                    });
+                  }
+              ),
+            )
+          ],
+        ),
+      );
+    }
+    return SizedBox(height: 0,);
+  }
+
+  buildHeader() {
+    return AutoSizeText("Sign In",
+        maxLines: 1,
+        textAlign: TextAlign.center,
+        style: (TextStyle(
+          fontSize: 45.0,
+          color: Colors.white,
+        )
+        )
+    );
+  }
+
+  buildSignUpInputDecoration(String s) {
+    return InputDecoration(
+      hintText: s,
+      filled: true,
+      fillColor: Colors.white,
+      focusColor: Colors.white,
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white, width: 0.0)),
+      contentPadding: const EdgeInsets.only(
+          left: 20.0, bottom: 10.0, top: 10.0),
     );
   }
 }

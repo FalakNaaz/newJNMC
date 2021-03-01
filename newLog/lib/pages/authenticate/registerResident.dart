@@ -1,7 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
+import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 class BaseApp extends StatefulWidget {
   final Function toggleView;
@@ -22,87 +24,152 @@ class _BaseAppState extends State<BaseApp> {
   String role='';
   String error = '';
   bool loading = false;
+  String warning;
+
+  List listItems = [
+    "Resident", "Mentor"
+  ];
+
+
+  bool validate(){
+    final form = _formKey.currentState;
+    form.save();
+    if(form.validate()){
+      form.save();
+      return true;
+    }else{
+      return false;
+    }
+  }
+  void submit() async {
+    if (validate()) {
+      try {
+        await _auth.registerWithEmailAndPassword(email, password,role, name);
+      }
+      catch (e) {
+        print(e);
+        setState(() {
+          warning = e.message;
+        });
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    final _height = MediaQuery.of(context).size.height;
+    final _width = MediaQuery.of(context).size.width;
+
     return  loading ? Loading() : Scaffold(
       resizeToAvoidBottomInset : false,
-      backgroundColor: Colors.white,
-      /*appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-        title: Text('Sign in to Brew Crew'),
-      ),*/
-      body: Container(
-        //padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+      backgroundColor: Colors.teal,
+
+      body: SingleChildScrollView(
+
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
-              //SizedBox(height: 30.0),
-              Container(
-                height: 20,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/Icon1.png'), fit: BoxFit.fill )),
-              ),
-              SizedBox(height: 20.0),
-              TextFormField(
-                validator: (val) => val.isEmpty ? 'Enter your full name' : null,
-                decoration: InputDecoration(
-                    hintText: 'Full Name'
+              SizedBox(height: _height * 0.025),
+              showAlert(),
+              SizedBox(height: _height * 0.06),
+              buildHeader(),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: TextFormField(
+                  validator: NameValidator.validate,
+                  style: TextStyle(fontSize: 22.0),
+                  decoration: buildSignUpInputDecoration("Name"),
+                  onSaved: (value) => name = value,
+                  onChanged: (val) {
+                    setState(() {
+                      name = val;
+                    });
+                  },
                 ),
-                onChanged: (val) {
-                  setState(() => name = val);
-                },
               ),
-              SizedBox(height: 20.0),
-              TextFormField(
-                validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                decoration: InputDecoration(
-                    hintText: 'Email ID'
+              SizedBox(height: _height *0.001),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: TextFormField(
+                  validator: EmailValidator.validate,
+                  style: TextStyle(fontSize: 22.0),
+                  decoration: buildSignUpInputDecoration("Email"),
+                  onSaved: (value) => email = value,
+                  onChanged: (val) {
+                    setState(() {
+                      email = val;
+                    });
+                  },
                 ),
-                onChanged: (val) {
-                  setState(() => email = val);
-                },
               ),
-              TextFormField(
-                validator: (val) => val.length < 6 ? 'Enter a password 6+ char long' : null,
-                decoration: InputDecoration(
-                    hintText: 'Password'
+              SizedBox(height: _height *0.001),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: TextFormField(
+                  validator: PasswordValidator.validate,
+                  style: TextStyle(fontSize: 22.0),
+                  decoration: buildSignUpInputDecoration("Password"),
+                  obscureText: false,
+                  onSaved: (value) => password = value,
+                  onChanged: (val) {
+                    setState(() {
+                      password = val;
+                    });
+                  },
                 ),
-                obscureText: true,
-                onChanged: (val) {
-                  setState(() => password = val);
-                },
+              ),
+              SizedBox(height: _height *0.01),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: TextFormField(
+                  validator: (val) => val != password ? 'Confirm password doesn\'t match' : null,
+                  style: TextStyle(fontSize: 22.0),
+                  decoration: buildSignUpInputDecoration("Confirm Password"),
+                  obscureText: false,
+                  onSaved: (value) => confirmPassword = value,
+                  onChanged: (val) {
+                    setState(() {
+                      confirmPassword = val;
+                    });
+                  },
+                ),
               ),
               SizedBox(height: 10.0),
-              TextFormField(
-                validator: (val) => val != password ? 'confirm password doesn\'t match' : null,
-                decoration: InputDecoration(
-                    hintText: 'Confirm Password'
-                ),
-                obscureText: true,
-                onChanged: (val) {
-                  setState(() => confirmPassword = val);
-                },
-              ),
-              SizedBox(height: 10.0),
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child:DropDownFormField(
+                  titleText: 'My Role',
+                  hintText: 'Please choose your role',
+                  value: role,
+                  onSaved: (value) {
+                    setState(() {
+                      role = value;
+                    });
+                  },
+                  onChanged: (value) {
+                    setState(() {
+                      role = value;
+                    });
+                  },
+                  dataSource: [
+                    {
+                      "display": "Resident",
+                      "value": "resident"
+                    },
+                    {
+                      "display": "Mentor",
+                      "value": "mentor"
+                    },
+                  ],
+                  textField: 'display',
+                  valueField: 'value',
 
-              TextFormField(
-                validator: (val) => val.length <= 0 ? 'Role cannot be empty' : null,
-                decoration: InputDecoration(
-                    hintText: 'role'
                 ),
-                onChanged: (val) {
-                  setState(() => role = val);
-                },
               ),
-              SizedBox(height: 10.0),
-
               Text(error,
                 style: TextStyle(color: Colors.red, fontSize: 14.0),
-
               ),
               SizedBox(height: 10.0),
               Padding(
@@ -110,44 +177,17 @@ class _BaseAppState extends State<BaseApp> {
                 child: ButtonTheme(
                   minWidth: 200,
                   height: 50,
-                  child: RaisedButton(onPressed: () async {
-                    // Navigator.pushNamed(context, '/home');
-                    /*final AuthService _auth = AuthService();
-                    dynamic result = await _auth.signInAnon();
-                    if(result == null)
-                    {
-                      print('error signing in');
-                    }
-                    else
-                    {
-                      print('signed in');
-                      print(result.uid);
-                      print(password);
-                      print(email);
-                      Navigator.pushNamed(context, '/home');
-                    }*/
-                    if(_formKey.currentState.validate())
-                      {
-                        setState(() {
-                          loading = true;
-                        });
-                        dynamic result = await _auth.registerWithEmailAndPassword(email, password,role, name);
-                        if(result == null)
-                          {
-                            setState(() => error = 'Please supply valid email');
-                            loading = false;
-                          }else {
-                          //Navigator.pushNamed(context, '/home');
-                        }
-                      }
-
-                  },
-                    color: Color.fromRGBO(146, 180, 237, 1),
+                  child: RaisedButton(onPressed: submit,
+                    color: Colors.greenAccent,
                     child:
                     Text(
                       'Submit',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20,),
                     ),
+                   shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
+                      )
                   ),
                 ),
               ),
@@ -158,12 +198,15 @@ class _BaseAppState extends State<BaseApp> {
                 child: ButtonTheme(
                   minWidth: 200,
                   height: 50,
-                  child: RaisedButton(
-                      color: Color.fromRGBO(146, 180, 237, 1),
-                      child: Text('Login',  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,)),
+                  child: FlatButton(
+                      child: Text('Already have an account? Sign In!', style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,)),
                       onPressed: () {
                         widget.toggleView();
                       }
+
                   ),
                 ),
               ),
@@ -171,6 +214,62 @@ class _BaseAppState extends State<BaseApp> {
           ),
         ),
       ),
+    );
+  }
+
+  showAlert() {
+    if (warning != null) {
+      return Container(
+        color: Colors.amberAccent,
+        width: double.infinity,
+        padding: EdgeInsets.all(8.0),
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(Icons.error_outline),
+            ),
+            Expanded(child: AutoSizeText(warning, maxLines: 3,)),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
+                      warning = '';
+                    });
+                  }
+              ),
+            )
+          ],
+        ),
+      );
+    }
+    return SizedBox(height: 0,);
+  }
+
+  buildHeader() {
+    return AutoSizeText("Register",
+        maxLines: 1,
+        textAlign: TextAlign.center,
+        style: (TextStyle(
+          fontSize: 45.0,
+          color: Colors.white,
+        )
+        )
+    );
+  }
+
+  buildSignUpInputDecoration(String s) {
+    return InputDecoration(
+      hintText: s,
+      filled: true,
+      fillColor: Colors.white,
+      focusColor: Colors.white,
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white, width: 0.0)),
+      contentPadding: const EdgeInsets.only(
+          left: 20.0, bottom: 10.0, top: 10.0),
     );
   }
 }
