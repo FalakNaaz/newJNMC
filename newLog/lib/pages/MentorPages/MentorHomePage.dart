@@ -38,32 +38,34 @@ class _MentorHomePageState extends State<MentorHomePage> {
                   )
                 ],
               ),
-              body: Column(
-                children: <Widget>[
-                  for (var i in listOfResidentData)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Resident: ${i.name} ',
-                            style: TextStyle(
-                              fontSize: 20.0,
+              body: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    for (var i in listOfResidentData)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Resident: ${i.name} ',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                              ),
                             ),
-                          ),
-                          RaisedButton(
-                              child: Text('Details'),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Detail(uid: i.uid)),
-                                );
-                              })
-                        ],
+                            RaisedButton(
+                                child: Text('Details'),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Detail(uid: i.uid)),
+                                  );
+                                })
+                          ],
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             );
           } else {

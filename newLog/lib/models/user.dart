@@ -65,21 +65,21 @@ class UserData {
 
   UserData(
       {this.uid,
-      this.name,
-      this.dob,
-      this.p_add,
-      this.l_add,
-      this.mob,
-      this.email,
-      this.degreeDetail,
-      this.degreeRecord,
-      this.iDetail,
-      this.other,
-      this.regNo,
-      this.joiningDate,
-      this.appearDate,
-      this.hobby,
-      this.reason});
+        this.name,
+        this.dob,
+        this.p_add,
+        this.l_add,
+        this.mob,
+        this.email,
+        this.degreeDetail,
+        this.degreeRecord,
+        this.iDetail,
+        this.other,
+        this.regNo,
+        this.joiningDate,
+        this.appearDate,
+        this.hobby,
+        this.reason});
 }
 
 class MissionData {
@@ -104,14 +104,14 @@ class PublicationsData {
 
   PublicationsData(
       {this.uid,
-      this.papers,
-      this.conferences,
-      this.social,
-      this.organization,
-      this.achievement,
-      this.isApproved,
-      this.mentorName,
-      this.mentorMail, this.approvalReady});
+        this.papers,
+        this.conferences,
+        this.social,
+        this.organization,
+        this.achievement,
+        this.isApproved,
+        this.mentorName,
+        this.mentorMail, this.approvalReady});
 }
 
 class Trying {
@@ -134,12 +134,12 @@ class CourseModel {
 
   CourseModel(
       {this.details,
-      this.course_name,
-      this.pic_url,
-      this.price,
-      this.master_name,
-      this.master_email,
-      this.course_uid});
+        this.course_name,
+        this.pic_url,
+        this.price,
+        this.master_name,
+        this.master_email,
+        this.course_uid});
 
   factory CourseModel.fromFireStore(DocumentSnapshot doc) {
     Map data = doc.data;
@@ -175,11 +175,11 @@ class PatientData {
 
   PatientData(
       {this.uid,
-      this.date,
-      this.diagnosis,
-      this.level,
-      this.name,
-      this.procedure});
+        this.date,
+        this.diagnosis,
+        this.level,
+        this.name,
+        this.procedure});
 }
 
 class ThesisData {
@@ -202,12 +202,12 @@ class Learning {
 
   Learning(
       {this.uid,
-      this.pdate,
-      this.pname,
-      this.l1,
-      this.l2,
-      this.l3,
-      this.strategy});
+        this.pdate,
+        this.pname,
+        this.l1,
+        this.l2,
+        this.l3,
+        this.strategy});
 }
 
 class Report {
@@ -229,13 +229,13 @@ class ReflectionData1 {
 
   ReflectionData1(
       {this.uid,
-      this.level,
-      this.mKnowledge,
-      this.pCare,
-      this.professionalism,
-      this.iCommunication,
-      this.pImprovement,
-      this.sImprovement});
+        this.level,
+        this.mKnowledge,
+        this.pCare,
+        this.professionalism,
+        this.iCommunication,
+        this.pImprovement,
+        this.sImprovement});
 }
 
 class EndRotation {
