@@ -74,7 +74,7 @@ class _LogInResidentState extends State<LogInResident> {
     final _width = MediaQuery.of(context).size.width;
 
     return loading ? Loading() : Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.teal,
       body: SingleChildScrollView(
           child: Form(
