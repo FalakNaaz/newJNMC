@@ -142,13 +142,22 @@ class _LogInResidentState extends State<LogInResident> {
                     ),
                   ),
                 ),
-
-                FlatButton(
-                  child: Text("Forget Password?", style:  TextStyle(color: Colors.white),),
-                  onPressed: () {
+                RaisedButton(
+                    onPressed:() {
                       forgetPassword();
-
-                  },
+                    },
+                    color: Colors.greenAccent,
+                    child:
+                    Text(
+                      'Forget Password?',
+                      style: TextStyle(color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,),
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
+                    )
                 ),
                 // SizedBox(height: 5.0),
                 Padding(
