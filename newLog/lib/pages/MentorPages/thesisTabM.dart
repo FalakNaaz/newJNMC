@@ -6,12 +6,14 @@ import 'package:jmnchelogbook/pages/home/updateThesis.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:provider/provider.dart';
 
-class ThesisTab extends StatefulWidget {
+class ThesisTabM extends StatefulWidget {
+  final String uid;
+  ThesisTabM({this.uid});
   @override
-  _ThesisTabState createState() => _ThesisTabState();
+  _ThesisTabMState createState() => _ThesisTabMState();
 }
 
-class _ThesisTabState extends State<ThesisTab> {
+class _ThesisTabMState extends State<ThesisTabM> {
   @override
   Widget build(BuildContext context) {
     void _showSettingsPanel(int tabNo) {
@@ -24,7 +26,7 @@ class _ThesisTabState extends State<ThesisTab> {
                 resizeToAvoidBottomInset: true,
                 body: Container(
                   padding:
-                      EdgeInsets.symmetric(vertical: 120.0, horizontal: 15.0),
+                  EdgeInsets.symmetric(vertical: 120.0, horizontal: 15.0),
                   child: UpdateThesis(
                     tabNo: tabNo,
                   ),
@@ -90,9 +92,9 @@ class _ThesisTabState extends State<ThesisTab> {
       );
     }
 
-    final user = Provider.of<User>(context);
+    //final user = Provider.of<User>(context);
     return StreamBuilder<List<ThesisData>>(
-        stream: DatabaseService(uid: user.uid).listOfThesisData,
+        stream: DatabaseService(uid: widget.uid).listOfThesisData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<ThesisData> listOfThesisData = snapshot.data;
@@ -131,11 +133,11 @@ class _ThesisTabState extends State<ThesisTab> {
           } else {
             return Container(
                 child: Center(
-              child: Text(
-                'Loading...',
-                style: TextStyle(fontSize: 30.0),
-              ),
-            ));
+                  child: Text(
+                    'Loading...',
+                    style: TextStyle(fontSize: 30.0),
+                  ),
+                ));
           }
         });
   }

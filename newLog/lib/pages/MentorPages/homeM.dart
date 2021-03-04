@@ -1,6 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/models/user.dart';
+import 'package:jmnchelogbook/pages/MentorPages/cvScreenM.dart';
+import 'package:jmnchelogbook/pages/MentorPages/firstPage2M.dart';
+import 'package:jmnchelogbook/pages/MentorPages/homeTabM.dart';
+import 'package:jmnchelogbook/pages/MentorPages/missionTabM.dart';
+import 'package:jmnchelogbook/pages/MentorPages/publicationsM.dart';
+import 'package:jmnchelogbook/pages/MentorPages/testTabM.dart';
+import 'package:jmnchelogbook/pages/MentorPages/thesisTabM.dart';
+import 'package:jmnchelogbook/pages/MentorPages/uploadScreenM.dart';
 import 'package:jmnchelogbook/pages/PdfFirebase/FirstPage2.dart';
 import 'package:jmnchelogbook/pages/home/homeTab.dart';
 import 'package:jmnchelogbook/pages/home/missionTab.dart';
@@ -13,22 +23,51 @@ import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 import 'package:provider/provider.dart';
 
-class MyApp2 extends StatefulWidget {
+class HomeM extends StatefulWidget {
+  final String uid;
+  HomeM({this.uid});
   @override
-  _MyApp2State createState() => _MyApp2State();
+  _HomeMState createState() => _HomeMState();
 }
 
-class _MyApp2State extends State<MyApp2> {
+class _HomeMState extends State<HomeM> {
+  //String url;
   @override
+  /* void initState() {
+    super.initState();
+    createCollections();
+  }
+  Future createCollections() async {
+    //super.initState();
+    User user = Provider.of<User>(context);
+    //await DatabaseService(uid:user.uid).mastersList();
+    await DatabaseService(uid:user.uid).createTest2('','','','',);
+    await DatabaseService(uid:user.uid).createThesis('A','A','A',);
+    await DatabaseService(uid:user.uid).createRotations();
+    await DatabaseService(uid:user.uid).updateUserData('', '', '', '','','','','','','','','','','','');
+    await DatabaseService(uid:user.uid).updateUserDataForMission(false,'');
+    await DatabaseService(uid:user.uid).updatePublicationsData('', '', '','','');
+  }*/
   final AuthService _auth = AuthService();
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
-    HomeTab(),
-    MissionTab(),
-    ThesisTab(),
-    TestBar(),
-  ];
+  Widget getPage(int index)
+  {
+    switch(index){
+      case 0:
+        return HomeTabM(uid:widget.uid);
+        break;
+       case 1:
+        return MissionTabM(uid:widget.uid);
+        break;
+       case 2:
+        return ThesisTabM(uid:widget.uid);
+        break;
+       case 3:
+        return TestTabM(uid:widget.uid);
+        break;
 
+    }
+  }
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -101,11 +140,11 @@ class _MyApp2State extends State<MyApp2> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+   // final user = Provider.of<User>(context);
 
-     //getUrl(context);
+    //getUrl(context);
     return StreamBuilder<ResidentData>(
-        stream: DatabaseService(uid: user?.uid).residentData,
+        stream: DatabaseService(uid: widget.uid).residentData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             ResidentData residentData = snapshot.data;
@@ -118,7 +157,7 @@ class _MyApp2State extends State<MyApp2> {
                 backgroundColor: Color.fromRGBO(273, 146, 158, 1),
               ),
               body: Center(
-                child: _widgetOptions.elementAt(_selectedIndex),
+                child: getPage(_selectedIndex),
               ),
               drawer: Drawer(
                 child: ListView(
@@ -129,23 +168,34 @@ class _MyApp2State extends State<MyApp2> {
                         icon: Icons.account_circle,
                         text: 'Profile',
                         onTap: () {
-                          Navigator.pushNamed(context, '/CV');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CVScreenM(uid: widget.uid)),
+                          );
                         }),
                     createDrawerBodyItem(
                         icon: Icons.person,
                         text: 'Mentor approval',
                         onTap: () {
-                          Navigator.pushNamed(context, '/uploadPDFScreen');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    UploadScreenM(uid: widget.uid)),
+                          );
                         }),
                     createDrawerBodyItem(
                         icon: Icons.publish,
                         text: 'Upload Profile Picture',
                         onTap: () {
+                         // print(widget.uid);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    UploadScreen(uid: user?.uid)),
+                                    UploadScreenM(uid: widget.uid)),
                           );
                         }),
                     createDrawerBodyItem(
@@ -155,7 +205,7 @@ class _MyApp2State extends State<MyApp2> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FirstPage2()));
+                                  builder: (context) => FirstPage2M(uid: widget.uid)));
                         }),
                     createDrawerBodyItem(
                         icon: Icons.public,
@@ -164,7 +214,7 @@ class _MyApp2State extends State<MyApp2> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PublicationsScreen()),
+                                builder: (context) => PublicationsScreenM(uid: widget.uid)),
                           );
                         }),
                     createDrawerBodyItem(

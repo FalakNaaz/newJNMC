@@ -33,8 +33,7 @@ class _UploadScreenState extends State<UploadScreen> {
         final ref =
             FirebaseStorage.instance.ref().child('images/${widget.uid}.jpeg');
         url = await ref.getDownloadURL();
-      }
-      else{
+      } else {
         url = null;
       }
     } on Exception catch (exception) {
@@ -83,8 +82,7 @@ class _UploadScreenState extends State<UploadScreen> {
                   children: <Widget>[
                     CircleAvatar(
                       radius: 150.0,
-                      backgroundImage:
-                      NetworkImage(url),
+                      backgroundImage: NetworkImage(url),
                       backgroundColor: Colors.transparent,
                     ),
                     Padding(
@@ -99,13 +97,8 @@ class _UploadScreenState extends State<UploadScreen> {
                               style: TextStyle(color: Colors.white),
                             ),
                             onPressed: () async {
-                              /* Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ImageCapture(uid: widget.uid, url: url, callback: callback)),
-                        );*/
-                              await DatabaseService(uid:widget.uid).createImageVar(false);
+                              await DatabaseService(uid: widget.uid)
+                                  .createImageVar(false);
                               setState(() {
                                 FirebaseStorage(
                                         storageBucket:
@@ -113,9 +106,7 @@ class _UploadScreenState extends State<UploadScreen> {
                                     .ref()
                                     .child('images/${widget.uid}.jpeg')
                                     .delete();
-
                               });
-
                             },
                           ),
                           SizedBox(

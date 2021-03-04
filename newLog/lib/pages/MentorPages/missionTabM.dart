@@ -3,22 +3,24 @@ import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:provider/provider.dart';
 
-class MissionTab extends StatefulWidget {
+class MissionTabM extends StatefulWidget {
+  final String uid;
+  MissionTabM({this.uid});
   @override
-  _MissionTabState createState() => _MissionTabState();
+  _MissionTabMState createState() => _MissionTabMState();
 }
 
-class _MissionTabState extends State<MissionTab> {
+class _MissionTabMState extends State<MissionTabM> {
   bool value1 = false;
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    //final user = Provider.of<User>(context);
     return StreamBuilder<MissionData>(
-      stream: DatabaseService(uid: user.uid).missionData,
+      stream: DatabaseService(uid: widget.uid).missionData,
       builder: (context, snapshot1) {
         return StreamBuilder<ResidentData>(
-            stream: DatabaseService(uid: user.uid).residentData,
+            stream: DatabaseService(uid: widget.uid).residentData,
             builder: (context, snapshot2) {
               if (snapshot1.hasData && snapshot2.hasData) {
                 MissionData missionData = snapshot1.data;
@@ -323,7 +325,7 @@ class _MissionTabState extends State<MissionTab> {
                                     onPressed: () async {
                                       setState(() {
                                         if (value1) {
-                                          DatabaseService(uid: user.uid)
+                                          DatabaseService(uid: widget.uid)
                                               .updateUserDataForMission(
                                                   !missionData.agree,
                                                   residentData.name);

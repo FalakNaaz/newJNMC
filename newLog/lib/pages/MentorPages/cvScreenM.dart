@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jmnchelogbook/pages/MentorPages/cvInfoM.dart';
 import 'package:jmnchelogbook/pages/home/update_cv.dart';
 import 'package:jmnchelogbook/pages/home/CV.dart';
 
-class CV_Screen extends StatelessWidget {
+class CVScreenM extends StatelessWidget {
+  final String uid;
+  CVScreenM({this.uid});
   @override
   Widget build(BuildContext context) {
     void _showSettingsPanel() {
@@ -40,7 +43,7 @@ class CV_Screen extends StatelessWidget {
               )),
         ],
       ),
-      body: CV_Info(),
+      body: CVInfoM(uid: uid,),
     );
   }
 }

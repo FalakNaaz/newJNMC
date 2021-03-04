@@ -5,27 +5,17 @@ import 'package:jmnchelogbook/pages/home/updateTest.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:provider/provider.dart';
 
-class TestBar extends StatefulWidget {
+class TestTabM extends StatefulWidget {
+  final String uid;
+  TestTabM({this.uid});
   @override
-  _TestBarState createState() => _TestBarState();
+  _TestTabMState createState() => _TestTabMState();
 }
 
-class _TestBarState extends State<TestBar> {
+class _TestTabMState extends State<TestTabM> {
   String text = '';
   bool shouldDisplay = false;
   DateTime selectedDate = DateTime.now();
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,42 +41,42 @@ class _TestBarState extends State<TestBar> {
         children: <Widget>[
           (testData.date != '')
               ? Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 60, 0, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                          'Date of Test                        :   ${testData.date}'),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Text(
-                          'Result of Test                     :   ${testData.result}'),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Text(
-                          'Self Assessment. How \ndid I perform                       :   ${testData.assessment}'),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Text(
-                          'Reasons for level of \nperformance                         :   ${testData.reason}'),
-                      RaisedButton(
-                        child: Text('Update'),
-                        onPressed: () => _showSettingsPanel(tabNo),
-                      ),
-                    ],
-                  ),
-                )
-              : Center(
-                  child: FlatButton(
-                    onPressed: () => _showSettingsPanel(tabNo),
-                    child: Text('No information available! Tap to Update',
-                        style: TextStyle(
-                            fontStyle: FontStyle.italic, color: Colors.grey)),
-                  ),
+            padding: const EdgeInsets.fromLTRB(20, 60, 0, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                    'Date of Test                        :   ${testData.date}'),
+                SizedBox(
+                  height: 20.0,
                 ),
+                Text(
+                    'Result of Test                     :   ${testData.result}'),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                    'Self Assessment. How \ndid I perform                       :   ${testData.assessment}'),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                    'Reasons for level of \nperformance                         :   ${testData.reason}'),
+                RaisedButton(
+                  child: Text('Update'),
+                  onPressed: () => _showSettingsPanel(tabNo),
+                ),
+              ],
+            ),
+          )
+              : Center(
+            child: FlatButton(
+              onPressed: () => _showSettingsPanel(tabNo),
+              child: Text('No information available! Tap to Update',
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, color: Colors.grey)),
+            ),
+          ),
           SizedBox(
             height: 20.0,
           ),
@@ -94,9 +84,9 @@ class _TestBarState extends State<TestBar> {
       );
     }
 
-    final user = Provider.of<User>(context);
+    //final user = Provider.of<User>(context);
     return StreamBuilder<List<TestData>>(
-        stream: DatabaseService(uid: user.uid).listOfTestData,
+        stream: DatabaseService(uid: widget.uid).listOfTestData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<TestData> listOfTestData = snapshot.data;
@@ -143,11 +133,11 @@ class _TestBarState extends State<TestBar> {
           } else {
             return Container(
                 child: Center(
-              child: Text(
-                'Loading...',
-                style: TextStyle(fontSize: 30.0),
-              ),
-            ));
+                  child: Text(
+                    'Loading...',
+                    style: TextStyle(fontSize: 30.0),
+                  ),
+                ));
           }
         });
   }

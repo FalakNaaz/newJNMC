@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:jmnchelogbook/pages/MentorPages/rotationM.dart';
 import 'package:jmnchelogbook/pages/home/rotation.dart';
 
-class HomeTab extends StatefulWidget {
+class HomeTabM extends StatefulWidget {
+  final String uid;
+  HomeTabM({this.uid});
   @override
-  _HomeTabState createState() => _HomeTabState();
+  _HomeTabMState createState() => _HomeTabMState();
 }
 
-class _HomeTabState extends State<HomeTab> {
+class _HomeTabMState extends State<HomeTabM> {
   int num = 0;
 
   Widget Rotations(int n) {
@@ -36,9 +39,9 @@ class _HomeTabState extends State<HomeTab> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Rotation(
-                            rotationNo: i,
-                          )),
+                      builder: (context) => RotationM(uid: widget.uid,
+                        rotationNo: i,
+                      )),
                 );
               }),
           ],
@@ -71,8 +74,8 @@ class _HomeTabState extends State<HomeTab> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                        // color: Colors.red[500],
-                        ),
+                      // color: Colors.red[500],
+                    ),
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Center(
                   child: Text(
@@ -96,7 +99,7 @@ class _HomeTabState extends State<HomeTab> {
                 children: <Widget>[
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 110.0),
+                    EdgeInsets.symmetric(vertical: 8.0, horizontal: 110.0),
                     child: Text(
                       "Rotations",
                       textAlign: TextAlign.center,

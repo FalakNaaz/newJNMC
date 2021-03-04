@@ -3,14 +3,15 @@ import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:provider/provider.dart';
 
-class CaseRoutineInfo extends StatefulWidget {
+class CaseRoutineInfoM extends StatefulWidget {
+  final String uid;
   final int rotationNo;
-  CaseRoutineInfo({this.rotationNo});
+  CaseRoutineInfoM({this.uid,this.rotationNo});
   @override
-  _CaseRoutineInfoState createState() => _CaseRoutineInfoState();
+  _CaseRoutineInfoMState createState() => _CaseRoutineInfoMState();
 }
 
-class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
+class _CaseRoutineInfoMState extends State<CaseRoutineInfoM> {
   Widget _createTextArea(String label, String text) {
 
     return Container(
@@ -25,17 +26,8 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
 
   @override
   Widget build(BuildContext context) {
-    //final Publications = Provider.of<List<Publications_model>>(context) ?? [];
-    final caseroutine = Provider.of<User>(context);
-
-    // return ListView.builder(
-    //   itemCount: Publications.length,
-    //   itemBuilder: (context, index) {
-    //     return Publications_Tile(Publications_item: Publications[index]);
-    //   },
-    // );
     return StreamBuilder<List<Learning>>(
-        stream: DatabaseService(uid: caseroutine.uid).listOfLearningData,
+        stream: DatabaseService(uid: widget.uid).listOfLearningData,
         builder: (context, snapshot) {
           //print(snapshot.hasData);
           if (snapshot.hasData) {
@@ -64,9 +56,6 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
                                 ),),
                             ),
                           ),
-                          // Text('Falak'),
-                          // Text('Naz'),
-                          //_createTextArea('Name', userData.name),
                           _createTextArea('Posting/Rotation dd/mm/year: ', caseroutineData[widget.rotationNo].pdate),
                           _createTextArea('Preceptor\'s Name: ', caseroutineData[widget.rotationNo].pname),
                           Padding(
@@ -81,13 +70,13 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
                   ),
                 ),
               )
-              :
+                  :
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'No information available! Edit to Update',
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic, color: Colors.grey),
+                  'No information available Yet!',
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, color: Colors.grey),
                 ),
               ),
             );

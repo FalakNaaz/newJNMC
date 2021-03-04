@@ -247,6 +247,14 @@ Future<bool> getImageVar()async{
       'approvalReady': approvalReady,
     });
   }
+   Future updateIsApproved( bool isApproved, String mentorName, String mentorMail) async {
+    return await publicationsCollection.document(uid).updateData({
+      'isApproved': isApproved,
+      'mentorName' : mentorName,
+      'mentorMail' : mentorMail,
+    });
+  }
+
 Future updatePatientDoc(int rNo, int pNo, String date, String name, String diagnosis, String procedure, String level) async {
     return await rotation2.document(uid).collection('log').document('Rotation$rNo').updateData({
       'Patient$pNo': {

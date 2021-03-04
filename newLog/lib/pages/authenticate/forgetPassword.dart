@@ -36,7 +36,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   void submit() async {
     if (validate()) {
       try {
-        String uid = await _auth.sendPasswordRestEmail(email);
+         await _auth.sendPasswordRestEmail(email);
       }
       catch (e) {
         print(e);

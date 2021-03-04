@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 
@@ -35,10 +38,12 @@ class _LogInResidentState extends State<LogInResident> {
   }
   void submit() async {
     if (validate()) {
-      try { await _auth.signInWithEmailAndPassword(email, password);
-
+      try {
+         await _auth.signInWithEmailAndPassword(email, password);
+        //print("Signed in with Id $uid");
       }
       catch (e) {
+        print(e);
         setState(() {
           warning = e.message;
         });
@@ -49,7 +54,7 @@ class _LogInResidentState extends State<LogInResident> {
   void forgetPassword() async {
     if (validate()) {
       try {
-        String uid = await _auth.sendPasswordRestEmail(email);
+         await _auth.sendPasswordRestEmail(email);
         warning = "Password reset lik has been sent to $email";
       }
       catch (e) {
@@ -69,7 +74,7 @@ class _LogInResidentState extends State<LogInResident> {
     final _width = MediaQuery.of(context).size.width;
 
     return loading ? Loading() : Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.teal,
       body: SingleChildScrollView(
         child: Form(
@@ -137,13 +142,22 @@ class _LogInResidentState extends State<LogInResident> {
                   ),
                 ),
               ),
-
-              FlatButton(
-                child: Text("Forget Password?", style:  TextStyle(color: Colors.white),),
-                onPressed: () {
-                  forgetPassword();
-
-                },
+              RaisedButton(
+                  onPressed:() {
+                    forgetPassword();
+                  },
+                  color: Colors.greenAccent,
+                  child:
+                  Text(
+                    'Forget Password?',
+                    style: TextStyle(color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,),
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
+                  )
               ),
               // SizedBox(height: 5.0),
               Padding(

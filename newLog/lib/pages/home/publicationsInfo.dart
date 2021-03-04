@@ -10,22 +10,12 @@ class PublicationsInfo extends StatefulWidget {
 
 class _PublicationsInfoState extends State<PublicationsInfo> {
 
-  Widget _createTextArea(String label, String text) {
-    return Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-        child: RichText(
-          text: TextSpan(
-            text: '$label: ',
-            style: TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(273, 146, 158, 1), fontSize: 16),
-            children: <TextSpan>[
-              TextSpan(text: text, style: TextStyle(fontWeight: FontWeight.normal,color: Colors.black, fontSize: 16)),
-            ],
-          ),
-        )
-    );
+  TextStyle textStyle(){
+    return TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(273, 146, 158, 1), fontSize: 14);
   }
   @override
   Widget build(BuildContext context) {
+    const rowSpacer=TableRow( children: [ SizedBox( height: 12, ), SizedBox( height: 12, ), SizedBox( height: 12, ) ]);
     final publications = Provider.of<User>(context) ;
     return StreamBuilder<PublicationsData>(
         stream: DatabaseService(uid: publications.uid).publicationsData,
@@ -45,11 +35,65 @@ class _PublicationsInfoState extends State<PublicationsInfo> {
                 child:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start ,
                     children: <Widget>[
-                      _createTextArea('Papers Published/ Communicated', publicationsData.papers),
-                      _createTextArea('Conferences/CMEs/Workshops attended', publicationsData.conferences),
-                      _createTextArea('Outreach activity/Social Work', publicationsData.social),
-                      _createTextArea('Organisational Experience', publicationsData.organization),
-                      _createTextArea('Any other achievement/Awards', publicationsData.achievement),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Table(
+
+                          columnWidths: {
+                            0: FlexColumnWidth(8),
+                            1: FlexColumnWidth(1),
+                            2: FlexColumnWidth(1),
+                          },
+                          // textDirection: TextDirection.rtl,
+                          //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                          // border:TableBorder.all(width: 2.0,color: Colors.red),
+                          children: [
+
+                            TableRow(
+                                children: [
+                                  Text("Papers Published/ Communicated",textScaleFactor: 1.5,style:textStyle()),
+                                  Text(":",textScaleFactor: 1.5,),
+                                  Text(publicationsData.papers,textScaleFactor: 1.5),
+                                  //Text("University",textScaleFactor: 1.5),
+                                ]
+                            ),
+                            rowSpacer,
+                            TableRow(
+                                children: [
+                                  Text("Conferences/CMEs/Workshops attended",textScaleFactor: 1.5,style:textStyle()),
+                                  Text(":",textScaleFactor: 1.5,),
+                                  Text(publicationsData.conferences,textScaleFactor: 1.5),
+                                  //Text("AKTU",textScaleFactor: 1.5),
+                                ]
+                            ),
+                            rowSpacer,
+                            TableRow(
+                                children: [
+                                  Text("Outreach activity/Social Work",textScaleFactor: 1.5,style:textStyle()),
+                                  Text(":",textScaleFactor: 1.5,),
+                                  Text(publicationsData.social,textScaleFactor: 1.5),
+
+                                ]
+                            ),
+                            rowSpacer,
+                            TableRow(
+                                children: [
+                                  Text("Organisational Experience",textScaleFactor: 1.5,style:textStyle()),
+                                  Text(":",textScaleFactor: 1.5,),
+                                  Text(publicationsData.organization,textScaleFactor: 1.5),
+                                ]
+                            ),
+                            rowSpacer,
+                            TableRow(
+                                children: [
+                                  Text("Any other achievement/Awards",textScaleFactor: 1.5,style:textStyle()),
+                                  Text(":",textScaleFactor: 1.5,),
+                                  Text(publicationsData.achievement,textScaleFactor: 1.5),
+                                ]
+                            ),
+                          ],
+                        ),
+                      ),
                       (publicationsData.isApproved) ?
                       Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -91,12 +135,20 @@ class _PublicationsInfoState extends State<PublicationsInfo> {
                       (!publicationsData.approvalReady) ?
                         Center(
                           child: RaisedButton(
-                              child: Text('Get Approved'),
+                              color: Color.fromRGBO(273, 146, 158, 1),
+                              child: Text(
+                                'Get Approved',
+                                style: TextStyle(color: Colors.white),
+                              ),
                               onPressed: ()async {await DatabaseService(uid: publications.uid).updateApprovalReady(true); }
                           ),
                         ) : Center(
                           child: RaisedButton(
-                              child: Text('Pending'),
+                              color: Color.fromRGBO(273, 146, 158, 1),
+                              child: Text(
+                                'Pending',
+                                style: TextStyle(color: Colors.white),
+                              ),
                               onPressed: ()async {await DatabaseService(uid: publications.uid).updateApprovalReady(false); }
                           ),
                         )

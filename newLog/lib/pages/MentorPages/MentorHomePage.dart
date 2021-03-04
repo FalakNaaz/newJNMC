@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/MentorPages/DetailPage.dart';
 import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
+import 'package:jmnchelogbook/pages/MentorPages/homeM.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:provider/provider.dart';
@@ -41,29 +42,23 @@ class _MentorHomePageState extends State<MentorHomePage> {
               body: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text("Resident Doctor's"),
                     for (var i in listOfResidentData)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Resident: ${i.name} ',
-                              style: TextStyle(
-                                fontSize: 20.0,
-                              ),
-                            ),
-                            RaisedButton(
-                                child: Text('Details'),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Detail(uid: i.uid)),
-                                  );
-                                })
-                          ],
-                        ),
+                      MyDetails(
+                          onTap:() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeM(uid: i.uid)),
+                            );
+                          },
+                          title: i.name,
+                          subtitle: i.email
                       ),
+
                   ],
                 ),
               ),
@@ -73,4 +68,24 @@ class _MentorHomePageState extends State<MentorHomePage> {
           }
         });
   }
+}
+
+Widget MyDetails({@required VoidCallback onTap, @required String title, @required String subtitle}){
+  return  GestureDetector(
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        color: Colors.cyan[50],
+        shadowColor: Colors.blueGrey,
+        child:ListTile(
+            leading:  Icon(Icons.account_circle, size: 35, color: Colors.blue,),
+            title: Text(title, style: TextStyle(color: Colors.black),),
+            subtitle: Text(subtitle),
+            //selected: true,
+            onTap: onTap
+        ),
+
+      ),
+    ),
+  );
 }
