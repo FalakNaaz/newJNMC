@@ -49,7 +49,7 @@ class _UpdatePatientState extends State<UpdatePatient> {
                     Text(
                       'Update your Patient Info',
                       style: TextStyle(fontSize: 20.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.w600),
 
                     ),
@@ -111,7 +111,7 @@ class _UpdatePatientState extends State<UpdatePatient> {
                       height: 20.0,
                     ),
                     RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Text(
                         'update',
                         style: TextStyle(color: Colors.white),

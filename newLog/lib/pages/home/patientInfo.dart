@@ -43,7 +43,7 @@ class _PatientInfoState extends State<PatientInfo> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text('Patient Info'),
-        backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+        backgroundColor: Colors.teal,
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: DatabaseService(uid: user.uid).listOfPatientData,
@@ -79,7 +79,7 @@ class _PatientInfoState extends State<PatientInfo> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 25.0,
-                                    color:  Color.fromRGBO(273, 146, 158, 1),
+                                    color:  Colors.teal,
                                     decoration: TextDecoration.underline,
                                   ),),
                                 Text('Patient #${widget.patientNo}',
@@ -87,7 +87,7 @@ class _PatientInfoState extends State<PatientInfo> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 25.0,
-                                    color:  Color.fromRGBO(273, 146, 158, 1),
+                                    color:  Colors.teal,
                                     decoration: TextDecoration.underline,
                                   ),),
                                 SizedBox(height: 40.0,),
@@ -161,28 +161,65 @@ class _PatientInfoState extends State<PatientInfo> {
                                     ],
                                   ),
                                 ),
-                              ],
-                              /* mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: snapshot.data.documents.map((DocumentSnapshot document) {
-                              if(document.documentID == 'Rotation${widget.rotationNo}')
-                                return Column(
-                                    //mainAxisAlignment: MainAxisAlignment.center,
+                                (documentSnapshot .data['Patient${widget.patientNo}'] ['isApproved']) ?
+                                Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          Text('Approved',textScaleFactor: 1.5,),
+                                          Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          Text('Mentor Name: ${documentSnapshot .data['Patient${widget.patientNo}'] ['mentorName']}'),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          RichText(
+                                              text: TextSpan(
+                                                  text: 'Mentor Email: ',
+                                                  style: DefaultTextStyle.of(context).style,
+                                                  children: <TextSpan>[
+                                                    TextSpan(text:documentSnapshot.data['Patient${widget.patientNo}']['mentorMail'],style: TextStyle(color: Colors.teal) )
+                                                  ]
 
-                                    children: [
-                                      new Text(document.data['Patient${widget.patientNo}']['date']),
-                                      new Text(document.data['Patient${widget.patientNo}']['name']),
-                                      new Text(document.data['Patient${widget.patientNo}']['diagnosis']),
-                                      new Text(document.data['Patient${widget.patientNo}']['level']),
-                                      new Text(document.data['Patient${widget.patientNo}']['procedure']),
+
+                                              )
+                                          ),
+                                        ],
+                                      )
                                     ],
-                                  );
-                                  //subtitle: new Text(document.data['company']),
-                                 // onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => PatientInfo(rotationNo: widget.rotationNo,patientNo: 1,))),
-
-                              else
-                                return Container();
-                            }).toList(),*/
+                                  ),
+                                ):
+                                (!documentSnapshot .data['Patient${widget.patientNo}'] ['approvalReady']) ?
+                                Center(
+                                  child: RaisedButton(
+                                      color: Colors.teal,
+                                      child: Text(
+                                        'Get Approved',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyLog(widget.rotationNo, widget.patientNo,true); }
+                                  ),
+                                ) : Center(
+                                  child: RaisedButton(
+                                      color: Colors.teal,
+                                      child: Text(
+                                        'Pending',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyLog(widget.rotationNo, widget.patientNo,false); }
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
@@ -201,6 +238,7 @@ class _PatientInfoState extends State<PatientInfo> {
             }
           }),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.teal,
         child: IconButton(icon: Icon(Icons.edit)),
         onPressed: ()  {
           _showSettingsPanel();

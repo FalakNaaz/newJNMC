@@ -17,7 +17,7 @@ class _CV_InfoState extends State<CV_Info> {
       child: RichText(
         text: TextSpan(
           text: '$label: ',
-            style: TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(273, 146, 158, 1), fontSize: 16),
+            style: TextStyle(fontWeight: FontWeight.w600,color: Colors.teal, fontSize: 16),
           children: <TextSpan>[
             TextSpan(text: text, style: TextStyle(fontWeight: FontWeight.normal,color: Colors.black, fontSize: 16)),
           ],
@@ -114,6 +114,64 @@ class _CV_InfoState extends State<CV_Info> {
                             _createTextArea(
                                 'Special Interest / Hobbies and Extra Curricular  Activities: ',
                                 userData.hobby),
+                            (userData.isApproved) ?
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text('Approved',textScaleFactor: 1.5,),
+                                      Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text('Mentor Name: ${userData.mentorName}'),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      RichText(
+                                          text: TextSpan(
+                                              text: 'Mentor Email: ',
+                                              style: DefaultTextStyle.of(context).style,
+                                              children: <TextSpan>[
+                                                TextSpan(text:userData.mentorMail,style: TextStyle(color: Colors.teal) )
+                                              ]
+
+
+                                          )
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ):
+                            (!userData.approvalReady) ?
+                            Center(
+                              child: RaisedButton(
+                                  color: Colors.teal,
+                                  child: Text(
+                                    'Get Approved',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyCV(true); }
+                              ),
+                            ) : Center(
+                              child: RaisedButton(
+                                  color: Colors.teal,
+                                  child: Text(
+                                    'Pending',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyCV(false); }
+                              ),
+                            )
                           ]),
                     ),
                   );

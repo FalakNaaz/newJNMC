@@ -1,10 +1,8 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/uploads.dart';
 import 'package:jmnchelogbook/services/database.dart';
-import 'package:provider/provider.dart';
 
 class UploadScreenM extends StatefulWidget {
   final String uid;
@@ -82,7 +80,7 @@ class _UploadScreenMState extends State<UploadScreenM> {
         return Scaffold(
           appBar: AppBar(
             title: Text('JNMCH eLogBook'),
-            backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+            backgroundColor: Colors.teal,
           ),
           body: (snapshot.hasData) ?
           url == 'noUrl'
@@ -105,10 +103,13 @@ class _UploadScreenMState extends State<UploadScreenM> {
               : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              CircleAvatar(
-                radius: 150.0,
-                backgroundImage: NetworkImage(url),
-                backgroundColor: Colors.transparent,
+              FittedBox(
+                fit: BoxFit.fitHeight,
+                child: CircleAvatar(
+                  radius: 150.0,
+                  backgroundImage: NetworkImage(url),
+                  backgroundColor: Colors.transparent,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -116,7 +117,7 @@ class _UploadScreenMState extends State<UploadScreenM> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Text(
                         'Remove',
                         style: TextStyle(color: Colors.white),
@@ -138,7 +139,7 @@ class _UploadScreenMState extends State<UploadScreenM> {
                       width: 10,
                     ),
                     RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Text(
                         'Re-upload',
                         style: TextStyle(color: Colors.white),

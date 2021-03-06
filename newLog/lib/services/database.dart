@@ -1,9 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:jmnchelogbook/models/user.dart';
-import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
-import 'package:jmnchelogbook/services/auth.dart';
 
 class DatabaseService {
   final String uid;
@@ -26,75 +22,121 @@ class DatabaseService {
       Firestore.instance.collection('Rotation2');
   final CollectionReference thesisCollection =
       Firestore.instance.collection('thesisCollection3');
-final CollectionReference listOfUsersCollectionForMentor =
+  final CollectionReference listOfUsersCollectionForMentor =
       Firestore.instance.collection('listOfUsersCollectionForMentor');
-final CollectionReference listOfUsersCollectionForResident =
+  final CollectionReference listOfUsersCollectionForResident =
       Firestore.instance.collection('listOfUsersCollectionForResident');
-final CollectionReference imageVar = Firestore.instance.collection('ImageVar');
+  final CollectionReference imageVar =
+      Firestore.instance.collection('ImageVar');
+ final CollectionReference securityCollection =
+      Firestore.instance.collection('SecurityKeyCollection');
+
   //final CollectionReference caseroutineCollection = Firestore.instance.collection('caseroutineCollection');
 
-  Future<void> createImageVar(bool bool)async {
-  await imageVar.document(uid).setData({
-    'hasImage' : bool,
-  });
-}
-Future<bool> getImageVar()async{
-  return await imageVar.document(uid).get().then((value) {
-    print(value.data['hasImage']);
-    return value.data['hasImage'];
-  });
-}
+  Future<void> createImageVar(bool bool) async {
+    await imageVar.document(uid).setData({
+      'hasImage': bool,
+    });
+  }
+
+  Future<bool> getImageVar() async {
+    return await imageVar.document(uid).get().then((value) {
+      print(value.data['hasImage']);
+      return value.data['hasImage'];
+    });
+  }
+
+  Future<String> getMentorSecurityKey() async {
+    return await securityCollection.document('doc').get().then((value) {
+      return value.data['mentorKey'];
+    });
+  }
+ Future<String> getResidentSecurityKey() async {
+    return await securityCollection.document('doc').get().then((value) {
+      return value.data['residentKey'];
+    });
+  }
+
   Future<void> createTest2(
-      String date, String result, String asses, String reason) async {
+      bool approvalReady,
+      bool isApproved,
+      String mentorName,
+      String mentorMail,
+      String date,
+      String result,
+      String asses,
+      String reason) async {
     for (int i = 0; i < 4; i++)
       await test2
           .document(uid)
           .collection('tabs')
           .document(i.toString())
           .setData({
+        'approvalReady': approvalReady,
+        'isApproved': isApproved,
+        'mentorName': mentorName,
+        'mentorMail': mentorMail,
         'date': date,
         'result': result,
         'assessment': asses,
         'reason': reason,
       });
   }
-  Future<void> updateListForMentor(String email, String uid, String name) async {
+
+  Future<void> updateListForMentor(
+      String email, String uid, String name) async {
     await listOfUsersCollectionForMentor.document(uid).setData({
       'email': email,
-      'uid' : uid,
-      'name' : name,
+      'uid': uid,
+      'name': name,
     });
   }
+
 /*   Future<void> addResidentForMentor( String resident) async {
     await listOfUsersCollectionForMentor.document(uid).updateData({
       'resident': resident,
     });
   }*/
 
-  Future<void> updateListForResident(String email, String uid, String name) async {
+  Future<void> updateListForResident(
+      String email, String uid, String name) async {
     await listOfUsersCollectionForResident.document(uid).setData({
       'email': email,
-      'uid' : uid,
-      'name' : name,
+      'uid': uid,
+      'name': name,
     });
   }
-  Future<void> createThesis(String consult, String collect, String pre) async {
+
+  Future<void> createThesis(
+      String consult,
+      String collect,
+      String pre,
+      bool approvalReady,
+      bool isApproved,
+      String mentorName,
+      String mentorMail) async {
     for (int i = 0; i < 4; i++)
       await thesisCollection
           .document(uid)
           .collection('tabs')
           .document(i.toString())
           .setData({
+        'approvalReady': approvalReady,
+        'isApproved': isApproved,
+        'mentorName': mentorName,
+        'mentorMail': mentorMail,
         'consult': consult,
         'collect': collect,
         'pre': pre,
       });
   }
+
   Future<void> createRole(String role) async {
     await roleCollection.document(uid).setData({
       'role': role,
-    }); 
+    });
   }
+
   Future<void> createRotations() async {
     for (int i = 0; i < 6; i++) {
       //await rotation2.document(uid).setData({'text': 'dummy'});
@@ -109,13 +151,17 @@ Future<bool> getImageVar()async{
         'l2': '',
         'l3': '',
         'strategy': '',
+        'approvalReady': false,
+        'isApproved': false,
+        'mentorName': '',
+        'mentorMail': '',
       });
       await rotation2
           .document(uid)
           .collection('log')
           .document('Rotation$i')
           .setData({
-        'no' : 0,
+        'no': 0,
       });
       await rotation2
           .document(uid)
@@ -123,6 +169,10 @@ Future<bool> getImageVar()async{
           .document('Rotation$i')
           .setData({
         'reportText': '',
+        'approvalReady': false,
+        'isApproved': false,
+        'mentorName': '',
+        'mentorMail': '',
       });
       await rotation2
           .document(uid)
@@ -143,7 +193,10 @@ Future<bool> getImageVar()async{
         'informedL': '1',
         'patientSafetyL': '1',
         'systemImpL': '1',
-
+        'approvalReady': false,
+        'isApproved': false,
+        'mentorName': '',
+        'mentorMail': '',
       });
       await rotation2
           .document(uid)
@@ -157,6 +210,10 @@ Future<bool> getImageVar()async{
         'iCommunication': '1',
         'pImprovement': '1',
         'sImprovement': '1',
+        'approvalReady': false,
+        'isApproved': false,
+        'mentorName': '',
+        'mentorMail': '',
       });
     }
   }
@@ -164,11 +221,131 @@ Future<bool> getImageVar()async{
   Future<void> updateTest2(String tabNo, String date, String result,
       String asses, String reason) async {
     //for(int i=1; i<=4;i++)
-    await test2.document(uid).collection('tabs').document(tabNo).setData({
+    await test2.document(uid).collection('tabs').document(tabNo).updateData({
       'date': date,
       'result': result,
       'assessment': asses,
       'reason': reason,
+    });
+  }
+
+  Future updateApprovalReadyTest(String tabNo, bool approvalReady) async {
+    return await test2
+        .document(uid)
+        .collection('tabs')
+        .document(tabNo)
+        .updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedTest(String tabNo, bool isApproved, String mentorName,
+      String mentorMail) async {
+    return await test2
+        .document(uid)
+        .collection('tabs')
+        .document(tabNo)
+        .updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
+    });
+  }
+
+  Future updateApprovalReadyLearning(
+      String rotationNo, bool approvalReady) async {
+    print('Rotation$rotationNo');
+    return await rotation2
+        .document(uid)
+        .collection('learning')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedLearning(String rotationNo, bool isApproved,
+      String mentorName, String mentorMail) async {
+    return await rotation2
+        .document(uid)
+        .collection('learning')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
+    });
+  }
+
+  Future updateApprovalReadyReport(
+      String rotationNo, bool approvalReady) async {
+    return await rotation2
+        .document(uid)
+        .collection('report')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedReport(String rotationNo, bool isApproved,
+      String mentorName, String mentorMail) async {
+    return await rotation2
+        .document(uid)
+        .collection('report')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
+    });
+  }
+
+  Future updateApprovalReadyReflection(
+      String rotationNo, bool approvalReady) async {
+    return await rotation2
+        .document(uid)
+        .collection('reflection')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedReflection(String rotationNo, bool isApproved,
+      String mentorName, String mentorMail) async {
+    return await rotation2
+        .document(uid)
+        .collection('reflection')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
+    });
+  }
+
+  Future updateApprovalReadyEndRotation(
+      String rotationNo, bool approvalReady) async {
+    return await rotation2
+        .document(uid)
+        .collection('assessment')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedEndRotation(String rotationNo, bool isApproved,
+      String mentorName, String mentorMail) async {
+    return await rotation2
+        .document(uid)
+        .collection('assessment')
+        .document('Rotation$rotationNo')
+        .updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
     });
   }
 
@@ -178,14 +355,41 @@ Future<bool> getImageVar()async{
         .document(uid)
         .collection('tabs')
         .document(tabNo)
-        .setData({
+        .updateData({
       'consult': consult,
       'collect': collect,
       'pre': pre,
     });
   }
 
+  Future updateApprovalReadyThesis(String tabNo, bool approvalReady) async {
+    return await thesisCollection
+        .document(uid)
+        .collection('tabs')
+        .document(tabNo)
+        .updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedThesis(String tabNo, bool isApproved,
+      String mentorName, String mentorMail) async {
+    return await thesisCollection
+        .document(uid)
+        .collection('tabs')
+        .document(tabNo)
+        .updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
+    });
+  }
+
   Future updateUserData(
+      bool approvalReady,
+      bool isApproved,
+      String mentorName,
+      String mentorMail,
       String name,
       String dob,
       String p_add,
@@ -202,6 +406,10 @@ Future<bool> getImageVar()async{
       String hobby,
       String reason) async {
     return await CVCollection.document(uid).setData({
+      'approvalReady': approvalReady,
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
       'name': name,
       'dob': dob,
       'p_add': p_add,
@@ -220,6 +428,21 @@ Future<bool> getImageVar()async{
     });
   }
 
+  Future updateApprovalReadyCV(bool approvalReady) async {
+    return await CVCollection.document(uid).updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedCV(
+      bool isApproved, String mentorName, String mentorMail) async {
+    return await CVCollection.document(uid).updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
+    });
+  }
+
   Future updateUserDataForMission(bool agree, String sign) async {
     return await missionCollection.document(uid).setData({
       'agree': agree,
@@ -227,13 +450,20 @@ Future<bool> getImageVar()async{
     });
   }
 
-  Future updatePublicationsData(bool isApproved, String mentorName, String mentorMail, String papers, String conferences,
-      String social, String organization, String achievement, bool approvalReady) async {
+  Future updatePublicationsData(
+      bool isApproved,
+      String mentorName,
+      String mentorMail,
+      String papers,
+      String conferences,
+      String social,
+      String organization,
+      String achievement,
+      bool approvalReady) async {
     return await publicationsCollection.document(uid).setData({
-
-      'isApproved' : isApproved,
-      'mentorName' : mentorName,
-      'mentorMail' : mentorMail,
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
       'papers': papers,
       'conferences': conferences,
       'social': social,
@@ -242,55 +472,80 @@ Future<bool> getImageVar()async{
       'approvalReady': approvalReady,
     });
   }
-  Future updateApprovalReady( bool approvalReady) async {
+
+  Future updateApprovalReady(bool approvalReady) async {
     return await publicationsCollection.document(uid).updateData({
       'approvalReady': approvalReady,
     });
   }
-   Future updateIsApproved( bool isApproved, String mentorName, String mentorMail) async {
+
+  Future updateIsApproved(
+      bool isApproved, String mentorName, String mentorMail) async {
     return await publicationsCollection.document(uid).updateData({
       'isApproved': isApproved,
-      'mentorName' : mentorName,
-      'mentorMail' : mentorMail,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
     });
   }
 
-Future updatePatientDoc(int rNo, int pNo, String date, String name, String diagnosis, String procedure, String level) async {
-    return await rotation2.document(uid).collection('log').document('Rotation$rNo').updateData({
-      'Patient$pNo': {
-        'date': date,
-        'diagnosis': diagnosis,
-        'level': level,
-        'name': name,
-        'procedure': procedure,
-      }
-    });
-  }
-Future deletePatientDoc(int rNo, int pNo,) async {
-    return await rotation2.document(uid).collection('log').document('Rotation$rNo').updateData({
-      'Patient$pNo': FieldValue.delete()
-
+  Future updateApprovalReadyLog(int rNo, int pNo, bool approvalReady) async {
+    print('from updateApprovalReadyLog');
+    print('$rNo $pNo $approvalReady');
+    return await rotation2
+        .document(uid)
+        .collection('log')
+        .document('Rotation$rNo')
+        .updateData({
+      'Patient$pNo.approvalReady': approvalReady,
     });
   }
 
-  /*Future updateTestData(String date, String result, String assessment, String goals) async
-  {
-    //await DatabaseService(uid:uid).createTest2('dummyData','dummyData','dummyData','dummyData',);
-    //await DatabaseService(uid:uid).updateTest2('2','newData','newData','newData','newData',);
-    return await testCollection.document(uid).setData({
-      'date' : date,
-      'result' : result,
-      'assessment' : assessment,
-      'goals' : goals,
+  Future updateIsApprovedLog(int rNo, int pNo, bool isApproved,
+      String mentorName, String mentorMail) async {
+    return await rotation2
+        .document(uid)
+        .collection('log')
+        .document('Rotation$rNo')
+        .updateData({
+      'Patient$pNo.isApproved': isApproved,
+      'Patient$pNo.mentorName': mentorName,
+      'Patient$pNo.mentorMail': mentorMail,
     });
+  }
+
+  Future updatePatientDoc(int rNo, int pNo, String date, String name,
+      String diagnosis, String procedure, String level) async {
+    return await rotation2
+        .document(uid)
+        .collection('log')
+        .document('Rotation$rNo')
+        .updateData({
+      'Patient$pNo.date': date,
+      'Patient$pNo.diagnosis': diagnosis,
+      'Patient$pNo.level': level,
+      'Patient$pNo.name': name,
+      'Patient$pNo.procedure': procedure,
+    });
+  }
+
+/*  Future deletePatientDoc(
+    int rNo,
+    int pNo,
+  ) async {
+    return await rotation2
+        .document(uid)
+        .collection('log')
+        .document('Rotation$rNo')
+        .updateData({'Patient$pNo': FieldValue.delete()});
   }*/
+
   Future updateCaseroutineData(int rotationNo, String pdate, String pname,
       String l1, String l2, String l3, String strategy) async {
     return await rotation2
         .document(uid)
         .collection('learning')
         .document('Rotation$rotationNo')
-        .setData({
+        .updateData({
       'pdate': pdate,
       'pname': pname,
       'l1': l1,
@@ -299,85 +554,37 @@ Future deletePatientDoc(int rNo, int pNo,) async {
       'strategy': strategy,
     });
   }
-  Future incrementPatientDoc(int rotationNo)async {
-    int no ;
+
+  Future incrementPatientDoc(int rotationNo) async {
+    int no;
     await rotation2
         .document(uid)
         .collection('log')
-        .document('Rotation$rotationNo').get().then((querySnapshot) {
+        .document('Rotation$rotationNo')
+        .get()
+        .then((querySnapshot) {
       no = querySnapshot.data['no'];
     });
     ++no;
-   // for(int i=0; i<6;i++){
-   /* Firestore.instance.collection('rotation2').getDocuments().then((querySnapshot) {
-      querySnapshot.documents.forEach((result) {
-        print('result.data is');
-        print(result.data);
-      });
-    });*/
-    /*Firestore.instance.collection('Rotation2')
-        .document(uid)
-        .collection('log')
-        .document('Rotation$rotationNo')
-        .get().then((querySnapshot) {
-      print('from incrementdoc querySnapshot.data is');
-      print(querySnapshot.data);
-    });*/
-   /* Firestore.instance.collection('1collection')
-        .document('1doc')
-        .collection('2collection')
-        .document('2doc')
-        .collection('3collection')
-        .document('3doc')
-        .get().then((querySnapshot) {
-      print('querySnapshot.data is');
-      print(querySnapshot.data);
-    });*/
-   /* Firestore.instance.collection('rotation2')
-        .document(uid)
-        .collection('learning')
-        .document('Rotation0')
-        //.collection('allPatients')
-        //.document('patient1')
-        .get().then((querySnapshot) {
-      print('querySnapshot.data is');
-      print(querySnapshot.data);
-    });*/
-      return await rotation2
-          .document(uid)
-          .collection('log')
-          .document('Rotation$rotationNo')
-          .updateData({
-        'no': no,
-        'Patient$no': {
-          'date': '',
-          'name': '',
-          'diagnosis': '',
-          'procedure': '',
-          'level': '',
-        }
-      });
-    //}
-
-  }
-/*Future updatePatientNo(int rotationNo) async {
-  int no ;
-  await rotation2
-      .document(uid)
-      .collection('log')
-      .document('Rotation$rotationNo').get().then((querySnapshot) {
-    no = querySnapshot.data['no'];
-  });
-  ++no;
-  incrementPatientDoc(rotationNo, no);
     return await rotation2
         .document(uid)
         .collection('log')
         .document('Rotation$rotationNo')
         .updateData({
       'no': no,
+      'Patient$no': {
+        'date': '',
+        'name': '',
+        'diagnosis': '',
+        'procedure': '',
+        'level': '',
+        'approvalReady': false,
+        'isApproved': false,
+        'mentorName': '',
+        'mentorMail': '',
+      }
     });
-  }*/
+  }
 
   Future updateEndRotation(
       int rotationNo,
@@ -413,36 +620,35 @@ Future deletePatientDoc(int rNo, int pNo,) async {
         .document(uid)
         .collection('assessment')
         .document('Rotation$rotationNo')
-        .setData({
-       'antCareL' : antCareL,
-       'iCarePatientsL': iCarePatientsL,
-       'pCarePatientsL': pCarePatientsL,
-       'obTechL': obTechL,
-       'gynaeTech1L': gynaeTech1L,
-       'gynaeTech2L': gynaeTech2L,
-       'familyPlanningL': familyPlanningL,
-       'accAndResL': accAndResL,
-       'respectL': respectL,
-       'comm1L': comm1L,
-       'comm2L': comm2L,
-       'informedL': informedL,
-       'patientSafetyL': patientSafetyL,
-       'systemImpL': systemImpL,
-       'antCareR': antCareR,
-       'iCarePatientsR': iCarePatientsR,
-       'pCarePatientsR': pCarePatientsR,
-       'obTechR': obTechR,
-       'gynaeTech1R': gynaeTech1R,
-       'gynaeTech2R': gynaeTech2R,
-       'familyPlanningR': familyPlanningR,
-       'accAndResR': accAndResR,
-       'respectR': respectR,
-       'comm1R': comm1R,
-       'comm2R': comm2R,
-       'informedR': informedR,
-       'patientSafetyR': patientSafetyR,
-       'systemImpR': systemImpR,
-
+        .updateData({
+      'antCareL': antCareL,
+      'iCarePatientsL': iCarePatientsL,
+      'pCarePatientsL': pCarePatientsL,
+      'obTechL': obTechL,
+      'gynaeTech1L': gynaeTech1L,
+      'gynaeTech2L': gynaeTech2L,
+      'familyPlanningL': familyPlanningL,
+      'accAndResL': accAndResL,
+      'respectL': respectL,
+      'comm1L': comm1L,
+      'comm2L': comm2L,
+      'informedL': informedL,
+      'patientSafetyL': patientSafetyL,
+      'systemImpL': systemImpL,
+      'antCareR': antCareR,
+      'iCarePatientsR': iCarePatientsR,
+      'pCarePatientsR': pCarePatientsR,
+      'obTechR': obTechR,
+      'gynaeTech1R': gynaeTech1R,
+      'gynaeTech2R': gynaeTech2R,
+      'familyPlanningR': familyPlanningR,
+      'accAndResR': accAndResR,
+      'respectR': respectR,
+      'comm1R': comm1R,
+      'comm2R': comm2R,
+      'informedR': informedR,
+      'patientSafetyR': patientSafetyR,
+      'systemImpR': systemImpR,
     });
   }
 
@@ -460,7 +666,7 @@ Future deletePatientDoc(int rNo, int pNo,) async {
         .document(uid)
         .collection('reflection')
         .document('Rotation$rotationNo')
-        .setData({
+        .updateData({
       'level': level,
       'mKnowledge': mKnowledge,
       'pCare': pCare,
@@ -476,7 +682,7 @@ Future deletePatientDoc(int rNo, int pNo,) async {
         .document(uid)
         .collection('report')
         .document('Rotation$rotationNo')
-        .setData({
+        .updateData({
       'reportText': reportText,
     });
   }
@@ -488,6 +694,10 @@ Future deletePatientDoc(int rNo, int pNo,) async {
         result: doc.data['result'] ?? '',
         assessment: doc.data['assessment'] ?? '',
         reason: doc.data['reason'] ?? '',
+        mentorName: doc.data['mentorName'] ?? '',
+        approvalReady: doc.data['approvalReady'] ?? '',
+        isApproved: doc.data['isApproved'] ?? '',
+        mentorMail: doc.data['mentorMail'] ?? '',
       );
     }).toList();
   }
@@ -498,44 +708,49 @@ Future deletePatientDoc(int rNo, int pNo,) async {
         consult: doc.data['consult'] ?? '',
         collect: doc.data['collect'] ?? '',
         pre: doc.data['pre'] ?? '',
+        mentorName: doc.data['mentorName'] ?? '',
+        approvalReady: doc.data['approvalReady'] ?? '',
+        isApproved: doc.data['isApproved'] ?? '',
+        mentorMail: doc.data['mentorMail'] ?? '',
       );
     }).toList();
   }
-  List<ListOfMentorData> _listOfMentorDataFromSnapshot(QuerySnapshot snapshot){
+
+  List<ListOfMentorData> _listOfMentorDataFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return ListOfMentorData(
         email: doc.data['email'] ?? '',
         uid: doc.data['uid'] ?? '',
         name: doc.data['name'] ?? '',
-
       );
     }).toList();
   }
-   List<ListOfResidentData> _listOfResidentDataFromSnapshot(QuerySnapshot snapshot){
+
+  List<ListOfResidentData> _listOfResidentDataFromSnapshot(
+      QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return ListOfResidentData(
         email: doc.data['email'] ?? '',
         uid: doc.data['uid'] ?? '',
         name: doc.data['name'] ?? '',
-
       );
     }).toList();
   }
- ResidentData _residentDataFromSnapshot(DocumentSnapshot snapshot){
-      return ResidentData(
-        uid: snapshot.data['uid'] ??'',
-        email: snapshot.data['email'] ?? '',
-        name: snapshot.data['name'] ?? '',
 
-      );
+  ResidentData _residentDataFromSnapshot(DocumentSnapshot snapshot) {
+    return ResidentData(
+      uid: snapshot.data['uid'] ?? '',
+      email: snapshot.data['email'] ?? '',
+      name: snapshot.data['name'] ?? '',
+    );
   }
- MentorData _mentorDataFromSnapshot(DocumentSnapshot snapshot){
-      return MentorData(
-        uid: snapshot.data['uid'] ??'',
-        email: snapshot.data['email'] ?? '',
-        name: snapshot.data['name'] ?? '',
 
-      );
+  MentorData _mentorDataFromSnapshot(DocumentSnapshot snapshot) {
+    return MentorData(
+      uid: snapshot.data['uid'] ?? '',
+      email: snapshot.data['email'] ?? '',
+      name: snapshot.data['name'] ?? '',
+    );
   }
 
   List<Learning> _learningDataFromSnapshot(QuerySnapshot snapshot) {
@@ -547,42 +762,15 @@ Future deletePatientDoc(int rNo, int pNo,) async {
         l2: doc.data['l2'] ?? '',
         l3: doc.data['l3'] ?? '',
         strategy: doc.data['strategy'] ?? '',
+        mentorName: doc.data['mentorName'] ?? '',
+        approvalReady: doc.data['approvalReady'] ?? '',
+        isApproved: doc.data['isApproved'] ?? '',
+        mentorMail: doc.data['mentorMail'] ?? '',
       );
     }).toList();
   }
- /* List<PatientData> _patientDataFromSnapshotIntermediate(QuerySnapshot snapshot){
-    print('from immediate');
-    return snapshot.documents.map((doc){
-      print(doc.data['Patient1']['date']);
-      return PatientData(
-        date: doc.data['date'] ?? '',
-        diagnosis: doc.data['diagnosis'] ?? '',
-        level: doc.data['level'] ?? '',
-        name: doc.data['name'] ?? '',
-        procedure: doc.data['procedure'] ?? '',
-      );
-    }).toList();
-  }*/
- /* List<List<PatientData>> _patientDataFromSnapshot(QuerySnapshot snapshot) {
-    *//*Firestore.instance.collection('1collection')
-        .document('1doc')
-     .collection('2collection')
-     .document('2doc')
-         .collection('3collection')
-         .document('3doc')
-        .get().then((querySnapshot) {
-       print('querySnapshot.data is');
-       print(querySnapshot.data);
-    });*//*
-    return snapshot.documents.map((doc1) {
-      print('doc outsideeee: ${doc1.data['allPatients']}');
 
-      return doc1.data['allPatients'].snapshots.map(_patientDataFromSnapshotIntermediate);
-    }).toList();
-  }*/
-
-
- List<EndRotation> _endRotationFromSnapshot(QuerySnapshot snapshot) {
+  List<EndRotation> _endRotationFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return EndRotation(
         antCareL: doc.data['antCareL'] ?? '',
@@ -613,8 +801,10 @@ Future deletePatientDoc(int rNo, int pNo,) async {
         informedR: doc.data['informedR'] ?? '',
         patientSafetyR: doc.data['patientSafetyR'] ?? '',
         systemImpR: doc.data['systemImpR'] ?? '',
-
-
+        mentorName: doc.data['mentorName'] ?? '',
+        approvalReady: doc.data['approvalReady'] ?? '',
+        isApproved: doc.data['isApproved'] ?? '',
+        mentorMail: doc.data['mentorMail'] ?? '',
       );
     }).toList();
   }
@@ -629,6 +819,10 @@ Future deletePatientDoc(int rNo, int pNo,) async {
         iCommunication: doc.data['iCommunication'] ?? '',
         pImprovement: doc.data['pImprovement'] ?? '',
         sImprovement: doc.data['sImprovement'] ?? '',
+        mentorName: doc.data['mentorName'] ?? '',
+        approvalReady: doc.data['approvalReady'] ?? '',
+        isApproved: doc.data['isApproved'] ?? '',
+        mentorMail: doc.data['mentorMail'] ?? '',
       );
     }).toList();
   }
@@ -637,16 +831,13 @@ Future deletePatientDoc(int rNo, int pNo,) async {
     return snapshot.documents.map((doc) {
       return Report(
         reportText: doc.data['reportText'] ?? '',
+        mentorName: doc.data['mentorName'] ?? '',
+        approvalReady: doc.data['approvalReady'] ?? '',
+        isApproved: doc.data['isApproved'] ?? '',
+        mentorMail: doc.data['mentorMail'] ?? '',
       );
     }).toList();
   }
- /* List<PatientNo> _patientNoDataFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return PatientNo(
-        no: doc.data['no'] ?? '',
-      );
-    }).toList();
-  }*/
 
   //userdata from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
@@ -667,14 +858,20 @@ Future deletePatientDoc(int rNo, int pNo,) async {
       appearDate: snapshot.data['appearDate'],
       hobby: snapshot.data['hobby'],
       reason: snapshot.data['reason'],
+      isApproved: snapshot.data['isApproved'],
+      mentorName: snapshot.data['mentorName'],
+      mentorMail: snapshot.data['mentorMail'],
+      approvalReady: snapshot.data['approvalReady'],
     );
   }
-RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot){
+
+  RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot) {
     return RoleData(
       uid: uid,
       role: snapshot.data['role'],
     );
-}
+  }
+
   //publication data from snapshot
   PublicationsData _publicationsDataFromSnapshot(DocumentSnapshot snapshot) {
     return PublicationsData(
@@ -688,7 +885,6 @@ RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot){
       mentorName: snapshot.data['mentorName'],
       mentorMail: snapshot.data['mentorMail'],
       approvalReady: snapshot.data['approvalReady'],
-
     );
   }
 
@@ -708,17 +904,7 @@ RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot){
         .snapshots()
         .map(_testDataFromSnapshot);
   }
-  /*Stream<String> get url {
-    bool isImage = getImageVar();
-    if (isImage) {
-      final ref =
-      FirebaseStorage.instance.ref().child('images/$uid.jpeg');
-      url = await ref.getDownloadURL();
-    }
-    else{
-      url = null;
-    }
-  }*/
+
   Stream<List<ThesisData>> get listOfThesisData {
     return thesisCollection
         .document(uid)
@@ -726,26 +912,32 @@ RoleData _roleDataFromSnapshot(DocumentSnapshot snapshot){
         .snapshots()
         .map(_thesisDataFromSnapshot);
   }
- Stream<List<ListOfMentorData>> get listOfMentorData {
+
+  Stream<List<ListOfMentorData>> get listOfMentorData {
     return listOfUsersCollectionForMentor
         .snapshots()
         .map(_listOfMentorDataFromSnapshot);
   }
-Stream<List<ListOfResidentData>> get listOfResidentData {
+
+  Stream<List<ListOfResidentData>> get listOfResidentData {
     return listOfUsersCollectionForResident
         .snapshots()
         .map(_listOfResidentDataFromSnapshot);
   }
-Stream<ResidentData> get residentData {
+
+  Stream<ResidentData> get residentData {
     return listOfUsersCollectionForResident
-        .document(uid).snapshots()
+        .document(uid)
+        .snapshots()
         .map(_residentDataFromSnapshot);
-}
-Stream<MentorData> get mentorData {
+  }
+
+  Stream<MentorData> get mentorData {
     return listOfUsersCollectionForMentor
-        .document(uid).snapshots()
+        .document(uid)
+        .snapshots()
         .map(_mentorDataFromSnapshot);
-}
+  }
 
   Stream<List<Learning>> get listOfLearningData {
     return rotation2
@@ -754,32 +946,12 @@ Stream<MentorData> get mentorData {
         .snapshots()
         .map(_learningDataFromSnapshot);
   }
+
   Stream<QuerySnapshot> get listOfPatientData {
-    //Stream<List<List<PatientData>>> colRef;
-    //for(int i=0; i<6;i++){
-      /*colRef.toSet() =*/
-    return rotation2
-          .document(uid)
-          .collection('log')
-          .snapshots();
-    /*rotation2
-    .document(uid)
-        .collection("log")
-        .getDocuments()
-        .then((QuerySnapshot snapshot) {
-      snapshot.documents.forEach((f) => print('f.data is ${f.data}'));
-    });*/
-   /* return rotation2
-        .document(uid)
-        .collection('log')
-        //.document('Rotation0')
-        //.collection('allPatients')
-        .snapshots()
-        .map(_patientDataFromSnapshot);*/
-   //return colRef;
+    return rotation2.document(uid).collection('log').snapshots();
   }
 
-   Stream<List<EndRotation>> get listOfEndRotation {
+  Stream<List<EndRotation>> get listOfEndRotation {
     return rotation2
         .document(uid)
         .collection('assessment')
@@ -802,18 +974,12 @@ Stream<MentorData> get mentorData {
         .snapshots()
         .map(_reflectionDataFromSnapshot);
   }
-/*Stream<List<PatientNo>> get listOfPatientNo {
-    return rotation2
-        .document(uid)
-        .collection('log')
-        .snapshots()
-        .map(_patientNoDataFromSnapshot);
-  }*/
 
 // get user doc stream
   Stream<UserData> get userData {
     return CVCollection.document(uid).snapshots().map(_userDataFromSnapshot);
   }
+
   Stream<RoleData> get roleData {
     return roleCollection.document(uid).snapshots().map(_roleDataFromSnapshot);
   }
@@ -832,25 +998,4 @@ Stream<MentorData> get mentorData {
         .map(_publicationsDataFromSnapshot);
   }
 
-/*List<Stream<Learning>> get caseroutineData1 {
-  final List<CollectionReference> rotationNo = [Firestore.instance.collection(
-      'Rotation').document(uid).collection('Rotation1'),
-  Firestore.instance.collection(
-      'Rotation').document(uid).collection('Rotation2'),
-  Firestore.instance.collection(
-      'Rotation').document(uid).collection('Rotation3'),
-  Firestore.instance.collection(
-      'Rotation').document(uid).collection('Rotation4'),
-  Firestore.instance.collection(
-      'Rotation').document(uid).collection('Rotation5'),
-  Firestore.instance.collection(
-      'Rotation').document(uid).collection('Rotation6'),
-
-  ];
-  return rotationNo.map((oneRotation)=>oneRotation
-      .document('learning')
-      .snapshots()
-      .map(_caseroutineDataFromSnapshot)).toList();
-
-}*/
 }

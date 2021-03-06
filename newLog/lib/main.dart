@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jmnchelogbook/pages/MentorPages/DetailPage.dart';
 import 'package:jmnchelogbook/pages/authenticate/authenticateResident.dart';
 import 'package:jmnchelogbook/pages/home/caseReport.dart';
 import 'package:jmnchelogbook/pages/home/publications.dart';
@@ -11,7 +10,6 @@ import 'pages/authenticate/loginResident.dart';
 import 'pages/home/home.dart';
 import 'pages/home/thesis.dart';
 import 'pages/home/test.dart';
-import 'pages/home/mission.dart';
 import 'pages/home/rotation.dart';
 import 'pages/home/caseroutines.dart';
 import 'pages/home/logofcases.dart';
@@ -19,7 +17,6 @@ import 'pages/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/CV_Screen.dart';
-import 'pages/authenticate/forgetPassword.dart';
 
 void main() {
   runApp(MyApp());
@@ -47,9 +44,6 @@ class MyApp extends StatelessWidget {
             '/LoginAsResident': (context) => LogInResident(),
             '/BaseApp': (context) => BaseApp(),
             '/home': (context) => MyApp2(),
-            '/thesis': (context) => ThesisTab(),
-            '/testBar': (context) => TestBar(),
-            '/mission': (context) => Mission(),
             '/rotation': (context) => Rotation(),
             '/casereport': (context) => CaseReport(),
             '/caserotation': (context) => CaseroutineScreen(),
@@ -59,9 +53,6 @@ class MyApp extends StatelessWidget {
             '/authenticate': (context) => AuthenticateResident(),
             '/imageCapture' : (context) => ImageCapture(),
             '/uploadScreen': (context) => UploadScreen(),
-            '/detailPage': (context) => Detail(),
-            '/forgetPassword': (context) => ForgetPassword(),
-            //'/imageCaptureState' : (context) => ImageCaptureState(),
           }),
     );
   }

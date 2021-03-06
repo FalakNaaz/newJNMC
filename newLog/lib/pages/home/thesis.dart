@@ -14,6 +14,7 @@ class ThesisTab extends StatefulWidget {
 class _ThesisTabState extends State<ThesisTab> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     void _showSettingsPanel(int tabNo) {
       showModalBottomSheet(
           context: context,
@@ -35,6 +36,7 @@ class _ThesisTabState extends State<ThesisTab> {
     }
 
     Widget displayText(ThesisData thesisData, int tabNo) {
+
       var consult = thesisData.consult;
       var collect = thesisData.collect;
       var pre = thesisData.pre;
@@ -86,11 +88,69 @@ class _ThesisTabState extends State<ThesisTab> {
             child: Text('Update'),
             onPressed: () => _showSettingsPanel(tabNo),
           ),
+          (thesisData.isApproved) ?
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text('Approved',textScaleFactor: 1.5,),
+                    Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text('Mentor Name: ${thesisData.mentorName}'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    RichText(
+                        text: TextSpan(
+                            text: 'Mentor Email: ',
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(text:thesisData.mentorMail,style: TextStyle(color: Colors.teal) )
+                            ]
+
+
+                        )
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ):
+          (!thesisData.approvalReady) ?
+          Center(
+            child: RaisedButton(
+                color: Colors.teal,
+                child: Text(
+                  'Get Approved',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyThesis(tabNo.toString(),true); }
+            ),
+          ) : Center(
+            child: RaisedButton(
+                color: Colors.teal,
+                child: Text(
+                  'Pending',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyThesis(tabNo.toString(),false); }
+            ),
+          )
         ],
       );
     }
 
-    final user = Provider.of<User>(context);
+
     return StreamBuilder<List<ThesisData>>(
         stream: DatabaseService(uid: user.uid).listOfThesisData,
         builder: (context, snapshot) {
@@ -105,7 +165,7 @@ class _ThesisTabState extends State<ThesisTab> {
 
                   automaticallyImplyLeading: false,
                   //title: Text('Evaluation of Thesis Work'),
-                  backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+                  backgroundColor: Colors.teal,
                   bottom: TabBar(
                     tabs: [
                       Tab(text: '6th'),

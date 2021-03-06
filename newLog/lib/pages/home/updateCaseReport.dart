@@ -36,9 +36,9 @@ class _UpdateCaseReportState extends State<UpdateCaseReport> {
                             child: Text(
                               "Case Report",
                               style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.amber,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 24,
+                                  color: Colors.teal,
+                                  fontWeight: FontWeight.w600),
                             )),
                       ),
                       Padding(
@@ -110,7 +110,7 @@ class _UpdateCaseReportState extends State<UpdateCaseReport> {
                                       Navigator.pop(context);
                                     }
                                   },
-                                  color: Color.fromRGBO(146, 180, 237, 1),
+                                  color: Colors.teal,
                                   child: Text(
                                     'Save',
                                     style: TextStyle(

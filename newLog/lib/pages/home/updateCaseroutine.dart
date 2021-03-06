@@ -42,7 +42,7 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                     Text(
                       'Update your Case Routine Info',
                       style: TextStyle(fontSize: 20.0,
-                        color: Color.fromRGBO(273, 146, 158, 1),
+                        color: Colors.teal,
                       fontWeight: FontWeight.w600),
 
                     ),
@@ -73,7 +73,7 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                     ),
                     Text('3 things I want to learn in this rotation:',
                     style: TextStyle(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       fontSize: 16.0,
                     ),),
                     SizedBox(
@@ -123,7 +123,7 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                       height: 20.0,
                     ),
                     RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Text(
                         'update',
                         style: TextStyle(color: Colors.white),

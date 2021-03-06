@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/services/database.dart';
-import 'package:jmnchelogbook/shared/constants.dart';
 import 'package:provider/provider.dart';
 
 class UpdateThesis extends StatefulWidget {
@@ -54,7 +53,7 @@ class _UpdateThesisState extends State<UpdateThesis> {
                           this._currentconsult = newValueSelected;
                         });
                       },
-                      dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                      dropdownColor: Colors.teal,
                     ),
                   ],
                 ),
@@ -81,7 +80,7 @@ class _UpdateThesisState extends State<UpdateThesis> {
                           this._currentcollect = newValueSelected;
                         });
                       },
-                      dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                      dropdownColor: Colors.teal,
                     ),
                   ],
                 ),
@@ -109,13 +108,13 @@ class _UpdateThesisState extends State<UpdateThesis> {
                       },
                       //value: 'A',
                       value: _currentpre ?? listOfThesisData[widget.tabNo].pre,
-                      dropdownColor: Color.fromRGBO(273, 146, 158, 1),
+                      dropdownColor: Colors.teal,
                     ),
                   ],
                 ),
                 Center(
                   child: RaisedButton(
-                    color: Color.fromRGBO(273, 146, 158, 1),
+                    color: Colors.teal,
                     child: Text(
                       'update',
                       style: TextStyle(color: Colors.white),
@@ -123,9 +122,6 @@ class _UpdateThesisState extends State<UpdateThesis> {
                     onPressed: () async {
                       // if (_formKey.currentState.validate())
                       {
-                        /*print('consult= $_currentconsult');
-                        print('collect= $_currentcollect');
-                        print('pre= $_currentpre');*/
 
                         await DatabaseService(uid: user.uid).updateThesis(
                           (widget.tabNo).toString(),

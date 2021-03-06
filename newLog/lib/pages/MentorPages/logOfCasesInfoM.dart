@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/MentorPages/patientInfoM.dart';
-import 'package:jmnchelogbook/pages/home/patientInfo.dart';
 import 'package:jmnchelogbook/services/database.dart';
 class LogOfCasesInfoM extends StatefulWidget {
   final String uid;
@@ -41,7 +39,7 @@ class _LogOfCasesInfoMState extends State<LogOfCasesInfoM> {
                                     leading:  Icon(Icons.account_circle, size: 35, color: Colors.blue,),
                                     title:(document.data['Patient$i']['name'] == '')? Text('Patient$i') : Text("${document.data['Patient$i']['name'] }"),
                                     //subtitle: new Text(document.data['company']),
-                                    onLongPress: ()=> DatabaseService(uid: widget.uid).deletePatientDoc(widget.rotationNo, i),
+                                    //onLongPress: ()=> DatabaseService(uid: widget.uid).deletePatientDoc(widget.rotationNo, i),
                                     onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => PatientInfoM(uid: widget.uid,rotationNo: widget.rotationNo,patientNo: i,))),
                                   ),
                                 ),

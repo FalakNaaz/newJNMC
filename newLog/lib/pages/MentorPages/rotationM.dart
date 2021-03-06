@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:jmnchelogbook/pages/MentorPages/caseReportM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/caseRoutineM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/endRotationM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/logOfCasesM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/reflectionM.dart';
-import 'package:jmnchelogbook/pages/home/caseReport.dart';
-import 'package:jmnchelogbook/pages/home/caseroutines.dart';
-import 'package:jmnchelogbook/pages/home/endRotation.dart';
-import 'package:jmnchelogbook/pages/home/logofcases.dart';
-import 'package:jmnchelogbook/pages/home/reflection.dart';
 
 class RotationM extends StatefulWidget {
   final String uid;
@@ -26,7 +20,7 @@ class _RotationMState extends State<RotationM> {
     return Scaffold(
       appBar: AppBar(
           title: Text('JNMCH eLogBook'),
-          backgroundColor: Color.fromRGBO(273, 146, 158, 1)
+          backgroundColor: Colors.teal
       ),
       body:
       Padding(
@@ -38,7 +32,7 @@ class _RotationMState extends State<RotationM> {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 25.0,
-                color:  Color.fromRGBO(273, 146, 158, 1),
+                color:  Colors.teal,
                 decoration: TextDecoration.underline,
               ),),
             SizedBox(height: 20.0),

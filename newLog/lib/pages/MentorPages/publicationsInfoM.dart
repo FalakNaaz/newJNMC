@@ -12,7 +12,7 @@ class PublicationsInfoM extends StatefulWidget {
 
 class _PublicationsInfoMState extends State<PublicationsInfoM> {
   TextStyle textStyle(){
-    return TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(273, 146, 158, 1), fontSize: 12);
+    return TextStyle(fontWeight: FontWeight.w600,color: Colors.teal, fontSize: 12);
   }
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,7 @@ class _PublicationsInfoMState extends State<PublicationsInfoM> {
                                              text: 'Mentor Email: ',
                                              style: DefaultTextStyle.of(context).style,
                                              children: <TextSpan>[
-                                               TextSpan(text:publicationsData.mentorMail,style: TextStyle(color: Color.fromRGBO(273, 146, 158, 1)) )
+                                               TextSpan(text:publicationsData.mentorMail,style: TextStyle(color: Colors.teal) )
                                              ]
 
 
@@ -139,7 +139,7 @@ class _PublicationsInfoMState extends State<PublicationsInfoM> {
                                  SizedBox(height: 20.0,),
                                  Center(
                                    child: RaisedButton(
-                                       color: Color.fromRGBO(273, 146, 158, 1),
+                                       color: Colors.teal,
                                        child: Text(
                                          'Un-approve',
                                          style: TextStyle(color: Colors.white),
@@ -163,7 +163,7 @@ class _PublicationsInfoMState extends State<PublicationsInfoM> {
                                children: [
                                  SizedBox(height: 100.0,),
                                  RaisedButton(
-                                     color: Color.fromRGBO(273, 146, 158, 1),
+                                     color: Colors.teal,
                                      child: Text(
                                        'Approve',
                                        style: TextStyle(color: Colors.white),
@@ -175,7 +175,7 @@ class _PublicationsInfoMState extends State<PublicationsInfoM> {
                                  ),
                                  SizedBox(width: 20.0,),
                                  RaisedButton(
-                                     color: Color.fromRGBO(273, 146, 158, 1),
+                                     color: Colors.teal,
                                      child: Text(
                                        'Decline',
                                        style: TextStyle(color: Colors.white),

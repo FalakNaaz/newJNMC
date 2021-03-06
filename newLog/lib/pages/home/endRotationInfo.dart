@@ -34,7 +34,7 @@ class _EndRotationInfoState extends State<EndRotationInfo> {
                                 "Category: Patient Care",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(fontWeight: FontWeight.w600,
-                                  color:Color.fromRGBO(273, 146, 158, 1),),
+                                  color:Colors.teal,),
                               ),
                             ),
                             Padding(
@@ -279,7 +279,7 @@ class _EndRotationInfoState extends State<EndRotationInfo> {
                                 "Category: Professionalism",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(fontWeight: FontWeight.w600,
-                                  color:Color.fromRGBO(273, 146, 158, 1),),
+                                  color:Colors.teal,),
                               ),
                             ),
                             Padding(
@@ -395,7 +395,7 @@ class _EndRotationInfoState extends State<EndRotationInfo> {
                                 "Category:Interpersonal and Communication Skills",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(fontWeight: FontWeight.w600,
-                                  color:Color.fromRGBO(273, 146, 158, 1),),
+                                  color:Colors.teal,),
                               ),
                             ),
                             Padding(
@@ -538,7 +538,7 @@ class _EndRotationInfoState extends State<EndRotationInfo> {
                                 "Category: Practice-based Learning",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(fontWeight: FontWeight.w600,
-                                  color:Color.fromRGBO(273, 146, 158, 1),),
+                                  color:Colors.teal,),
                               ),
                             ),
                             Padding(
@@ -628,7 +628,7 @@ class _EndRotationInfoState extends State<EndRotationInfo> {
                                 "Category: System-based Learning",
                                 textScaleFactor: 1.5,
                                 style: TextStyle(fontWeight: FontWeight.w600,
-                                  color:Color.fromRGBO(273, 146, 158, 1),),
+                                  color:Colors.teal,),
                               ),
                             ),
                             Padding(
@@ -712,6 +712,64 @@ class _EndRotationInfoState extends State<EndRotationInfo> {
                                 ],
                               ),
                             ),
+                            (listOfEndRotationData[widget.rotationNo].isApproved) ?
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text('Approved',textScaleFactor: 1.5,),
+                                      Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text('Mentor Name: ${listOfEndRotationData[widget.rotationNo].mentorName}'),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      RichText(
+                                          text: TextSpan(
+                                              text: 'Mentor Email: ',
+                                              style: DefaultTextStyle.of(context).style,
+                                              children: <TextSpan>[
+                                                TextSpan(text:listOfEndRotationData[widget.rotationNo].mentorMail,style: TextStyle(color: Colors.teal) )
+                                              ]
+
+
+                                          )
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ):
+                            (!listOfEndRotationData[widget.rotationNo].approvalReady) ?
+                            Center(
+                              child: RaisedButton(
+                                  color: Colors.teal,
+                                  child: Text(
+                                    'Get Approved',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: ()async {await DatabaseService(uid: caseroutine.uid).updateApprovalReadyEndRotation(widget.rotationNo.toString(),true); }
+                              ),
+                            ) : Center(
+                              child: RaisedButton(
+                                  color: Colors.teal,
+                                  child: Text(
+                                    'Pending',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: ()async {await DatabaseService(uid: caseroutine.uid).updateApprovalReadyEndRotation(widget.rotationNo.toString(),false); }
+                              ),
+                            )
                           ],
                         ),
                       ),

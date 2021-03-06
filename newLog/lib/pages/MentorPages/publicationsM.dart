@@ -20,7 +20,7 @@ class PublicationsScreenM extends StatelessWidget {
                 extendBodyBehindAppBar: true,
                 appBar: AppBar(
                   title: Text('Publications'),
-                  backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+                  backgroundColor: Colors.teal,
                 ),
                 body: PublicationsInfoM(uid: uid),
 

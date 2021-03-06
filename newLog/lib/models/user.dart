@@ -62,24 +62,33 @@ class UserData {
   final String appearDate;
   final String hobby;
   final String reason;
+  final bool isApproved;
+  final String mentorName;
+  final String mentorMail;
+  final bool approvalReady;
 
-  UserData(
-      {this.uid,
-        this.name,
-        this.dob,
-        this.p_add,
-        this.l_add,
-        this.mob,
-        this.email,
-        this.degreeDetail,
-        this.degreeRecord,
-        this.iDetail,
-        this.other,
-        this.regNo,
-        this.joiningDate,
-        this.appearDate,
-        this.hobby,
-        this.reason});
+  UserData({
+    this.uid,
+    this.name,
+    this.dob,
+    this.p_add,
+    this.l_add,
+    this.mob,
+    this.email,
+    this.degreeDetail,
+    this.degreeRecord,
+    this.iDetail,
+    this.other,
+    this.regNo,
+    this.joiningDate,
+    this.appearDate,
+    this.hobby,
+    this.reason,
+    this.isApproved,
+    this.mentorName,
+    this.mentorMail,
+    this.approvalReady,
+  });
 }
 
 class MissionData {
@@ -104,55 +113,15 @@ class PublicationsData {
 
   PublicationsData(
       {this.uid,
-        this.papers,
-        this.conferences,
-        this.social,
-        this.organization,
-        this.achievement,
-        this.isApproved,
-        this.mentorName,
-        this.mentorMail, this.approvalReady});
-}
-
-class Trying {
-  String field1;
-  String field2;
-  String field3;
-  String field4;
-
-  Trying({this.field1, this.field2, this.field3, this.field4});
-}
-
-class CourseModel {
-  String course_name;
-  String price;
-  String details;
-  String pic_url;
-  String master_name;
-  String master_email;
-  String course_uid;
-
-  CourseModel(
-      {this.details,
-        this.course_name,
-        this.pic_url,
-        this.price,
-        this.master_name,
-        this.master_email,
-        this.course_uid});
-
-  factory CourseModel.fromFireStore(DocumentSnapshot doc) {
-    Map data = doc.data;
-    return CourseModel(
-      course_name: data['course_name'],
-      master_name: data['master_name'],
-      master_email: data['master_email'],
-      course_uid: doc.documentID,
-      pic_url: data['pic_url'],
-      details: data['details'],
-      price: data['price'],
-    );
-  }
+      this.papers,
+      this.conferences,
+      this.social,
+      this.organization,
+      this.achievement,
+      this.isApproved,
+      this.mentorName,
+      this.mentorMail,
+      this.approvalReady});
 }
 
 class TestData {
@@ -161,8 +130,21 @@ class TestData {
   String result;
   String assessment;
   String reason;
+  bool isApproved;
+  String mentorName;
+  String mentorMail;
+  bool approvalReady;
 
-  TestData({this.uid, this.date, this.result, this.assessment, this.reason});
+  TestData(
+      {this.uid,
+      this.date,
+      this.result,
+      this.assessment,
+      this.reason,
+      this.isApproved,
+      this.mentorName,
+      this.mentorMail,
+      this.approvalReady});
 }
 
 class PatientData {
@@ -175,11 +157,11 @@ class PatientData {
 
   PatientData(
       {this.uid,
-        this.date,
-        this.diagnosis,
-        this.level,
-        this.name,
-        this.procedure});
+      this.date,
+      this.diagnosis,
+      this.level,
+      this.name,
+      this.procedure});
 }
 
 class ThesisData {
@@ -187,8 +169,20 @@ class ThesisData {
   String consult;
   String collect;
   String pre;
+  bool isApproved;
+  String mentorName;
+  String mentorMail;
+  bool approvalReady;
 
-  ThesisData({this.uid, this.consult, this.collect, this.pre});
+  ThesisData(
+      {this.uid,
+      this.consult,
+      this.collect,
+      this.pre,
+      this.isApproved,
+      this.mentorName,
+      this.mentorMail,
+      this.approvalReady});
 }
 
 class Learning {
@@ -199,22 +193,40 @@ class Learning {
   final String l2;
   final String l3;
   final String strategy;
+  final bool isApproved;
+  final String mentorName;
+  final String mentorMail;
+  final bool approvalReady;
 
   Learning(
       {this.uid,
-        this.pdate,
-        this.pname,
-        this.l1,
-        this.l2,
-        this.l3,
-        this.strategy});
+      this.pdate,
+      this.pname,
+      this.l1,
+      this.l2,
+      this.l3,
+      this.strategy,
+      this.isApproved,
+      this.mentorName,
+      this.mentorMail,
+      this.approvalReady});
 }
 
 class Report {
   final String uid;
   final String reportText;
+  final bool isApproved;
+  final String mentorName;
+  final String mentorMail;
+  final bool approvalReady;
 
-  Report({this.uid, this.reportText});
+  Report(
+      {this.uid,
+      this.reportText,
+      this.isApproved,
+      this.mentorName,
+      this.mentorMail,
+      this.approvalReady});
 }
 
 class ReflectionData1 {
@@ -226,16 +238,24 @@ class ReflectionData1 {
   final String iCommunication;
   final String pImprovement;
   final String sImprovement;
+  final bool isApproved;
+  final String mentorName;
+  final String mentorMail;
+  final bool approvalReady;
 
   ReflectionData1(
       {this.uid,
-        this.level,
-        this.mKnowledge,
-        this.pCare,
-        this.professionalism,
-        this.iCommunication,
-        this.pImprovement,
-        this.sImprovement});
+      this.level,
+      this.mKnowledge,
+      this.pCare,
+      this.professionalism,
+      this.iCommunication,
+      this.pImprovement,
+      this.sImprovement,
+      this.isApproved,
+      this.mentorName,
+      this.mentorMail,
+      this.approvalReady});
 }
 
 class EndRotation {
@@ -268,38 +288,45 @@ class EndRotation {
   final String informedR;
   final String patientSafetyR;
   final String systemImpR;
+  final bool isApproved;
+  final String mentorName;
+  final String mentorMail;
+  final bool approvalReady;
 
-  EndRotation({
-    this.uid,
-    this.antCareL,
-    this.iCarePatientsL,
-    this.pCarePatientsL,
-    this.obTechL,
-    this.gynaeTech1L,
-    this.gynaeTech2L,
-    this.familyPlanningL,
-    this.accAndResL,
-    this.respectL,
-    this.comm1L,
-    this.comm2L,
-    this.informedL,
-    this.patientSafetyL,
-    this.systemImpL,
-    this.antCareR,
-    this.iCarePatientsR,
-    this.pCarePatientsR,
-    this.obTechR,
-    this.gynaeTech1R,
-    this.gynaeTech2R,
-    this.familyPlanningR,
-    this.accAndResR,
-    this.respectR,
-    this.comm1R,
-    this.comm2R,
-    this.informedR,
-    this.patientSafetyR,
-    this.systemImpR,
-  });
+  EndRotation(
+      {this.uid,
+      this.antCareL,
+      this.iCarePatientsL,
+      this.pCarePatientsL,
+      this.obTechL,
+      this.gynaeTech1L,
+      this.gynaeTech2L,
+      this.familyPlanningL,
+      this.accAndResL,
+      this.respectL,
+      this.comm1L,
+      this.comm2L,
+      this.informedL,
+      this.patientSafetyL,
+      this.systemImpL,
+      this.antCareR,
+      this.iCarePatientsR,
+      this.pCarePatientsR,
+      this.obTechR,
+      this.gynaeTech1R,
+      this.gynaeTech2R,
+      this.familyPlanningR,
+      this.accAndResR,
+      this.respectR,
+      this.comm1R,
+      this.comm2R,
+      this.informedR,
+      this.patientSafetyR,
+      this.systemImpR,
+      this.isApproved,
+      this.mentorName,
+      this.mentorMail,
+      this.approvalReady});
 }
 
 class PatientNo {

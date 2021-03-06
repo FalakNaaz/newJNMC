@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/services/auth.dart';
+import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 
@@ -21,9 +22,10 @@ class _BaseAppState extends State<BaseApp> {
   String email = '';
   String password = '';
   String confirmPassword = '';
-  String role='';
+  String role = '';
   String _error;
   bool loading = false;
+  String key = '';
 
 
   List listItems = [
@@ -33,7 +35,7 @@ class _BaseAppState extends State<BaseApp> {
   @override
   void initState(){
     super.initState();
-    role = "resident";
+    role = "Choose your role";
   }
 
   bool validate(){
@@ -47,8 +49,19 @@ class _BaseAppState extends State<BaseApp> {
     }
   }
   void submit() async {
+    var residentKey = await DatabaseService().getResidentSecurityKey();
+    var mentorKey = await DatabaseService().getMentorSecurityKey();
     if (validate()) {
       try {
+        if(role == 'resident'){
+          if(key != residentKey){
+            throw new Exception('Security key for resident not matched');
+          }
+        } else{
+          if(key != mentorKey){
+            throw new Exception('Security key for mentor not matched');
+          }
+        }
          await _auth.registerWithEmailAndPassword(email, password,role, name);
       }catch (e) {
         setState(() {
@@ -78,11 +91,12 @@ class _BaseAppState extends State<BaseApp> {
               showAlert(),
               SizedBox(height: _height * 0.06),
               buildHeader(),
+              SizedBox(height: _height *0.05),
               Padding(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 40),
                 child: TextFormField(
                   validator: NameValidator.validate,
-                  style: TextStyle(fontSize: 22.0),
+                  style: TextStyle(fontSize: 18.0),
                   decoration: buildSignUpInputDecoration("Name"),
                   onSaved: (value) => name = value,
                   onChanged: (val) {
@@ -92,12 +106,12 @@ class _BaseAppState extends State<BaseApp> {
                   },
                 ),
               ),
-              SizedBox(height: _height *0.001),
+              SizedBox(height: _height *0.05),
               Padding(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 40),
                 child: TextFormField(
                   validator: EmailValidator.validate,
-                  style: TextStyle(fontSize: 22.0),
+                  style: TextStyle(fontSize: 18.0),
                   decoration: buildSignUpInputDecoration("Email"),
                   onSaved: (value) => email = value,
                   onChanged: (val) {
@@ -107,12 +121,13 @@ class _BaseAppState extends State<BaseApp> {
                   },
                 ),
               ),
-              SizedBox(height: _height *0.001),
+              SizedBox(height: _height *0.05),
               Padding(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 40),
                 child: TextFormField(
-                  validator: PasswordValidator.validate,
-                  style: TextStyle(fontSize: 22.0),
+
+                  validator: PasswordValidatorRegister.validate,
+                  style: TextStyle(fontSize: 18.0),
                   decoration: buildSignUpInputDecoration("Password"),
                   obscureText: true,
                   onSaved: (value) => password = value,
@@ -123,12 +138,12 @@ class _BaseAppState extends State<BaseApp> {
                   },
                 ),
               ),
-              SizedBox(height: _height *0.01),
+              SizedBox(height: _height *0.05),
               Padding(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 40),
                 child: TextFormField(
                   validator: (val) => val != password ? 'Confirm password doesn\'t match' : null,
-                  style: TextStyle(fontSize: 22.0),
+                  style: TextStyle(fontSize: 18.0),
                   decoration: buildSignUpInputDecoration("Confirm Password"),
                   obscureText: true,
                   onSaved: (value) => confirmPassword = value,
@@ -139,58 +154,69 @@ class _BaseAppState extends State<BaseApp> {
                   },
                 ),
               ),
-              SizedBox(height: 10.0),
-              Padding(
-                padding: const EdgeInsets.all(25.0),
-                child:DropDownFormField(
-                  titleText: 'My Role',
-                  hintText: 'Please choose your role',
-                  value: role,
-                  onSaved: (value) {
-                    setState(() {
-                      role = value;
-                    });
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      role = value;
-                    });
-                  },
-                  dataSource: [
-                    {
-                      "display": "Resident",
-                      "value": "resident"
-                    },
-                    {
-                      "display": "Mentor",
-                      "value": "mentor"
-                    },
-                  ],
-                  textField: 'display',
-                  valueField: 'value',
+              SizedBox(height: _height *0.05),
+              Container(
+                width: _width*0.80,
+                height: _height*0.1,
+                color: Colors.teal,
+                child: DropdownButtonHideUnderline(
+                  child: ButtonTheme(
+                    alignedDropdown: true,
+                    child: new DropdownButtonFormField<String>(
+                      validator: (val) => val == 'Choose your role' ? 'Choose your role' : null,
+                      iconEnabledColor: Colors.white,
+                      iconSize: 35,
+                      value:role,
+                      items:
+                      <String>['Choose your role', 'resident', 'mentor',].map((String value) {
+                        return new DropdownMenuItem<String>(
 
+                          value: value,
+                          child: new Text(value,style: TextStyle(color: Colors.white,fontSize: 18.0),),
+                        );
+                      }).toList(),
+                      onChanged: (String newValueSelected) {
+                        setState(() {
+                          role = newValueSelected;
+                        });
+                      },
+                      dropdownColor: Colors.teal,
+                    ),
+                  ),
                 ),
               ),
-
-              SizedBox(height: 10.0),
-
+              SizedBox(height: _height *0.05),
               Padding(
-                padding: const EdgeInsets.all(0),
-                child: ButtonTheme(
-                  minWidth: 200,
-                  height: 50,
-                  child: RaisedButton(onPressed: submit,
-                      color: Colors.greenAccent,
-                      child:
-                      Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20,),
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
-                      )
-                  ),
+                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 40),
+                child: TextFormField(
+                  validator: (val) => val == '' ? 'Security key can\'t be empty ' : null,
+                  style: TextStyle(fontSize: 18.0),
+                  decoration: buildSignUpInputDecoration("Security Key"),
+                  obscureText: true,
+                  onSaved: (value) => key = value,
+                  onChanged: (val) {
+                    setState(() {
+                      key = val;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height:_height*0.05),
+
+              ButtonTheme(
+                minWidth: 150,
+                height: 50,
+                child: RaisedButton(onPressed: submit,
+                    color: Colors.greenAccent,
+                    child:
+                    Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20,),
+                    ),
+                  /*  shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: BorderSide(color: Color.fromRGBO(146, 180, 237, 1))
+                    )*/
                 ),
               ),
 
@@ -204,7 +230,7 @@ class _BaseAppState extends State<BaseApp> {
                       child: Text('Already have an account? Sign In!', style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,)),
+                        fontSize: 18,)),
                       onPressed: () {
                         widget.toggleView();
                       }
@@ -222,7 +248,7 @@ class _BaseAppState extends State<BaseApp> {
   showAlert() {
     if (_error!= null) {
       return Container(
-        color: Colors.pink,
+        color: Colors.amberAccent,
         width: double.infinity,
         padding: EdgeInsets.all(8.0),
         child: Row(
@@ -264,6 +290,10 @@ class _BaseAppState extends State<BaseApp> {
 
   buildSignUpInputDecoration(String s) {
     return InputDecoration(
+      errorMaxLines: 2,
+      errorStyle: TextStyle(
+        fontSize: 12.0,
+      ),
       hintText: s,
       filled: true,
       fillColor: Colors.white,

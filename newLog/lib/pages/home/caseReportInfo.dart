@@ -12,18 +12,7 @@ class CaseReportInfo extends StatefulWidget {
   @override
   _CaseReportInfoState createState() => _CaseReportInfoState();
 }
-
 class _CaseReportInfoState extends State<CaseReportInfo> {
-  Widget _createTextArea(String label, String text) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-      child: Text(
-        '$label $text',
-        style: TextStyle(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -46,6 +35,64 @@ class _CaseReportInfoState extends State<CaseReportInfo> {
                           ),
                           SizedBox(height: 20.0,),
                           Text('${reportData[widget.rotationNo].reportText}'),
+                          (reportData[widget.rotationNo].isApproved) ?
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text('Approved',textScaleFactor: 1.5,),
+                                    Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text('Mentor Name: ${reportData[widget.rotationNo].mentorName}'),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    RichText(
+                                        text: TextSpan(
+                                            text: 'Mentor Email: ',
+                                            style: DefaultTextStyle.of(context).style,
+                                            children: <TextSpan>[
+                                              TextSpan(text:reportData[widget.rotationNo].mentorMail,style: TextStyle(color: Colors.teal) )
+                                            ]
+
+
+                                        )
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ):
+                          (!reportData[widget.rotationNo].approvalReady) ?
+                          Center(
+                            child: RaisedButton(
+                                color: Colors.teal,
+                                child: Text(
+                                  'Get Approved',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyReport(widget.rotationNo.toString(),true); }
+                            ),
+                          ) : Center(
+                            child: RaisedButton(
+                                color: Colors.teal,
+                                child: Text(
+                                  'Pending',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyReport(widget.rotationNo.toString(),false); }
+                            ),
+                          )
                         ],
                       ))
                   : Align(

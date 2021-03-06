@@ -12,7 +12,7 @@ class CaseRoutineScreenM extends StatelessWidget {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text('JNMCH eLogBook'),
-          backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+          backgroundColor: Colors.teal,
         ),
         body: CaseRoutineInfoM(uid: uid, rotationNo: rotationNo),
 

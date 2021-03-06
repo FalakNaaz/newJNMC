@@ -6,7 +6,7 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color.fromRGBO(273, 146, 158, 1),
+        color: Colors.teal,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

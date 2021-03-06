@@ -26,7 +26,9 @@ class _ReflectionInfoState extends State<ReflectionInfo> {
           ),
           Text(
             text,
-            style: TextStyle(color: Color.fromRGBO(273, 146, 158, 1),),
+            style: TextStyle(
+              color: Color.fromRGBO(273, 146, 158, 1),
+            ),
           ),
         ],
       ),
@@ -70,7 +72,8 @@ class _ReflectionInfoState extends State<ReflectionInfo> {
                               ),
                               //_createTextArea('I am at the following level of clinical training of RIME model: ', listOfReflectionData[widget.rotationNo].level),
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 20),
                                 child: Text(
                                   'I am at the following level of clinical training ',
                                   style: TextStyle(
@@ -78,9 +81,11 @@ class _ReflectionInfoState extends State<ReflectionInfo> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 0.0, horizontal: 20.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
                                       'of RIME model: ',
@@ -88,9 +93,12 @@ class _ReflectionInfoState extends State<ReflectionInfo> {
                                           color: Colors.black, fontSize: 15),
                                     ),
                                     Text(
-                                      listOfReflectionData[widget.rotationNo].level,
+                                      listOfReflectionData[widget.rotationNo]
+                                          .level,
                                       style: TextStyle(
-                                          color: Color.fromRGBO(273, 146, 158, 1), fontSize: 15),
+                                          color:
+                                              Color.fromRGBO(273, 146, 158, 1),
+                                          fontSize: 15),
                                     ),
                                   ],
                                 ),
@@ -127,6 +135,105 @@ class _ReflectionInfoState extends State<ReflectionInfo> {
                                   'System-based Practice: systems improvement: ',
                                   listOfReflectionData[widget.rotationNo]
                                       .sImprovement),
+                              (listOfReflectionData[widget.rotationNo]
+                                      .isApproved)
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: <Widget>[
+                                              Text(
+                                                'Approved',
+                                                textScaleFactor: 1.5,
+                                              ),
+                                              Icon(
+                                                Icons.check_circle,
+                                                color: Colors.green,
+                                                size: 30,
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: <Widget>[
+                                              Text(
+                                                  'Mentor Name: ${listOfReflectionData[widget.rotationNo].mentorName}'),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: <Widget>[
+                                              RichText(
+                                                  text: TextSpan(
+                                                      text: 'Mentor Email: ',
+                                                      style:
+                                                          DefaultTextStyle.of(
+                                                                  context)
+                                                              .style,
+                                                      children: <TextSpan>[
+                                                    TextSpan(
+                                                        text: listOfReflectionData[
+                                                                widget
+                                                                    .rotationNo]
+                                                            .mentorMail,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    273,
+                                                                    146,
+                                                                    158,
+                                                                    1)))
+                                                  ])),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : (!listOfReflectionData[widget.rotationNo]
+                                          .approvalReady)
+                                      ? Center(
+                                          child: RaisedButton(
+                                              color: Color.fromRGBO(
+                                                  273, 146, 158, 1),
+                                              child: Text(
+                                                'Get Approved',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () async {
+                                                await DatabaseService(
+                                                        uid: user.uid)
+                                                    .updateApprovalReadyReflection(
+                                                        widget.rotationNo
+                                                            .toString(),
+                                                        true);
+                                              }),
+                                        )
+                                      : Center(
+                                          child: RaisedButton(
+                                              color: Color.fromRGBO(
+                                                  273, 146, 158, 1),
+                                              child: Text(
+                                                'Pending',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () async {
+                                                await DatabaseService(
+                                                        uid: user.uid)
+                                                    .updateApprovalReadyReflection(
+                                                        widget.rotationNo
+                                                            .toString(),
+                                                        false);
+                                              }),
+                                        )
                             ]),
                       ),
                     )

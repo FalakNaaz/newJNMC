@@ -1,15 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/PdfFirebase/Modal.dart';
 import 'package:jmnchelogbook/pages/PdfFirebase/secondPage.dart';
-import 'package:provider/provider.dart';
 
 class FirstPage2M extends StatefulWidget {
   final String uid;

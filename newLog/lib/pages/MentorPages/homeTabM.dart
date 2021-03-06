@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/pages/MentorPages/rotationM.dart';
-import 'package:jmnchelogbook/pages/home/rotation.dart';
 
 class HomeTabM extends StatefulWidget {
   final String uid;

@@ -82,7 +82,7 @@ class _UpdateTestState extends State<UpdateTest> {
                     ),
                     SizedBox(height: 20.0,),
                     RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Text(
                         'update',
                         style: TextStyle(color: Colors.white),

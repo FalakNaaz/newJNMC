@@ -11,7 +11,7 @@ class PublicationsInfo extends StatefulWidget {
 class _PublicationsInfoState extends State<PublicationsInfo> {
 
   TextStyle textStyle(){
-    return TextStyle(fontWeight: FontWeight.w600,color: Color.fromRGBO(273, 146, 158, 1), fontSize: 14);
+    return TextStyle(fontWeight: FontWeight.w600,color: Colors.teal, fontSize: 14);
   }
   @override
   Widget build(BuildContext context) {
@@ -121,7 +121,7 @@ class _PublicationsInfoState extends State<PublicationsInfo> {
                                     text: 'Mentor Email: ',
                                       style: DefaultTextStyle.of(context).style,
                                     children: <TextSpan>[
-                                      TextSpan(text:publicationsData.mentorMail,style: TextStyle(color: Color.fromRGBO(273, 146, 158, 1)) )
+                                      TextSpan(text:publicationsData.mentorMail,style: TextStyle(color: Colors.teal) )
                                     ]
 
 
@@ -135,7 +135,7 @@ class _PublicationsInfoState extends State<PublicationsInfo> {
                       (!publicationsData.approvalReady) ?
                         Center(
                           child: RaisedButton(
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               child: Text(
                                 'Get Approved',
                                 style: TextStyle(color: Colors.white),
@@ -144,7 +144,7 @@ class _PublicationsInfoState extends State<PublicationsInfo> {
                           ),
                         ) : Center(
                           child: RaisedButton(
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               child: Text(
                                 'Pending',
                                 style: TextStyle(color: Colors.white),

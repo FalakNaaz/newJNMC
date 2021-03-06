@@ -34,12 +34,12 @@ InputDecoration textInputDecoration(String labelText) {
       borderSide: BorderSide(color: Colors.white, width: 2.0),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Color.fromRGBO(273, 146, 158, 1), width: 2.0),
+      borderSide: BorderSide(color: Colors.teal, width: 2.0),
     ),
     labelText: labelText,
     labelStyle: TextStyle(
       fontSize: 16.0,
-      color: Color.fromRGBO(273, 146, 158, 1),
+      color: Colors.teal,
     ),
   );
 }

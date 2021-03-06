@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/models/user.dart';
-import 'package:provider/provider.dart';
 
 class MissionTabM extends StatefulWidget {
   final String uid;
+
   MissionTabM({this.uid});
+
   @override
   _MissionTabMState createState() => _MissionTabMState();
 }
@@ -291,61 +292,28 @@ class _MissionTabMState extends State<MissionTabM> {
                             textAlign: TextAlign.justify,
                           ),
                         ),
-                        !missionData.agree
-                            ? CheckboxListTile(
-                                title: Text(
-                                  'I agree to all the missions, objectives and pledges'
-                                  ' stated on this page',
-                                  style: TextStyle(fontSize: 10),
-                                ),
-                                checkColor: Colors.black,
-                                activeColor: Colors.teal,
-                                value: value1,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    value1 = !value1;
-                                  });
-                                },
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                              )
-                            : Container(),
-                        !missionData.agree
-                            ? Visibility(
-                                maintainState: true,
-                                child: FractionallySizedBox(
-                                  widthFactor: 0.25,
-                                  child: RaisedButton(
-                                    color:
-                                        value1 ? Colors.teal : Colors.white38,
-                                    child: Text(
-                                      'Agree',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    onPressed: () async {
-                                      setState(() {
-                                        if (value1) {
-                                          DatabaseService(uid: widget.uid)
-                                              .updateUserDataForMission(
-                                                  !missionData.agree,
-                                                  residentData.name);
-                                        }
-                                      });
-                                    },
-                                  ),
-                                ),
-                              )
-                            : Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(250, 10, 10, 0),
-                                child: Text(
-                                  residentData.name,
-                                  style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 23.0,
-                                  ),
-                                ),
-                              ),
+                        (missionData.agree)?
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(250, 10, 10, 0),
+                          child: Text(
+                            residentData.name,
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 23.0,
+                            ),
+                          ),
+                        ):
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(250, 10, 10, 0),
+                          child: Text(
+                            'Resident has not signed yet!',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: 18.0,
+                            ),
+                          ),
+                        )
+
                       ],
                     ),
                   ),

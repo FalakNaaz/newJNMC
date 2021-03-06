@@ -48,7 +48,7 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                       'Update your reflection data',
                       style: TextStyle(
                           fontSize: 20.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.w600),
                     ),
                     SizedBox(
@@ -56,7 +56,7 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                     ),
                     Text(
                       'I am at the following level of clinical training of RIME Model: ',
-                      style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),fontSize: 16,),
+                      style: TextStyle(color:Colors.teal,fontSize: 16,),
                     ),
                     RadioListTile<SingingCharacter>(
                       title: const Text('Reporter'),
@@ -106,7 +106,7 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                     Text(
                       'My level in core competencies(rate from 1 to 5):',
                       style: TextStyle(
-                        color: Color.fromRGBO(273, 146, 158, 1),
+                        color: Colors.teal,
                         fontSize: 16.0,
                       ),
                     ),
@@ -127,11 +127,11 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
-                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          iconEnabledColor: Colors.teal,
+                          style: TextStyle(color:Colors.teal,),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -165,11 +165,11 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
-                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          iconEnabledColor: Colors.teal,
+                          style: TextStyle(color:Colors.teal,),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -204,11 +204,11 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
-                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          iconEnabledColor: Colors.teal,
+                          style: TextStyle(color:Colors.teal,),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -242,11 +242,11 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
-                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          iconEnabledColor: Colors.teal,
+                          style: TextStyle(color:Colors.teal,),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -282,11 +282,11 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
-                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          iconEnabledColor: Colors.teal,
+                          style: TextStyle(color:Colors.teal,),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -324,11 +324,11 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
-                          style: TextStyle(color:Color.fromRGBO(273, 146, 158, 1),),
+                          iconEnabledColor: Colors.teal,
+                          style: TextStyle(color:Colors.teal,),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -350,7 +350,7 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                     ),
                     Center(
                       child: RaisedButton(
-                        color: Color.fromRGBO(273, 146, 158, 1),
+                        color: Colors.teal,
                         child: Text(
                           'Update',
                           style: TextStyle(color: Colors.white),

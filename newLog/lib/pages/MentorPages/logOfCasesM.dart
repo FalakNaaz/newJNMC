@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/MentorPages/logOfCasesInfoM.dart';
 
 class LogOfCasesM extends StatefulWidget {
@@ -22,7 +18,7 @@ class _LogOfCasesMState extends State<LogOfCasesM> {
     return Scaffold(
       appBar: AppBar(
         title: Text('JNMCH eLogBook'),
-        backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+        backgroundColor: Colors.teal,
       ),
       body: LogOfCasesInfoM(uid: widget.uid,rotationNo: widget.rotationNo),
     );

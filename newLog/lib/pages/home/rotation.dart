@@ -20,7 +20,7 @@ class _RotationState extends State<Rotation> {
     return Scaffold(
       appBar: AppBar(
          title: Text('JNMCH eLogBook'),
-        backgroundColor: Color.fromRGBO(273, 146, 158, 1)
+        backgroundColor: Colors.teal
       ),
       body: 
       Padding(
@@ -32,7 +32,7 @@ class _RotationState extends State<Rotation> {
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 25.0,
-              color:  Color.fromRGBO(273, 146, 158, 1),
+              color:  Colors.teal,
               decoration: TextDecoration.underline,
             ),),
             SizedBox(height: 20.0),

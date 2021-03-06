@@ -206,7 +206,7 @@ class _UpdateCVState extends State<UpdateCV> {
                     ),
                     SizedBox(height: 20.0,),
                     RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Text(
                         'update',
                         style: TextStyle(color: Colors.white),
@@ -217,6 +217,10 @@ class _UpdateCVState extends State<UpdateCV> {
                           //await DatabaseService(uid: user.uid).mastersList();
                           //await DatabaseService(uid: user.uid).updateTestData();
                           await DatabaseService(uid: user.uid).updateUserData(
+                            userData.approvalReady,
+                            userData.isApproved,
+                            userData.mentorName ?? '',
+                            userData.mentorMail ?? '',
                             _currentName ?? userData.name,
                             _currentdob ?? userData.dob,
                              _currentp_add ?? userData.p_add,
@@ -234,7 +238,6 @@ class _UpdateCVState extends State<UpdateCV> {
                              _currentreason ?? userData.reason,
 
                           );
-                          await DatabaseService(uid: user.uid).createRotations();
                           Navigator.pop(context);
                         }
                         // print(_currentName);

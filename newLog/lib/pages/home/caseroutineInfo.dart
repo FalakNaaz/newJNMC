@@ -25,15 +25,7 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
 
   @override
   Widget build(BuildContext context) {
-    //final Publications = Provider.of<List<Publications_model>>(context) ?? [];
     final caseroutine = Provider.of<User>(context);
-
-    // return ListView.builder(
-    //   itemCount: Publications.length,
-    //   itemBuilder: (context, index) {
-    //     return Publications_Tile(Publications_item: Publications[index]);
-    //   },
-    // );
     return StreamBuilder<List<Learning>>(
         stream: DatabaseService(uid: caseroutine.uid).listOfLearningData,
         builder: (context, snapshot) {
@@ -59,14 +51,11 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 25.0,
-                                  color:  Color.fromRGBO(273, 146, 158, 1),
+                                  color:  Colors.teal,
                                   decoration: TextDecoration.underline,
                                 ),),
                             ),
                           ),
-                          // Text('Falak'),
-                          // Text('Naz'),
-                          //_createTextArea('Name', userData.name),
                           _createTextArea('Posting/Rotation dd/mm/year: ', caseroutineData[widget.rotationNo].pdate),
                           _createTextArea('Preceptor\'s Name: ', caseroutineData[widget.rotationNo].pname),
                           Padding(
@@ -77,6 +66,65 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
                           _createTextArea('2.', caseroutineData[widget.rotationNo].l2),
                           _createTextArea('3.', caseroutineData[widget.rotationNo].l3),
                           _createTextArea('My strategy for accomplishing above goals:', caseroutineData[widget.rotationNo].strategy),
+
+                          (caseroutineData[widget.rotationNo].isApproved) ?
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text('Approved',textScaleFactor: 1.5,),
+                                    Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text('Mentor Name: ${caseroutineData[widget.rotationNo].mentorName}'),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    RichText(
+                                        text: TextSpan(
+                                            text: 'Mentor Email: ',
+                                            style: DefaultTextStyle.of(context).style,
+                                            children: <TextSpan>[
+                                              TextSpan(text:caseroutineData[widget.rotationNo].mentorMail,style: TextStyle(color: Colors.teal) )
+                                            ]
+
+
+                                        )
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ):
+                          (!caseroutineData[widget.rotationNo].approvalReady) ?
+                          Center(
+                            child: RaisedButton(
+                                color: Colors.teal,
+                                child: Text(
+                                  'Get Approved',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: ()async {await DatabaseService(uid: caseroutine.uid).updateApprovalReadyLearning(widget.rotationNo.toString(),true); }
+                            ),
+                          ) : Center(
+                            child: RaisedButton(
+                                color: Colors.teal,
+                                child: Text(
+                                  'Pending',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: ()async {await DatabaseService(uid: caseroutine.uid).updateApprovalReadyLearning(widget.rotationNo.toString(),false); }
+                            ),
+                          )
                         ]),
                   ),
                 ),

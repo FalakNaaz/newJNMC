@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/models/user.dart';
-import 'package:jmnchelogbook/pages/MentorPages/DetailPage.dart';
-import 'package:jmnchelogbook/pages/MentorPages/authMentor.dart';
 import 'package:jmnchelogbook/pages/MentorPages/homeM.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
+import 'package:jmnchelogbook/shared/loading.dart';
 import 'package:provider/provider.dart';
 
 class MentorHomePage extends StatefulWidget {
@@ -23,48 +22,59 @@ class _MentorHomePageState extends State<MentorHomePage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<ListOfResidentData> listOfResidentData = snapshot.data;
-            print(listOfResidentData[2].name);
-            return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.teal,
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text(
-                      'Mentor log out',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () async {
-                      await _auth.signOut();
-                    },
-                  )
-                ],
-              ),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Text("Resident Doctor's"),
-                    for (var i in listOfResidentData)
-                      MyDetails(
-                          onTap:() {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeM(uid: i.uid)),
-                            );
-                          },
-                          title: i.name,
-                          subtitle: i.email
-                      ),
+            //print(listOfResidentData[2].name);
+            return StreamBuilder<MentorData>(
+              stream: DatabaseService(uid: user.uid).mentorData,
+              builder: (context, snapshot2) {
+               if(snapshot2.hasData){
+                 MentorData mentorData = snapshot2.data;
+                 return Scaffold(
+                   appBar: AppBar(
+                     title: Text(mentorData.name),
+                     backgroundColor: Colors.teal,
+                     actions: <Widget>[
+                       FlatButton(
+                         child: Text(
+                           'Mentor log out',
+                           style: TextStyle(color: Colors.white),
+                         ),
+                         onPressed: () async {
+                           await _auth.signOut();
+                         },
+                       )
+                     ],
+                   ),
+                   body: SingleChildScrollView(
+                     child: Column(
+                       children: <Widget>[
+                         SizedBox(
+                           height: 20.0,
+                         ),
+                         Text("Resident Doctors"),
+                         for (var i in listOfResidentData)
+                           MyDetails(
+                               onTap:() {
+                                 Navigator.push(
+                                   context,
+                                   MaterialPageRoute(
+                                       builder: (context) => HomeM(uid: i.uid)),
+                                 );
+                               },
+                               title: i.name,
+                               subtitle: i.email
+                           ),
 
-                  ],
-                ),
-              ),
+                       ],
+                     ),
+                   ),
+                 );
+               } else{
+                 return Loading();
+               }
+              }
             );
           } else {
-            return Container();
+            return Loading();
           }
         });
   }

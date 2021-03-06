@@ -37,11 +37,11 @@ class CaseReport extends StatelessWidget {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text('JNMCH eLogBook'),
-          backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+          backgroundColor: Colors.teal,
         ),
         body: CaseReportInfo(rotationNo: rotationNo),
         floatingActionButton:FloatingActionButton(
-          backgroundColor:  Color.fromRGBO(273, 146, 158, 1),
+          backgroundColor:  Colors.teal,
           child: Icon(Icons.edit),
           onPressed: () => _showSettingsPanel(),
         )

@@ -58,7 +58,7 @@ class _UploadScreenState extends State<UploadScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text('JNMCH eLogBook'),
-            backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+            backgroundColor: Colors.teal,
           ),
           body: url == null
               ? FlatButton(
@@ -91,7 +91,7 @@ class _UploadScreenState extends State<UploadScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           RaisedButton(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                             child: Text(
                               'Remove',
                               style: TextStyle(color: Colors.white),
@@ -113,7 +113,7 @@ class _UploadScreenState extends State<UploadScreen> {
                             width: 10,
                           ),
                           RaisedButton(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                             child: Text(
                               'Re-upload',
                               style: TextStyle(color: Colors.white),

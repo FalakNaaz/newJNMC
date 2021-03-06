@@ -13,22 +13,10 @@ class TestBar extends StatefulWidget {
 class _TestBarState extends State<TestBar> {
   String text = '';
   bool shouldDisplay = false;
-  DateTime selectedDate = DateTime.now();
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     void _showSettingsPanel(int tabNo) {
       showModalBottomSheet(
           context: context,
@@ -76,6 +64,64 @@ class _TestBarState extends State<TestBar> {
                         child: Text('Update'),
                         onPressed: () => _showSettingsPanel(tabNo),
                       ),
+                      (testData.isApproved) ?
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text('Approved',textScaleFactor: 1.5,),
+                                Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text('Mentor Name: ${testData.mentorName}'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                RichText(
+                                    text: TextSpan(
+                                        text: 'Mentor Email: ',
+                                        style: DefaultTextStyle.of(context).style,
+                                        children: <TextSpan>[
+                                          TextSpan(text:testData.mentorMail,style: TextStyle(color: Colors.teal) )
+                                        ]
+
+
+                                    )
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ):
+                      (!testData.approvalReady) ?
+                      Center(
+                        child: RaisedButton(
+                            color: Colors.teal,
+                            child: Text(
+                              'Get Approved',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyTest(tabNo.toString(),true); }
+                        ),
+                      ) : Center(
+                        child: RaisedButton(
+                            color: Colors.teal,
+                            child: Text(
+                              'Pending',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyTest(tabNo.toString(),false); }
+                        ),
+                      )
                     ],
                   ),
                 )
@@ -94,11 +140,12 @@ class _TestBarState extends State<TestBar> {
       );
     }
 
-    final user = Provider.of<User>(context);
     return StreamBuilder<List<TestData>>(
         stream: DatabaseService(uid: user.uid).listOfTestData,
         builder: (context, snapshot) {
+          print(snapshot.hasData);
           if (snapshot.hasData) {
+
             List<TestData> listOfTestData = snapshot.data;
             return DefaultTabController(
               length: 4,
@@ -109,7 +156,7 @@ class _TestBarState extends State<TestBar> {
                   // automaticallyImplyLeading: true,
                   //
                   // //title: Text('FA Tests'),
-                  backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+                  backgroundColor: Colors.teal,
                   // actions: <Widget>[
                   //   FlatButton.icon(
                   //       onPressed: () => _showSettingsPanel(),

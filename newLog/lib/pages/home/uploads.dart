@@ -152,7 +152,7 @@ class _ImageCaptureState extends State<ImageCapture> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 75.0),
                     child: RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -170,7 +170,7 @@ class _ImageCaptureState extends State<ImageCapture> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 75.0),
                     child: RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -272,8 +272,8 @@ class _UploaderState extends State<Uploader> {
       return Column(
         children: [
           FlatButton.icon(
-              color: Colors.blue,
-              label: Text('Upload to Firebase'),
+              color: Colors.teal,
+              label: Text('Upload to LogBook'),
               icon: Icon(Icons.cloud_upload),
               onPressed: _startUpload),
           /* if(url1!=null)

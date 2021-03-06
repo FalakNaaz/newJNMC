@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/models/user.dart';
@@ -11,17 +9,9 @@ import 'package:jmnchelogbook/pages/MentorPages/publicationsM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/testTabM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/thesisTabM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/uploadScreenM.dart';
-import 'package:jmnchelogbook/pages/PdfFirebase/FirstPage2.dart';
-import 'package:jmnchelogbook/pages/home/homeTab.dart';
-import 'package:jmnchelogbook/pages/home/missionTab.dart';
-import 'package:jmnchelogbook/pages/home/publications.dart';
-import 'package:jmnchelogbook/pages/home/test.dart';
-import 'package:jmnchelogbook/pages/home/thesis.dart';
-import 'package:jmnchelogbook/pages/home/uploadScreen.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
-import 'package:provider/provider.dart';
 
 class HomeM extends StatefulWidget {
   final String uid;
@@ -31,23 +21,7 @@ class HomeM extends StatefulWidget {
 }
 
 class _HomeMState extends State<HomeM> {
-  //String url;
   @override
-  /* void initState() {
-    super.initState();
-    createCollections();
-  }
-  Future createCollections() async {
-    //super.initState();
-    User user = Provider.of<User>(context);
-    //await DatabaseService(uid:user.uid).mastersList();
-    await DatabaseService(uid:user.uid).createTest2('','','','',);
-    await DatabaseService(uid:user.uid).createThesis('A','A','A',);
-    await DatabaseService(uid:user.uid).createRotations();
-    await DatabaseService(uid:user.uid).updateUserData('', '', '', '','','','','','','','','','','','');
-    await DatabaseService(uid:user.uid).updateUserDataForMission(false,'');
-    await DatabaseService(uid:user.uid).updatePublicationsData('', '', '','','');
-  }*/
   final AuthService _auth = AuthService();
   int _selectedIndex = 0;
   Widget getPage(int index)
@@ -154,7 +128,7 @@ class _HomeMState extends State<HomeM> {
                 // Here we take the value from the MyHomePage object that was created by
                 // the App.build method, and use it to set our appbar title.
                 title: Text('JNMCH eLogBook'),
-                backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+                backgroundColor: Colors.teal,
               ),
               body: Center(
                 child: getPage(_selectedIndex),
@@ -237,7 +211,7 @@ class _HomeMState extends State<HomeM> {
               bottomNavigationBar: Theme(
                 data: Theme.of(context).copyWith(
                   // sets the background color of the `BottomNavigationBar`
-                  canvasColor: Color.fromRGBO(273, 146, 158, 1),
+                  canvasColor: Colors.teal,
                 ),
                 child: BottomNavigationBar(
                   //currentIndex: 0,
@@ -246,19 +220,19 @@ class _HomeMState extends State<HomeM> {
                   selectedItemColor: Colors.white,
                   items: [
                     BottomNavigationBarItem(
-                      title: Text("Home"),
+                      label: 'Home',
                       icon: Icon(Icons.home),
                     ),
                     BottomNavigationBarItem(
-                      title: Text("Mission"),
+                      label: 'Mission',
                       icon: Icon(Icons.verified_user),
                     ),
                     BottomNavigationBarItem(
-                      title: Text("Thesis"),
+                      label: 'Thesis',
                       icon: Icon(Icons.edit),
                     ),
                     BottomNavigationBarItem(
-                      title: Text("Test"),
+                      label: 'Test',
                       icon: Icon(Icons.assignment),
                     ),
                   ],

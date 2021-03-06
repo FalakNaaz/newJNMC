@@ -24,7 +24,7 @@ class CV_Screen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text('Curriculum Vitae'),
-        backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+        backgroundColor: Colors.teal,
         actions: <Widget>[
           FlatButton.icon(
               onPressed: () => _showSettingsPanel(),

@@ -115,7 +115,7 @@ class _MyApp2State extends State<MyApp2> {
                 // Here we take the value from the MyHomePage object that was created by
                 // the App.build method, and use it to set our appbar title.
                 title: Text('JNMCH eLogBook'),
-                backgroundColor: Color.fromRGBO(273, 146, 158, 1),
+                backgroundColor: Colors.teal,
               ),
               body: Center(
                 child: _widgetOptions.elementAt(_selectedIndex),
@@ -187,7 +187,7 @@ class _MyApp2State extends State<MyApp2> {
               bottomNavigationBar: Theme(
                 data: Theme.of(context).copyWith(
                   // sets the background color of the `BottomNavigationBar`
-                  canvasColor: Color.fromRGBO(273, 146, 158, 1),
+                  canvasColor: Colors.teal,
                 ),
                 child: BottomNavigationBar(
                   //currentIndex: 0,
@@ -196,19 +196,19 @@ class _MyApp2State extends State<MyApp2> {
                   selectedItemColor: Colors.white,
                   items: [
                     BottomNavigationBarItem(
-                      title: Text("Home"),
+                      label: 'Home',
                       icon: Icon(Icons.home),
                     ),
                     BottomNavigationBarItem(
-                      title: Text("Mission"),
+                      label: 'Mission',
                       icon: Icon(Icons.verified_user),
                     ),
                     BottomNavigationBarItem(
-                      title: Text("Thesis"),
+                      label: 'Thesis',
                       icon: Icon(Icons.edit),
                     ),
                     BottomNavigationBarItem(
-                      title: Text("Test"),
+                      label: 'Test',
                       icon: Icon(Icons.assignment),
                     ),
                   ],

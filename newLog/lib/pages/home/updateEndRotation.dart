@@ -77,7 +77,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: Antepartum Care and Complications of Pregnancy',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -90,7 +90,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -99,13 +99,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -142,7 +142,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: 	Care of Patients in the Intrapartum Period',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -155,7 +155,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -164,13 +164,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -207,7 +207,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency:	Care of Patients in the Postpartum Period',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -220,7 +220,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -229,13 +229,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -272,7 +272,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: 	Obstetrical Technical Skills',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -285,7 +285,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -294,13 +294,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -337,7 +337,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: 	Gynecology Technical Skills: Laparotomyand vaginal surgery (e.g., abdominal Hysterectomy, Myomectomy, Adnexectomy, Vaginal Hysterectomy, Colporrhaphy, Mid-urethral Sling)		',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -350,7 +350,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -359,13 +359,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -402,7 +402,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency:	Gynecology Technical Skills: Endoscopy (Laparoscopy, Hysteroscopy, Cystoscopy)		',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -415,7 +415,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -424,13 +424,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -467,7 +467,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: 	Family Planning',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -480,7 +480,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -489,13 +489,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -542,7 +542,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: Professionalism	Accountability and Responsiveness to the Needs of Patients, Society, and the Profession	',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -555,7 +555,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -564,13 +564,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -607,7 +607,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: 		Respect for Patient Privacy, Autonomy, Patient-Physician Relationship		',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -620,7 +620,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -629,13 +629,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -682,7 +682,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: Interpersonal and Communication Skills	Communication with Patients and Families',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -695,7 +695,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -704,13 +704,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -747,7 +747,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: 	Communication with Physicians and Other Health Professionals and Teamwork		',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -760,7 +760,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -769,13 +769,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -812,7 +812,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency:	Informed Consent and Shared Decision Making		',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -825,7 +825,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -834,13 +834,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -887,7 +887,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: Patient Safety and Systems Approach to Medical Errors: Participates in identifying system errors and implementing potential systems solutions',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -900,7 +900,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -909,13 +909,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -961,7 +961,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       'Competency: Systems improvement: Cost-effective Care and Patient Advocacy',
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color.fromRGBO(273, 146, 158, 1),
+                          color: Colors.teal,
                           fontWeight: FontWeight.normal),
                     ),
                     SizedBox(
@@ -974,7 +974,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           'Level: ',
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Color.fromRGBO(273, 146, 158, 1),
+                              color: Colors.teal,
                               fontWeight: FontWeight.normal),
                         ),
                         DropdownButton<String>(
@@ -983,13 +983,13 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                           icon: Icon(Icons.arrow_drop_down),
                           iconSize: 28,
                           elevation: 16,
-                          iconEnabledColor: Color.fromRGBO(273, 146, 158, 1),
+                          iconEnabledColor: Colors.teal,
                           style: TextStyle(
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           underline: Container(
                             height: 2,
-                            color: Color.fromRGBO(273, 146, 158, 1),
+                            color: Colors.teal,
                           ),
                           onChanged: (String newValue) {
                             setState(() {
@@ -1023,7 +1023,7 @@ class _UpdateEndRotationState extends State<UpdateEndRotation> {
                       height: 25.0,
                     ),
                     RaisedButton(
-                      color: Color.fromRGBO(273, 146, 158, 1),
+                      color: Colors.teal,
                       child: Text(
                         'update',
                         style: TextStyle(color: Colors.white),

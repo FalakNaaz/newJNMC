@@ -13,66 +13,66 @@ class AuthService {
   //auth change user stream
   Stream<User> get user {
     return _auth.onAuthStateChanged
-    //.map((FirebaseUser user) => _userFromFirebaseUser(user));
+        //.map((FirebaseUser user) => _userFromFirebaseUser(user));
         .map(_userFromFirebaseUser);
   }
 
   //register with email and password
-  Future registerWithEmailAndPassword(String email, String password,
-      String role, String name) async
-  {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      FirebaseUser user = result.user;
-      await DatabaseService(uid: user.uid).createRole(role);
-      if (role == 'mentor')
-        await DatabaseService(uid: user.uid).updateListForMentor(
-            email, user.uid, name);
-      if (role == 'resident') {
-        await DatabaseService(uid: user.uid).updateListForResident(
-            email, user.uid, name);
-        await DatabaseService(uid: user.uid).createTest2('', '', '', '',);
-        await DatabaseService(uid: user.uid).createThesis('A', 'A', 'A',);
-        await DatabaseService(uid: user.uid).createRotations();
-        await DatabaseService(uid: user.uid).updateUserData(
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '');
-        await DatabaseService(uid: user.uid).updateUserDataForMission(
-            false, '');
-        await DatabaseService(uid: user.uid).updatePublicationsData(
-          false,  '', '', '', '', '','','',false);
-        await DatabaseService(uid: user.uid).createImageVar(false);
-      }
-      return _userFromFirebaseUser(user);
+  Future registerWithEmailAndPassword(
+      String email, String password, String role, String name) async {
+    AuthResult result = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    FirebaseUser user = result.user;
+    await DatabaseService(uid: user.uid).createRole(role);
+    if (role == 'mentor')
+      await DatabaseService(uid: user.uid)
+          .updateListForMentor(email, user.uid, name);
+    if (role == 'resident') {
+      await DatabaseService(uid: user.uid)
+          .updateListForResident(email, user.uid, name);
+      await DatabaseService(uid: user.uid).createTest2(
+        false,
+        false,
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+      );
+      await DatabaseService(uid: user.uid).createThesis(
+        'A',
+        'A',
+        'A',
+        false,
+        false,
+        '',
+        '',
+      );
+      await DatabaseService(uid: user.uid).createRotations();
+      await DatabaseService(uid: user.uid).updateUserData(false, false, '', '',
+          '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+      await DatabaseService(uid: user.uid).updateUserDataForMission(false, '');
+      await DatabaseService(uid: user.uid)
+          .updatePublicationsData(false, '', '', '', '', '', '', '', false);
+      await DatabaseService(uid: user.uid).createImageVar(false);
+    }
+    return _userFromFirebaseUser(user);
   }
 
   //Sign in with email and password
-  Future signInWithEmailAndPassword(String email, String password) async
-  {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUser(user);
+  Future signInWithEmailAndPassword(String email, String password) async {
+    AuthResult result = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
+    FirebaseUser user = result.user;
+    return _userFromFirebaseUser(user);
   }
 
   // Send Link to change password
-  Future sendPasswordRestEmail(String email) async
-  {
+  Future sendPasswordRestEmail(String email) async {
     return _auth.sendPasswordResetEmail(email: email);
   }
+
   //Sign out
   Future signOut() async {
     try {
@@ -87,44 +87,45 @@ class AuthService {
   Future sendPasswordResetEmail(String email) async {
     return _auth.sendPasswordResetEmail(email: email);
   }
-
 }
 
 // Validators
-class NameValidator{
-  static String validate(String value)
-  {
-    if(value.isEmpty)
-    {
+class NameValidator {
+  static String validate(String value) {
+    if (value.isEmpty) {
       return "Name can't be empty";
     }
-    if(value.length <2){
+    if (value.length < 2) {
       return "Name must be at least 2 character long";
     }
-    if(value.length > 50){
+    if (value.length > 50) {
       return "Name must be at less than 50 character long";
     }
     return null;
   }
 }
 
-class EmailValidator{
-  static String validate(String value)
-  {
-    if(value.isEmpty)
-    {
+class EmailValidator {
+  static String validate(String value) {
+    if (value.isEmpty) {
       return "E-mail can't be empty!";
     }
     return null;
   }
 }
 
-class PasswordValidator{
-  static String validate(String value)
-  {
-    if(value.isEmpty)
-    {
-      return "Password can't be empty, if you have forget password then enter your last password that you remembered & click on forget password button";
+class PasswordValidatorRegister {
+  static String validate(String value) {
+    if (value.isEmpty) {
+      return "Password can't be empty";
+    }
+    return null;
+  }
+}
+class PasswordValidatorLogin {
+  static String validate(String value) {
+    if (value.isEmpty) {
+      return "Password can't be empty, if you have forgot your password then enter the last password you remember & click on forgot password button";
     }
     return null;
   }

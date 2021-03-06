@@ -35,7 +35,7 @@ class _TestTabMState extends State<TestTabM> {
           });
     }
 
-    Widget displayTest(TestData testData, int tabNo) {
+    Widget displayTest(MentorData mentorData,TestData testData, int tabNo) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -62,10 +62,94 @@ class _TestTabMState extends State<TestTabM> {
                 ),
                 Text(
                     'Reasons for level of \nperformance                         :   ${testData.reason}'),
-                RaisedButton(
-                  child: Text('Update'),
-                  onPressed: () => _showSettingsPanel(tabNo),
-                ),
+                (testData.isApproved) ?
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Text('Approved',textScaleFactor: 1.5,),
+                          Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Text('Mentor Name: ${testData.mentorName}'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          RichText(
+                              text: TextSpan(
+                                  text: 'Mentor Email: ',
+                                  style: DefaultTextStyle.of(context).style,
+                                  children: <TextSpan>[
+                                    TextSpan(text:testData.mentorMail,style: TextStyle(color: Colors.teal) )
+                                  ]
+
+
+                              )
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20.0,),
+                      Center(
+                        child: RaisedButton(
+                            color: Colors.teal,
+                            child: Text(
+                              'Un-approve',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: ()async {
+                              await DatabaseService(uid: widget.uid).updateIsApprovedTest(tabNo.toString(),false, '', '');
+                              await DatabaseService(uid: widget.uid).updateApprovalReadyTest(tabNo.toString(),false);
+                              setState(() {});
+                            }
+                        ),
+                      )
+
+                    ],
+                  ),
+                ):
+                (testData.approvalReady) ?
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 100.0,),
+                      RaisedButton(
+                          color: Colors.teal,
+                          child: Text(
+                            'Approve',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: ()async {
+                            await DatabaseService(uid: widget.uid).updateIsApprovedTest(tabNo.toString(),true, mentorData.name, mentorData.email);
+                            setState(() {});
+                          }
+                      ),
+                      SizedBox(width: 20.0,),
+                      RaisedButton(
+                          color: Colors.teal,
+                          child: Text(
+                            'Decline',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: ()async {
+                            await DatabaseService(uid: widget.uid).updateApprovalReadyTest(tabNo.toString(),false, );
+                            setState(() {});
+                          }
+                      ),
+                    ],
+                  ),
+                ) : Center(
+                  child: Text('The resident has not yet applied for approval'),
+                )
               ],
             ),
           )
@@ -84,51 +168,61 @@ class _TestTabMState extends State<TestTabM> {
       );
     }
 
-    //final user = Provider.of<User>(context);
+    final user = Provider.of<User>(context);
     return StreamBuilder<List<TestData>>(
         stream: DatabaseService(uid: widget.uid).listOfTestData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<TestData> listOfTestData = snapshot.data;
-            return DefaultTabController(
-              length: 4,
-              child: Scaffold(
-                //resizeToAvoidBottomInset: false,
-                appBar: AppBar(
-                  toolbarHeight: 55.0,
-                  // automaticallyImplyLeading: true,
-                  //
-                  // //title: Text('FA Tests'),
-                  backgroundColor: Color.fromRGBO(273, 146, 158, 1),
-                  // actions: <Widget>[
-                  //   FlatButton.icon(
-                  //       onPressed: () => _showSettingsPanel(),
-                  //       icon: Icon(Icons.edit, color: Colors.white,),
-                  //       label: Text('Edit Test Info',
-                  //         style: TextStyle(color: Colors.white,),)),
-                  //
-                  // ],
-                  bottom: TabBar(
-                    tabs: [
-                      Tab(text: 'Test 1'),
-                      Tab(text: 'Test 2'),
-                      Tab(text: 'Test 3'),
-                      Tab(text: 'Test 4'),
-                    ],
-                    labelColor: Colors.white,
-                    indicatorColor: Colors.white,
-                    unselectedLabelColor: Colors.black,
-                  ),
-                ),
-                body: TabBarView(
-                  children: [
-                    displayTest(listOfTestData[0], 0),
-                    displayTest(listOfTestData[1], 1),
-                    displayTest(listOfTestData[2], 2),
-                    displayTest(listOfTestData[3], 3),
-                  ],
-                ),
-              ),
+            return StreamBuilder<MentorData>(
+              stream: DatabaseService(uid: user.uid).mentorData,
+              builder: (context, snapshot2) {
+                if(snapshot2.hasData){
+                  MentorData mentorData = snapshot2.data;
+                  return DefaultTabController(
+                    length: 4,
+                    child: Scaffold(
+                      //resizeToAvoidBottomInset: false,
+                      appBar: AppBar(
+                        toolbarHeight: 55.0,
+                        // automaticallyImplyLeading: true,
+                        //
+                        // //title: Text('FA Tests'),
+                        backgroundColor: Colors.teal,
+                        // actions: <Widget>[
+                        //   FlatButton.icon(
+                        //       onPressed: () => _showSettingsPanel(),
+                        //       icon: Icon(Icons.edit, color: Colors.white,),
+                        //       label: Text('Edit Test Info',
+                        //         style: TextStyle(color: Colors.white,),)),
+                        //
+                        // ],
+                        bottom: TabBar(
+                          tabs: [
+                            Tab(text: 'Test 1'),
+                            Tab(text: 'Test 2'),
+                            Tab(text: 'Test 3'),
+                            Tab(text: 'Test 4'),
+                          ],
+                          labelColor: Colors.white,
+                          indicatorColor: Colors.white,
+                          unselectedLabelColor: Colors.black,
+                        ),
+                      ),
+                      body: TabBarView(
+                        children: [
+                          displayTest(mentorData,listOfTestData[0], 0),
+                          displayTest(mentorData,listOfTestData[1], 1),
+                          displayTest(mentorData,listOfTestData[2], 2),
+                          displayTest(mentorData,listOfTestData[3], 3),
+                        ],
+                      ),
+                    ),
+                  );
+                }else{
+                  return Container();
+                }
+              }
             );
           } else {
             return Container(
