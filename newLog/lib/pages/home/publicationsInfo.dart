@@ -36,13 +36,13 @@ class _PublicationsInfoState extends State<PublicationsInfo> {
                     crossAxisAlignment: CrossAxisAlignment.start ,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(20.0),
                         child: Table(
 
                           columnWidths: {
-                            0: FlexColumnWidth(8),
+                            0: FlexColumnWidth(3),
                             1: FlexColumnWidth(1),
-                            2: FlexColumnWidth(1),
+                            2: FlexColumnWidth(6),
                           },
                           // textDirection: TextDirection.rtl,
                           //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
@@ -51,44 +51,44 @@ class _PublicationsInfoState extends State<PublicationsInfo> {
 
                             TableRow(
                                 children: [
-                                  Text("Papers Published/ Communicated",textScaleFactor: 1.5,style:textStyle()),
-                                  Text(":",textScaleFactor: 1.5,),
-                                  Text(publicationsData.papers,textScaleFactor: 1.5),
-                                  //Text("University",textScaleFactor: 1.5),
+                                  Text("Papers Published/ Communicated",textScaleFactor: 1.2,),
+                                  Text(":",textScaleFactor: 1.2,),
+                                  Text(publicationsData.papers,textScaleFactor: 1.2),
+                                  //Text("University",textScaleFactor: 1.2),
                                 ]
                             ),
                             rowSpacer,
                             TableRow(
                                 children: [
-                                  Text("Conferences/CMEs/Workshops attended",textScaleFactor: 1.5,style:textStyle()),
-                                  Text(":",textScaleFactor: 1.5,),
-                                  Text(publicationsData.conferences,textScaleFactor: 1.5),
-                                  //Text("AKTU",textScaleFactor: 1.5),
+                                  Text("Conferences/CMEs/Workshops attended",textScaleFactor: 1.2,),
+                                  Text(":",textScaleFactor: 1.2,),
+                                  Text(publicationsData.conferences,textScaleFactor: 1.2),
+                                  //Text("AKTU",textScaleFactor: 1.2),
                                 ]
                             ),
                             rowSpacer,
                             TableRow(
                                 children: [
-                                  Text("Outreach activity/Social Work",textScaleFactor: 1.5,style:textStyle()),
-                                  Text(":",textScaleFactor: 1.5,),
-                                  Text(publicationsData.social,textScaleFactor: 1.5),
+                                  Text("Outreach activity/Social Work",textScaleFactor: 1.2,),
+                                  Text(":",textScaleFactor: 1.2,),
+                                  Text(publicationsData.social,textScaleFactor: 1.2),
 
                                 ]
                             ),
                             rowSpacer,
                             TableRow(
                                 children: [
-                                  Text("Organisational Experience",textScaleFactor: 1.5,style:textStyle()),
-                                  Text(":",textScaleFactor: 1.5,),
-                                  Text(publicationsData.organization,textScaleFactor: 1.5),
+                                  Text("Organisational Experience",textScaleFactor: 1.2,),
+                                  Text(":",textScaleFactor: 1.2,),
+                                  Text(publicationsData.organization,textScaleFactor: 1.2),
                                 ]
                             ),
                             rowSpacer,
                             TableRow(
                                 children: [
-                                  Text("Any other achievement/Awards",textScaleFactor: 1.5,style:textStyle()),
-                                  Text(":",textScaleFactor: 1.5,),
-                                  Text(publicationsData.achievement,textScaleFactor: 1.5),
+                                  Text("Any other achievement/Awards",textScaleFactor: 1.2,),
+                                  Text(":",textScaleFactor: 1.2,),
+                                  Text(publicationsData.achievement,textScaleFactor: 1.2),
                                 ]
                             ),
                           ],
@@ -103,7 +103,7 @@ class _PublicationsInfoState extends State<PublicationsInfo> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
-                                Text('Approved',textScaleFactor: 1.5,),
+                                Text('Approved',textScaleFactor: 1.2,),
                                 Icon(Icons.check_circle, color: Colors.green,size: 30,)
                               ],
                             ),

@@ -147,20 +147,24 @@ class _TestTabMState extends State<TestTabM> {
                       ),
                     ],
                   ),
-                ) : Center(
-                  child: Text('The resident has not yet applied for approval'),
+                ) :Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.info_outline),
+                        SizedBox(width: 10.0,),
+                        Text('The resident has not yet applied for approval'),
+                      ],
+                    ),
+                  ),
                 )
               ],
             ),
           )
-              : Center(
-            child: FlatButton(
-              onPressed: () => _showSettingsPanel(tabNo),
-              child: Text('No information available! Tap to Update',
+              : Text('No information available yet!',
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.grey)),
-            ),
-          ),
           SizedBox(
             height: 20.0,
           ),
@@ -182,21 +186,9 @@ class _TestTabMState extends State<TestTabM> {
                   return DefaultTabController(
                     length: 4,
                     child: Scaffold(
-                      //resizeToAvoidBottomInset: false,
                       appBar: AppBar(
                         toolbarHeight: 55.0,
-                        // automaticallyImplyLeading: true,
-                        //
-                        // //title: Text('FA Tests'),
                         backgroundColor: Colors.teal,
-                        // actions: <Widget>[
-                        //   FlatButton.icon(
-                        //       onPressed: () => _showSettingsPanel(),
-                        //       icon: Icon(Icons.edit, color: Colors.white,),
-                        //       label: Text('Edit Test Info',
-                        //         style: TextStyle(color: Colors.white,),)),
-                        //
-                        // ],
                         bottom: TabBar(
                           tabs: [
                             Tab(text: 'Test 1'),

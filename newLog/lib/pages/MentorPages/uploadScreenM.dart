@@ -79,83 +79,27 @@ class _UploadScreenMState extends State<UploadScreenM> {
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('JNMCH eLogBook'),
+            title: Text('Profile Picture'),
             backgroundColor: Colors.teal,
           ),
           body: (snapshot.hasData) ?
           url == 'noUrl'
-              ? FlatButton(
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Tap to upload Profile picture',
-                style: TextStyle(
-                    fontStyle: FontStyle.italic, color: Colors.grey),
-              ),
-            ),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ImageCapture(
-                      uid: widget.uid, url: url, callback: callback)),
-            ),
-          )
+              ? Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'No profile picture uploaded yet!',
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, color: Colors.grey),
+                ),
+              )
               : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FittedBox(
-                fit: BoxFit.fitHeight,
-                child: CircleAvatar(
-                  radius: 150.0,
-                  backgroundImage: NetworkImage(url),
-                  backgroundColor: Colors.transparent,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                      color: Colors.teal,
-                      child: Text(
-                        'Remove',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        await DatabaseService(uid: widget.uid)
-                            .createImageVar(false);
-                        setState(() {
-                          FirebaseStorage(
-                              storageBucket:
-                              'gs://newlog-1fde7.appspot.com')
-                              .ref()
-                              .child('images/${widget.uid}.jpeg')
-                              .delete();
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    RaisedButton(
-                      color: Colors.teal,
-                      child: Text(
-                        'Re-upload',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ImageCapture(
-                                  uid: widget.uid,
-                                  url: url,
-                                  callback: callback)),
-                        );
-                      },
-                    ),
-                  ],
+              Center(
+                child: Container(
+                height: 300,
+                width: 300,
+                child: Image.network(url),
                 ),
               ),
             ],

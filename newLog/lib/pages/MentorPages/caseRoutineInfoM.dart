@@ -19,7 +19,7 @@ class _CaseRoutineInfoMState extends State<CaseRoutineInfoM> {
       child: Text(
         '$label $text',
         //textAlign: TextAlign.right,
-        style: TextStyle(),
+        textScaleFactor: 1.2,
       ),
     );
   }
@@ -65,7 +65,7 @@ class _CaseRoutineInfoMState extends State<CaseRoutineInfoM> {
                                 _createTextArea('Preceptor\'s Name: ', caseroutineData[widget.rotationNo].pname),
                                 Padding(
                                   padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-                                  child: Text('Three things I want to learn  in this rotation: '),
+                                  child: Text('Three things I want to learn  in this rotation: ',textScaleFactor: 1.2,),
                                 ),
                                 _createTextArea('1. ', caseroutineData[widget.rotationNo].l1),
                                 _createTextArea('2.', caseroutineData[widget.rotationNo].l2),
@@ -157,7 +157,16 @@ class _CaseRoutineInfoMState extends State<CaseRoutineInfoM> {
                                     ],
                                   ),
                                 ) : Center(
-                                  child: Text('The resident has not yet applied for approval'),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.info_outline),
+                                        SizedBox(width: 10.0,),
+                                        Text('The resident has not yet applied for approval'),
+                                      ],
+                                    ),
+                                  ),
                                 )
                               ]),
                         ),

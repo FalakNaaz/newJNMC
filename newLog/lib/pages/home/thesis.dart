@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/updateThesis.dart';
 import 'package:jmnchelogbook/services/database.dart';
+import 'package:jmnchelogbook/shared/constants.dart';
 import 'package:provider/provider.dart';
 
 class ThesisTab extends StatefulWidget {
@@ -20,10 +21,10 @@ class _ThesisTabState extends State<ThesisTab> {
           context: context,
           isScrollControlled: true,
           builder: (context) {
-            return SafeArea(
-              child: Scaffold(
-                resizeToAvoidBottomInset: true,
-                body: Container(
+            return Scaffold(
+              resizeToAvoidBottomInset: true,
+              body: SafeArea(
+                child: Container(
                   padding:
                       EdgeInsets.symmetric(vertical: 120.0, horizontal: 15.0),
                   child: UpdateThesis(
@@ -36,117 +37,144 @@ class _ThesisTabState extends State<ThesisTab> {
     }
 
     Widget displayText(ThesisData thesisData, int tabNo) {
-
+      const rowSpacer=TableRow( children: [ SizedBox( height: 12, ), SizedBox( height: 12, ), SizedBox( height: 12, ) ]);
       var consult = thesisData.consult;
       var collect = thesisData.collect;
       var pre = thesisData.pre;
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 35),
-            child: Text(
-              'Grading: Poor- E, Satisfactory- D, Average- C, Good- B, Very Good- A',
-              style: TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.ideographic,
+      return Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Card(
+          elevation: 8.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'Periodic Consultation with Mentor :  $consult',
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.ideographic,
-            children: <Widget>[
-              Text(
-                'Regular Collection of Data               :  $collect',
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.ideographic,
-            children: <Widget>[
-              Text(
-                'Departmental Presentation             :  $pre',
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ],
-          ),
-          RaisedButton(
-            child: Text('Update'),
-            onPressed: () => _showSettingsPanel(tabNo),
-          ),
-          (thesisData.isApproved) ?
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text('Approved',textScaleFactor: 1.5,),
-                    Icon(Icons.check_circle, color: Colors.green,size: 30,)
-                  ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 25),
+                child: Text(
+                  'Grading: Poor- 1, Satisfactory- 2, Average- 3, Good- 4, Very Good- 5',
+                  style: TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text('Mentor Name: ${thesisData.mentorName}'),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    RichText(
-                        text: TextSpan(
-                            text: 'Mentor Email: ',
-                            style: DefaultTextStyle.of(context).style,
-                            children: <TextSpan>[
-                              TextSpan(text:thesisData.mentorMail,style: TextStyle(color: Colors.teal) )
-                            ]
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Table(
+                  columnWidths: {
+                    0: FlexColumnWidth(8),
+                    1: FlexColumnWidth(1),
+                    2: FlexColumnWidth(1),
+                  },
+                  // textDirection: TextDirection.rtl,
+                  //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                  // border:TableBorder.all(width: 2.0,color: Colors.red),
+                  children: [
 
-
-                        )
+                    TableRow(
+                        children: [
+                          Text( 'Periodic Consultation with Mentor',textScaleFactor: 1.2),
+                          Text(":",textScaleFactor: 1.2,),
+                          Text(consult,textScaleFactor: 1.2),
+                          //Text("University",textScaleFactor: 1.2),
+                        ]
                     ),
+                    rowSpacer,
+                    TableRow(
+                        children: [
+                          Text("Regular Collection of Data",textScaleFactor: 1.2),
+                          Text(":",textScaleFactor: 1.2,),
+                          Text(collect,textScaleFactor: 1.2),
+                          //Text("AKTU",textScaleFactor: 1.2),
+                        ]
+                    ),
+                    rowSpacer,
+                    TableRow(
+                        children: [
+                          Text("Departmental Presentation",textScaleFactor: 1.2,),
+                          Text(":",textScaleFactor: 1.2,),
+                          Text(pre,textScaleFactor: 1.2),
+
+                        ]
+                    ),
+                    rowSpacer,
                   ],
-                )
-              ],
-            ),
-          ):
-          (!thesisData.approvalReady) ?
-          Center(
-            child: RaisedButton(
+                ),
+              ),
+              (!thesisData.isApproved) ?
+              RaisedButton(
                 color: Colors.teal,
                 child: Text(
-                  'Get Approved',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyThesis(tabNo.toString(),true); }
-            ),
-          ) : Center(
-            child: RaisedButton(
-                color: Colors.teal,
+                  'Update',
+                  style: TextStyle(color: Colors.white),),
+                onPressed: () => _showSettingsPanel(tabNo),
+              ) :
+              RaisedButton(
+                //color: Colors.teal,
                 child: Text(
-                  'Pending',
-                  style: TextStyle(color: Colors.white),
+                  'Update',
+                  style: TextStyle(color: Colors.black),),
+                onPressed:() {showMyDialog(context);},
+              ),
+              (thesisData.isApproved) ?
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Text('Approved',textScaleFactor: 1.2,),
+                        Icon(Icons.check_circle, color: Colors.green,size: 30,)
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Text('Mentor Name: ${thesisData.mentorName}'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        RichText(
+                            text: TextSpan(
+                                text: 'Mentor Email: ',
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  TextSpan(text:thesisData.mentorMail,style: TextStyle(color: Colors.teal) )
+                                ]
+
+
+                            )
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-                onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyThesis(tabNo.toString(),false); }
-            ),
-          )
-        ],
+              ):
+              (!thesisData.approvalReady) ?
+              Center(
+                child: RaisedButton(
+                    color: Colors.teal,
+                    child: Text(
+                      'Get Approved',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyThesis(tabNo.toString(),true); }
+                ),
+              ) : Center(
+                child: RaisedButton(
+                    color: Colors.teal,
+                    child: Text(
+                      'Pending',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: ()async {await DatabaseService(uid: user.uid).updateApprovalReadyThesis(tabNo.toString(),false); }
+                ),
+              )
+            ],
+          ),
+        ),
       );
     }
 

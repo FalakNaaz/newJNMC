@@ -27,11 +27,6 @@ class _BaseAppState extends State<BaseApp> {
   bool loading = false;
   String key = '';
 
-
-  List listItems = [
-    "Resident", "Mentor"
-  ];
-
   @override
   void initState(){
     super.initState();

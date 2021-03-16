@@ -103,7 +103,7 @@ class _MyApp2State extends State<MyApp2> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
 
-     //getUrl(context);
+    //getUrl(context);
     return StreamBuilder<ResidentData>(
         stream: DatabaseService(uid: user?.uid).residentData,
         builder: (context, snapshot) {
@@ -130,12 +130,6 @@ class _MyApp2State extends State<MyApp2> {
                         text: 'Profile',
                         onTap: () {
                           Navigator.pushNamed(context, '/CV');
-                        }),
-                    createDrawerBodyItem(
-                        icon: Icons.person,
-                        text: 'Mentor approval',
-                        onTap: () {
-                          Navigator.pushNamed(context, '/uploadPDFScreen');
                         }),
                     createDrawerBodyItem(
                         icon: Icons.publish,
@@ -168,6 +162,31 @@ class _MyApp2State extends State<MyApp2> {
                           );
                         }),
                     createDrawerBodyItem(
+                        icon: Icons.assignment,
+                        text: 'Blueprint for evaluation',
+                        onTap: () {
+                          Navigator.pushNamed(context, '/blueprint');
+                        }),
+                    createDrawerBodyItem(
+                        icon: Icons.assignment,
+                        text: 'RIME model',
+                        onTap: () {
+                          Navigator.pushNamed(context, '/rime');
+                        }),
+                    createDrawerBodyItem(
+                        icon: Icons.assignment,
+                        text: 'Summary',
+                        onTap: () {
+                          Navigator.pushNamed(context, '/summary');
+                        }),
+                    createDrawerBodyItem(
+                        icon: Icons.assignment,
+                        text: '360 degree Feedback',
+                        onTap: () {
+                          Navigator.pushNamed(context, '/feedback');
+                        }),
+
+                    createDrawerBodyItem(
                       icon: Icons.exit_to_app,
                       text: 'Log Out',
                       onTap: () async {
@@ -192,7 +211,7 @@ class _MyApp2State extends State<MyApp2> {
                 child: BottomNavigationBar(
                   //currentIndex: 0,
                   type: BottomNavigationBarType.fixed,
-                  unselectedItemColor: Color.fromRGBO(146, 180, 237, 1),
+                  unselectedItemColor: Colors.tealAccent,
                   selectedItemColor: Colors.white,
                   items: [
                     BottomNavigationBarItem(

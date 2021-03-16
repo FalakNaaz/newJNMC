@@ -12,7 +12,7 @@ class ReflectionM extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: Text('JNMCH eLogBook'),
+          title: Text('Reflection'),
           backgroundColor: Colors.teal,
         ),
         body: ReflectionInfoM(uid:uid,rotationNo: rotationNo),

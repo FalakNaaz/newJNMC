@@ -804,7 +804,16 @@ class _EndRotationInfoMState extends State<EndRotationInfoM> {
                                ],
                              ),
                            ) : Center(
-                             child: Text('The resident has not yet applied for approval'),
+                             child: Padding(
+                               padding: const EdgeInsets.all(16.0),
+                               child: Row(
+                                 children: [
+                                   Icon(Icons.info_outline),
+                                   SizedBox(width: 10.0,),
+                                   Text('The resident has not yet applied for approval'),
+                                 ],
+                               ),
+                             ),
                            )
                          ],
                        ),
@@ -813,7 +822,7 @@ class _EndRotationInfoMState extends State<EndRotationInfoM> {
                        : Align(
                      alignment: Alignment.center,
                      child: Text(
-                       'No information available! Edit to Update',
+                       'No information available yet!',
                        style: TextStyle(
                            fontStyle: FontStyle.italic, color: Colors.grey),
                      ),

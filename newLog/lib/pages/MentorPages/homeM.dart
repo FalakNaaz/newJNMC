@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/MentorPages/cvScreenM.dart';
+import 'package:jmnchelogbook/pages/MentorPages/feedback1M.dart';
 import 'package:jmnchelogbook/pages/MentorPages/firstPage2M.dart';
 import 'package:jmnchelogbook/pages/MentorPages/homeTabM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/missionTabM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/publicationsM.dart';
+import 'package:jmnchelogbook/pages/MentorPages/summaryM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/testTabM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/thesisTabM.dart';
 import 'package:jmnchelogbook/pages/MentorPages/uploadScreenM.dart';
@@ -192,15 +194,38 @@ class _HomeMState extends State<HomeM> {
                           );
                         }),
                     createDrawerBodyItem(
-                      icon: Icons.exit_to_app,
-                      text: 'Log Out',
-                      onTap: () async {
-                        //Navigator.of(context).pop();
-                        // Navigator.of(context).pushReplacementNamed('/');
-                        await _auth.signOut();
-                        //Provider.of<AuthService>(context, listen: false);
-                      },
-                    ),
+                        icon: Icons.assignment,
+                        text: 'Blueprint for evaluation',
+                        onTap: () {
+                          Navigator.pushNamed(context, '/blueprint');
+                        }),
+                    createDrawerBodyItem(
+                        icon: Icons.ac_unit,
+                        text: 'RIME model',
+                        onTap: () {
+                          Navigator.pushNamed(context, '/rime');
+                        }),
+                    createDrawerBodyItem(
+                        icon: Icons.subject_rounded,
+                        text: 'Summary',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SummaryScreenM(uid: widget.uid)),
+                          );
+                        }),
+                    createDrawerBodyItem(
+                        icon: Icons.check,
+                        text: '360 degree Feedback',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    FeedbackScreenM(uid: widget.uid)),
+                          );
+                        }),
                     ListTile(
                       title: Text('App version 1.0.0'),
                       onTap: () {},
@@ -216,7 +241,7 @@ class _HomeMState extends State<HomeM> {
                 child: BottomNavigationBar(
                   //currentIndex: 0,
                   type: BottomNavigationBarType.fixed,
-                  unselectedItemColor: Color.fromRGBO(146, 180, 237, 1),
+                  unselectedItemColor:  Colors.tealAccent,
                   selectedItemColor: Colors.white,
                   items: [
                     BottomNavigationBarItem(

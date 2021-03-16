@@ -1,10 +1,10 @@
+import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:provider/provider.dart';
-
 class CV_Info extends StatefulWidget {
   @override
   _CV_InfoState createState() => _CV_InfoState();
@@ -28,6 +28,7 @@ class _CV_InfoState extends State<CV_Info> {
 
   @override
   Widget build(BuildContext context) {
+    const rowSpacer=TableRow( children: [ SizedBox( height: 12, ), SizedBox( height: 12, ), SizedBox( height: 12, ) ]);
     final user = Provider.of<User>(context);
     var url;
     Future<String> printImage() async {
@@ -40,12 +41,13 @@ class _CV_InfoState extends State<CV_Info> {
       return url;
     }
 
-    printImage();
+    //printImage();
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {
           //print(url);
           if (snapshot.hasData) {
+
             UserData userData = snapshot.data;
             return FutureBuilder<String>(
                 future: printImage(), // async work
@@ -77,43 +79,275 @@ class _CV_InfoState extends State<CV_Info> {
                                     ),
                                   ),
                                 ),
-                            _createTextArea('Name:', userData.name),
-                            _createTextArea(
-                                'Date of Birth(DD/MM//YY) : ',
-                                userData.dob),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Table(
 
-                             /* if (snapshot.connectionState ==
-                                  ConnectionState.waiting)
-                               CircularProgressIndicator(),*/
+                                columnWidths: {
+                                  0: FlexColumnWidth(3),
+                                  1: FlexColumnWidth(1),
+                                  2: FlexColumnWidth(3),
+                                },
+                                // textDirection: TextDirection.rtl,
+                                //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                                // border:TableBorder.all(width: 2.0,color: Colors.red),
+                                children: [
 
-                            _createTextArea(
-                                'Permanent Address : ', userData.p_add),
-                            _createTextArea('Local Address : ', userData.l_add),
-                            _createTextArea('Mobile Number : ', userData.mob),
-                            _createTextArea('Email : ', userData.email),
-                            _createTextArea(
-                                'MBBS Degree Detail(Year of Addmission, Year of Passing, College/University) : ',
-                                userData.degreeDetail),
-                            _createTextArea(
-                                'MBBS Record(1st Prof, 2nd Prof, Mid prof and Final Prof Percetages, medals or any distinctions)',
-                                userData.degreeRecord),
-                            _createTextArea(
-                                'Internship: Month / Year of beginning, Month / Year of completion, College & Hospital: ',
-                                userData.iDetail),
-                            _createTextArea(
-                                'Other Experience: ', userData.other),
-                            _createTextArea(
-                                'Medical Council Registration No. & Date : ',
-                                userData.regNo),
-                            _createTextArea(
-                                'Month & Year of Joining the Course: ',
-                                userData.joiningDate),
-                            _createTextArea(
-                                'Month & Year of appearing for the Degree / Diploma examination:',
-                                userData.appearDate),
-                            _createTextArea(
-                                'Special Interest / Hobbies and Extra Curricular  Activities: ',
-                                userData.hobby),
+                                  TableRow(
+                                      children: [
+                                        Text("Name",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.name,textScaleFactor: 1.2),
+                                        //Text("University",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Date of Birth(DD/MM//YY)",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.dob,textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Permanent Address",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.p_add,textScaleFactor: 1.2),
+
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Local Address",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.l_add,textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Mobile Number",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.mob,textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Email",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.email,textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text("MBBS Degree:",textScaleFactor: 1.2,),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(50, 20, 20, 20),
+                              child: Table(
+
+                                columnWidths: {
+                                  0: FlexColumnWidth(3),
+                                  1: FlexColumnWidth(1),
+                                  2: FlexColumnWidth(3),
+                                },
+                                // textDirection: TextDirection.rtl,
+                                //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                                // border:TableBorder.all(width: 2.0,color: Colors.red),
+                                children: [
+
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Year of admission",textScaleFactor: 1.2,),
+                                        Text(':',textScaleFactor: 1.2,),
+                                        Text(userData.degreeDetailYrAdd,textScaleFactor: 1.2),
+                                        //Text("AKTU",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Year of passing",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.degreeDetailYrPass,textScaleFactor: 1.2),
+
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("College / University",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.degreeDetailCollege,textScaleFactor: 1.2),
+                                      ]
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                            Text("MBBS Record:",textScaleFactor: 1.2,),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(50, 20, 20, 20),
+                              child: Table(
+
+                                columnWidths: {
+                                  0: FlexColumnWidth(2),
+                                  1: FlexColumnWidth(2),
+                                  2: FlexColumnWidth(2),
+                                },
+                                // textDirection: TextDirection.rtl,
+                                //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                                // border:TableBorder.all(width: 2.0,color: Colors.red),
+                                children: [
+
+                                  TableRow(
+                                      children: [
+                                        Text("S.No.",textScaleFactor: 1.2,),
+                                        Text("Percentage",textScaleFactor: 1.2,),
+                                        Text('Medals/Distinction/Awards',textScaleFactor: 1.2),
+                                        //Text("University",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("1st Prof",textScaleFactor: 1.2,),
+                                        Text(userData.degreeRecord1stProfP,textScaleFactor: 1.2,),
+                                        Text(userData.degreeRecord1stProfM,textScaleFactor: 1.2),
+                                        //Text("AKTU",textScaleFactor: 1.2),
+                                      ]
+                                  ), rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("2nd Prof",textScaleFactor: 1.2,),
+                                        Text(userData.degreeRecord2ndProfP,textScaleFactor: 1.2,),
+                                        Text(userData.degreeRecord2ndProfM,textScaleFactor: 1.2),
+                                        //Text("AKTU",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Mid Prof",textScaleFactor: 1.2,),
+                                        Text(userData.degreeRecordMidProfP,textScaleFactor: 1.2,),
+                                        Text(userData.degreeRecordMidProfM,textScaleFactor: 1.2),
+                                        //Text("AKTU",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Final Prof",textScaleFactor: 1.2,),
+                                        Text(userData.degreeRecordFinalProfP,textScaleFactor: 1.2,),
+                                        Text(userData.degreeRecordFinalProfM,textScaleFactor: 1.2),
+                                        //Text("AKTU",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text("Internship:",textScaleFactor: 1.2,),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(50, 20, 20, 20),
+                              child: Table(
+
+                                columnWidths: {
+                                  0: FlexColumnWidth(3),
+                                  1: FlexColumnWidth(1),
+                                  2: FlexColumnWidth(3),
+                                },
+                                // textDirection: TextDirection.rtl,
+                                //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                                // border:TableBorder.all(width: 2.0,color: Colors.red),
+                                children: [
+
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Month / Year of beginning",textScaleFactor: 1.2,),
+                                        Text(':',textScaleFactor: 1.2,),
+                                        Text(userData.internshipYrBeg,textScaleFactor: 1.2),
+                                        //Text("AKTU",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Month / Year of completion",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.internshipYrComp,textScaleFactor: 1.2),
+
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("College & Hospital",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.internshipCollege,textScaleFactor: 1.2),
+                                      ]
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Table(
+
+                                columnWidths: {
+                                  0: FlexColumnWidth(3),
+                                  1: FlexColumnWidth(1),
+                                  2: FlexColumnWidth(3),
+                                },
+                                // textDirection: TextDirection.rtl,
+                                //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                                // border:TableBorder.all(width: 2.0,color: Colors.red),
+                                children: [
+
+                                  TableRow(
+                                      children: [
+                                        Text("Medical Council Registration No. & Date",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.regNo,textScaleFactor: 1.2),
+                                        //Text("University",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Month & Year of Joining the Course",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.joiningDate,textScaleFactor: 1.2),
+                                        //Text("AKTU",textScaleFactor: 1.2),
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Month & Year of appearing for the Degree / Diploma examination",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.appearDate,textScaleFactor: 1.2),
+
+                                      ]
+                                  ),
+                                  rowSpacer,
+                                  TableRow(
+                                      children: [
+                                        Text("Special Interest / Hobbies and Extra Curricular  Activities",textScaleFactor: 1.2,),
+                                        Text(":",textScaleFactor: 1.2,),
+                                        Text(userData.hobby,textScaleFactor: 1.2),
+                                      ]
+                                  ),
+
+                                ],
+                              ),
+                            ),
                             (userData.isApproved) ?
                             Padding(
                               padding: const EdgeInsets.all(20.0),

@@ -37,14 +37,15 @@ class _LogInResidentState extends State<LogInResident> {
     }
   }
   void submit() async {
+    setState(()=>loading = true);
     if (validate()) {
       try {
          await _auth.signInWithEmailAndPassword(email, password);
-        //print("Signed in with Id $uid");
       }
       catch (e) {
         print(e);
         setState(() {
+          loading = false;
           warning = e.message;
         });
       }

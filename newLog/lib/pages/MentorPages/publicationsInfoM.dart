@@ -43,7 +43,7 @@ class _PublicationsInfoMState extends State<PublicationsInfoM> {
                        //mainAxisAlignment: MainAxisAlignment.center,
                          children: <Widget>[
                            Padding(
-                             padding: const EdgeInsets.all(8.0),
+                             padding: const EdgeInsets.all(20.0),
                              child: Table(
 
                                columnWidths: {
@@ -58,44 +58,44 @@ class _PublicationsInfoMState extends State<PublicationsInfoM> {
 
                                  TableRow(
                                      children: [
-                                       Text("Papers Published/ Communicated",textScaleFactor: 1.5,style:textStyle()),
-                                       Text(":",textScaleFactor: 1.5,),
-                                       Text(publicationsData.papers,textScaleFactor: 1.5),
-                                       //Text("University",textScaleFactor: 1.5),
+                                       Text("Papers Published/ Communicated",textScaleFactor: 1.2,),
+                                       Text(":",textScaleFactor: 1.2,),
+                                       Text(publicationsData.papers,textScaleFactor: 1.2),
+                                       //Text("University",textScaleFactor: 1.2),
                                      ]
                                  ),
                                  rowSpacer,
                                  TableRow(
                                      children: [
-                                       Text("Conferences/CMEs/Workshops attended",textScaleFactor: 1.5,style:textStyle()),
-                                       Text(":",textScaleFactor: 1.5,),
-                                       Text(publicationsData.conferences,textScaleFactor: 1.5),
-                                       //Text("AKTU",textScaleFactor: 1.5),
+                                       Text("Conferences/CMEs/Workshops attended",textScaleFactor: 1.2,),
+                                       Text(":",textScaleFactor: 1.2,),
+                                       Text(publicationsData.conferences,textScaleFactor: 1.2),
+                                       //Text("AKTU",textScaleFactor: 1.2),
                                      ]
                                  ),
                                  rowSpacer,
                                  TableRow(
                                      children: [
-                                       Text("Outreach activity/Social Work",textScaleFactor: 1.5,style:textStyle()),
-                                       Text(":",textScaleFactor: 1.5,),
-                                       Text(publicationsData.social,textScaleFactor: 1.5),
+                                       Text("Outreach activity/Social Work",textScaleFactor: 1.2,),
+                                       Text(":",textScaleFactor: 1.2,),
+                                       Text(publicationsData.social,textScaleFactor: 1.2),
 
                                      ]
                                  ),
                                  rowSpacer,
                                  TableRow(
                                      children: [
-                                       Text("Organisational Experience",textScaleFactor: 1.5,style:textStyle()),
-                                       Text(":",textScaleFactor: 1.5,),
-                                       Text(publicationsData.organization,textScaleFactor: 1.5),
+                                       Text("Organisational Experience",textScaleFactor: 1.2,),
+                                       Text(":",textScaleFactor: 1.2,),
+                                       Text(publicationsData.organization,textScaleFactor: 1.2),
                                      ]
                                  ),
                                  rowSpacer,
                                  TableRow(
                                      children: [
-                                       Text("Any other achievement/Awards",textScaleFactor: 1.5,style:textStyle()),
-                                       Text(":",textScaleFactor: 1.5,),
-                                       Text(publicationsData.achievement,textScaleFactor: 1.5),
+                                       Text("Any other achievement/Awards",textScaleFactor: 1.2,),
+                                       Text(":",textScaleFactor: 1.2,),
+                                       Text(publicationsData.achievement,textScaleFactor: 1.2),
                                      ]
                                  ),
                                ],

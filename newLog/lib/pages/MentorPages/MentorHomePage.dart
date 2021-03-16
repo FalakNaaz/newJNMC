@@ -50,7 +50,7 @@ class _MentorHomePageState extends State<MentorHomePage> {
                          SizedBox(
                            height: 20.0,
                          ),
-                         Text("Resident Doctors"),
+                         Text("Resident Doctors",style: TextStyle(fontWeight: FontWeight.bold,decoration: TextDecoration.underline,),textScaleFactor: 1.3,),
                          for (var i in listOfResidentData)
                            MyDetails(
                                onTap:() {

@@ -18,7 +18,7 @@ class _CaseRoutineInfoState extends State<CaseRoutineInfo> {
       child: Text(
         '$label $text',
         //textAlign: TextAlign.right,
-        style: TextStyle(),
+        textScaleFactor: 1.2,
       ),
     );
   }

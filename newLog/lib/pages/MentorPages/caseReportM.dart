@@ -12,7 +12,7 @@ class CaseReportM extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: Text('JNMCH eLogBook'),
+          title: Text('Case Report'),
           backgroundColor: Colors.teal,
         ),
         body: CaseReportInfoM(uid: uid, rotationNo: rotationNo),

@@ -1,16 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jmnchelogbook/models/user.dart';
-import 'package:jmnchelogbook/pages/home/publicationsInfo.dart';
-import 'package:jmnchelogbook/pages/home/updatePublications.dart';
-import 'package:jmnchelogbook/pages/home/update_cv.dart';
+import 'package:jmnchelogbook/pages/home/summaryInfo.dart';
+import 'package:jmnchelogbook/pages/home/updateSummary.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/constants.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
 import 'package:provider/provider.dart';
-
-class PublicationsScreen extends StatelessWidget {
-  @override
+class SummaryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     void _showSettingsPanel() {
       showModalBottomSheet(
@@ -22,8 +18,8 @@ class PublicationsScreen extends StatelessWidget {
                 resizeToAvoidBottomInset: true,
                 body: Container(
                   padding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-                  child: UpdatePublications(),
+                  EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+                  child: UpdateSummary(),
                 ),
               ),
             );
@@ -31,22 +27,22 @@ class PublicationsScreen extends StatelessWidget {
     }
 
     final user = Provider.of<User>(context);
-    return StreamBuilder<PublicationsData>(
-        stream: DatabaseService(uid: user.uid).publicationsData,
+    return StreamBuilder<Summary>(
+        stream: DatabaseService(uid: user.uid).summaryData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            PublicationsData publicationsData = snapshot.data;
-            print(publicationsData.approvalReady);
+            Summary summaryData = snapshot.data;
+            print(summaryData.isApproved);
             return Scaffold(
                 extendBodyBehindAppBar: true,
                 appBar: AppBar(
                   // Here we take the value from the MyHomePage object that was created by
                   // the App.build method, and use it to set our appbar title.
-                  title: Text('Publications'),
+                  title: Text('Summary'),
                   backgroundColor: Colors.teal,
                 ),
-                body: PublicationsInfo(),
-                floatingActionButton: (publicationsData.isApproved == false) ? FloatingActionButton(
+                body: SummaryInfo(),
+                floatingActionButton: (summaryData.isApproved == false) ? FloatingActionButton(
                   backgroundColor: Colors.teal,
                   child: Icon(Icons.edit),
                   onPressed: () => _showSettingsPanel(),
@@ -56,10 +52,11 @@ class PublicationsScreen extends StatelessWidget {
                   onPressed: () {showMyDialog(context);},
                 )
 
-          );
+            );
           } else {
             return Loading();
           }
         });
   }
 }
+

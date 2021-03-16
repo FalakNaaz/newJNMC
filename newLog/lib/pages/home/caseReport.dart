@@ -1,12 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jmnchelogbook/models/user.dart';
 import 'package:jmnchelogbook/pages/home/caseReportInfo.dart';
-import 'package:jmnchelogbook/pages/home/caseroutineInfo.dart';
 import 'package:jmnchelogbook/pages/home/updateCaseReport.dart';
-import 'package:jmnchelogbook/pages/home/updateCaseroutine.dart';
-import 'package:jmnchelogbook/services/database.dart';
-import 'package:provider/provider.dart';
 
 class CaseReport extends StatelessWidget {
   final int rotationNo;
@@ -34,9 +29,7 @@ class CaseReport extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text('JNMCH eLogBook'),
+          title: Text('Case Report'),
           backgroundColor: Colors.teal,
         ),
         body: CaseReportInfo(rotationNo: rotationNo),

@@ -42,7 +42,7 @@ class _UpdateThesisState extends State<UpdateThesis> {
                       //value: 'A',
                       value: _currentconsult ?? listOfThesisData[widget.tabNo].consult,
                       items:
-                          <String>['A', 'B', 'C', 'D', 'E'].map((String value) {
+                          <String>['1', '2', '3', '4', '5'].map((String value) {
                         return new DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),
@@ -69,7 +69,7 @@ class _UpdateThesisState extends State<UpdateThesis> {
                     new DropdownButton<String>(
                       value: _currentcollect ?? listOfThesisData[widget.tabNo].collect,
                       items:
-                          <String>['A', 'B', 'C', 'D', 'E'].map((String value) {
+                          <String>['1', '2', '3', '4', '5'].map((String value) {
                         return new DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),
@@ -95,7 +95,7 @@ class _UpdateThesisState extends State<UpdateThesis> {
                     ),
                     new DropdownButton<String>(
                       items:
-                          <String>['A', 'B', 'C', 'D', 'E'].map((String value) {
+                          <String>['1', '2', '3', '4', '5'].map((String value) {
                         return new DropdownMenuItem<String>(
                           value: value,
                           child: new Text(value),

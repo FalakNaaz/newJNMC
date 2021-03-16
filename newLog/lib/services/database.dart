@@ -30,8 +30,12 @@ class DatabaseService {
       Firestore.instance.collection('ImageVar');
  final CollectionReference securityCollection =
       Firestore.instance.collection('SecurityKeyCollection');
+ final CollectionReference summaryCollection =
+      Firestore.instance.collection('SummaryCollection');
+final CollectionReference feedbackCollection =
+      Firestore.instance.collection('feedbackCollection');
 
-  //final CollectionReference caseroutineCollection = Firestore.instance.collection('caseroutineCollection');
+
 
   Future<void> createImageVar(bool bool) async {
     await imageVar.document(uid).setData({
@@ -218,9 +222,123 @@ class DatabaseService {
     }
   }
 
+  Future<void> updateSummary(
+      String name,
+   String course,
+   String duration,
+   String majorP,
+   String majorA,
+   String minorP,
+   String minorA,
+   String seminarP,
+   String seminarA,
+   String caseP,
+   String caseA,
+   String ugC,
+   String ugA,
+   String pHV,
+   String conferences,
+   String other,
+  bool approvalReady,
+  bool isApproved,
+  String mentorName,
+  String mentorMail
+      ) async {
+    await summaryCollection.document(uid).setData({
+      'name': name,
+      'course': course,
+      'duration' : duration,
+      'majorP' : majorP,
+      'majorA' : majorA,
+      'minorP' : minorP,
+      'minorA' : minorA,
+      'seminarP' : seminarP,
+      'seminarA' : seminarA,
+      'caseP' : caseP,
+      'caseA' : caseA,
+      'ugC' : ugC,
+      'ugA' : ugA,
+      'pHV' : pHV,
+      'conferences' : conferences,
+      'other' : other,
+      'approvalReady' : approvalReady,
+      'isApproved' : isApproved,
+      'mentorName' : mentorName,
+      'mentorMail' : mentorMail
+
+    });
+  }
+  Future<void> updateFeedback1(
+   String patients1,
+   String nursing1,
+   String under1,
+   String inter1,
+   String senior1,
+   String junior1,
+   String patients2,
+   String nursing2,
+   String under2,
+   String inter2,
+   String senior2,
+   String junior2,
+   String patients3,
+   String nursing3,
+   String under3,
+   String inter3,
+   String senior3,
+   String junior3,
+   bool isApproved,
+   String mentorName,
+   String mentorMail,
+   bool approvalReady,
+      ) async {
+    await feedbackCollection.document(uid).setData({
+      'patients1': patients1,
+      'nursing1': nursing1,
+      'under1': under1,
+      'inter1': inter1,
+      'senior1':senior1,
+      'junior1':junior1,
+      'patients2': patients2,
+      'nursing2': nursing2,
+      'under2': under2,
+      'inter2': inter2,
+      'senior2':senior2,
+      'junior2':junior2,
+      'patients3': patients3,
+      'nursing3': nursing3,
+      'under3': under3,
+      'inter3': inter3,
+      'senior3':senior3,
+      'junior3':junior3,
+      'approvalReady' : approvalReady,
+      'isApproved' : isApproved,
+      'mentorName' : mentorName,
+      'mentorMail' : mentorMail
+
+    });
+  }
+  Future updateApprovalReadyFeedback1( bool approvalReady) async {
+    return await feedbackCollection
+        .document(uid)
+        .updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedFeedback1( bool isApproved, String mentorName,
+      String mentorMail) async {
+    return await feedbackCollection
+        .document(uid)
+        .updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
+    });
+  }
+
   Future<void> updateTest2(String tabNo, String date, String result,
       String asses, String reason) async {
-    //for(int i=1; i<=4;i++)
     await test2.document(uid).collection('tabs').document(tabNo).updateData({
       'date': date,
       'result': result,
@@ -396,9 +514,21 @@ class DatabaseService {
       String l_add,
       String mob,
       String email,
-      String degreeDetail,
-      String degreeRecord,
-      String iDetail,
+      String degreeDetailYrAdd,
+      String degreeDetailYrPass,
+      String degreeDetailCollege,
+      String degreeRecord1stProfP,
+      String degreeRecord2ndProfP,
+      String degreeRecordMidProfP,
+      String degreeRecordFinalProfP,
+      String degreeRecord1stProfM,
+      String degreeRecord2ndProfM,
+      String degreeRecordMidProfM,
+      String degreeRecordFinalProfM,
+
+      String internshipYrBeg,
+      String internshipYrComp,
+      String internshipCollege,
       String other,
       String regNo,
       String joiningDate,
@@ -416,9 +546,29 @@ class DatabaseService {
       'l_add': l_add,
       'mob': mob,
       'email': email,
-      'degreeDetail': degreeDetail,
-      'degreeRecord': degreeRecord,
-      'iDetail': iDetail,
+      'degreeDetail': {
+        'degreeDetailYrAdd': degreeDetailYrAdd,
+        'degreeDetailYrPass': degreeDetailYrPass,
+        'degreeDetailCollege': degreeDetailCollege,
+
+      },
+      'degreeRecord': {
+        'degreeRecord1stProfP' : degreeRecord1stProfP,
+        'degreeRecord2ndProfP' : degreeRecord2ndProfP,
+        'degreeRecordMidProfP' : degreeRecordMidProfP,
+        'degreeRecordFinalProfP' : degreeRecordFinalProfP,
+        'degreeRecord1stProfM' : degreeRecord1stProfM,
+        'degreeRecord2ndProfM' : degreeRecord2ndProfM,
+        'degreeRecordMidProfM' : degreeRecordMidProfM,
+        'degreeRecordFinalProfM' : degreeRecordFinalProfM,
+
+      },
+      'iDetail': {
+        'internshipYrBeg' : internshipYrBeg,
+        'internshipYrComp' : internshipYrComp,
+        'internshipCollege' : internshipCollege,
+
+      },
       'other': other,
       'regNo': regNo,
       'joiningDate': joiningDate,
@@ -482,6 +632,20 @@ class DatabaseService {
   Future updateIsApproved(
       bool isApproved, String mentorName, String mentorMail) async {
     return await publicationsCollection.document(uid).updateData({
+      'isApproved': isApproved,
+      'mentorName': mentorName,
+      'mentorMail': mentorMail,
+    });
+  }
+Future updateApprovalReadySummary(bool approvalReady) async {
+    return await summaryCollection.document(uid).updateData({
+      'approvalReady': approvalReady,
+    });
+  }
+
+  Future updateIsApprovedSummary(
+      bool isApproved, String mentorName, String mentorMail) async {
+    return await summaryCollection.document(uid).updateData({
       'isApproved': isApproved,
       'mentorName': mentorName,
       'mentorMail': mentorMail,
@@ -736,7 +900,35 @@ class DatabaseService {
       );
     }).toList();
   }
+  Feedback1 _feedbackDataFromSnapshot(DocumentSnapshot snapshot) {
+    return Feedback1(
+      uid: uid,
+      patients1: snapshot.data['patients1'],
+      nursing1: snapshot.data['nursing1'],
+      under1: snapshot.data['under1'],
+      inter1: snapshot.data['inter1'],
+      senior1: snapshot.data['senior1'],
+      junior1: snapshot.data['junior1'],
+       patients2: snapshot.data['patients2'],
+      nursing2: snapshot.data['nursing2'],
+      under2: snapshot.data['under2'],
+      inter2: snapshot.data['inter2'],
+      senior2: snapshot.data['senior2'],
+      junior2: snapshot.data['junior2'],
+       patients3: snapshot.data['patients3'],
+      nursing3: snapshot.data['nursing3'],
+      under3: snapshot.data['under3'],
+      inter3: snapshot.data['inter3'],
+      senior3: snapshot.data['senior3'],
+      junior3: snapshot.data['junior3'],
+      mentorName: snapshot.data['mentorName'] ?? '',
+      approvalReady: snapshot.data['approvalReady'] ?? '',
+      isApproved: snapshot.data['isApproved'] ?? '',
+      mentorMail: snapshot.data['mentorMail'] ?? '',
 
+
+    );
+  }
   ResidentData _residentDataFromSnapshot(DocumentSnapshot snapshot) {
     return ResidentData(
       uid: snapshot.data['uid'] ?? '',
@@ -841,6 +1033,7 @@ class DatabaseService {
 
   //userdata from snapshot
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    print(snapshot.data['degreeDetail.degreeDetailYrAdd']);
     return UserData(
       uid: uid,
       name: snapshot.data['name'],
@@ -849,9 +1042,20 @@ class DatabaseService {
       l_add: snapshot.data['l_add'],
       mob: snapshot.data['mob'],
       email: snapshot.data['email'],
-      degreeDetail: snapshot.data['degreeDetail'],
-      degreeRecord: snapshot.data['degreeRecord'],
-      iDetail: snapshot.data['iDetail'],
+      degreeDetailYrAdd: snapshot.data['degreeDetail']['degreeDetailYrAdd'],
+      degreeDetailYrPass: snapshot.data['degreeDetail']['degreeDetailYrPass'],
+      degreeDetailCollege: snapshot.data['degreeDetail']['degreeDetailCollege'],
+      degreeRecord1stProfM:snapshot.data['degreeRecord']['degreeRecord1stProfM'],
+      degreeRecord1stProfP: snapshot.data['degreeRecord']['degreeRecord1stProfP'],
+      degreeRecord2ndProfM: snapshot.data['degreeRecord']['degreeRecord2ndProfM'],
+      degreeRecord2ndProfP: snapshot.data['degreeRecord']['degreeRecord2ndProfP'],
+      degreeRecordFinalProfM: snapshot.data['degreeRecord']['degreeRecordFinalProfM'],
+      degreeRecordFinalProfP:snapshot.data['degreeRecord']['degreeRecordFinalProfP'] ,
+      degreeRecordMidProfM: snapshot.data['degreeRecord']['degreeRecordMidProfM'],
+      degreeRecordMidProfP: snapshot.data['degreeRecord']['degreeRecordMidProfP'],
+      internshipCollege:  snapshot.data['iDetail']['internshipCollege'],
+      internshipYrBeg:  snapshot.data['iDetail']['internshipYrBeg'],
+      internshipYrComp:  snapshot.data['iDetail']['internshipYrComp'],
       other: snapshot.data['other'],
       regNo: snapshot.data['regNo'],
       joiningDate: snapshot.data['joiningDate'],
@@ -869,6 +1073,32 @@ class DatabaseService {
     return RoleData(
       uid: uid,
       role: snapshot.data['role'],
+    );
+  }
+ Summary _summaryDataFromSnapshot(DocumentSnapshot snapshot) {
+    return Summary(
+      uid: uid,
+      name: snapshot.data['name'],
+      course: snapshot.data['course'],
+      duration: snapshot.data['duration'],
+      majorP: snapshot.data['majorP'],
+      majorA: snapshot.data['majorA'],
+      minorP: snapshot.data['minorP'],
+      minorA: snapshot.data['minorA'],
+      seminarP: snapshot.data['seminarP'],
+      seminarA: snapshot.data['seminarA'],
+      caseP: snapshot.data['caseP'],
+      caseA: snapshot.data['caseA'],
+      ugA: snapshot.data['ugA'],
+      ugC: snapshot.data['ugC'],
+      pHV: snapshot.data['pHV'],
+      conferences: snapshot.data['conferences'],
+      other: snapshot.data['other'],
+      isApproved: snapshot.data['isApproved'],
+      mentorName: snapshot.data['mentorName'],
+      mentorMail: snapshot.data['mentorMail'],
+      approvalReady: snapshot.data['approvalReady'],
+
     );
   }
 
@@ -979,9 +1209,15 @@ class DatabaseService {
   Stream<UserData> get userData {
     return CVCollection.document(uid).snapshots().map(_userDataFromSnapshot);
   }
+ Stream<Summary> get summaryData {
+    return summaryCollection.document(uid).snapshots().map(_summaryDataFromSnapshot);
+  }
 
   Stream<RoleData> get roleData {
     return roleCollection.document(uid).snapshots().map(_roleDataFromSnapshot);
+  }
+ Stream<Feedback1> get feedbackData {
+    return feedbackCollection.document(uid).snapshots().map(_feedbackDataFromSnapshot);
   }
 
   Stream<MissionData> get missionData {

@@ -17,7 +17,7 @@ class _LogOfCasesMState extends State<LogOfCasesM> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('JNMCH eLogBook'),
+        title: Text('Log of Cases/Procedures'),
         backgroundColor: Colors.teal,
       ),
       body: LogOfCasesInfoM(uid: widget.uid,rotationNo: widget.rotationNo),

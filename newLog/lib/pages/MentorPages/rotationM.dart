@@ -19,7 +19,7 @@ class _RotationMState extends State<RotationM> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('JNMCH eLogBook'),
+          title: Text('Rotations'),
           backgroundColor: Colors.teal
       ),
       body:

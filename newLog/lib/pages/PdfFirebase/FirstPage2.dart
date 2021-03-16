@@ -18,8 +18,10 @@ class FirstPage2 extends StatefulWidget {
 
 class _FirstPage2State extends State<FirstPage2> {
   List<Modal> itemList = List();
+  var _progress;
   int i = 0;
   User user;
+  bool inProgress = false;
   var mainReference;
   String _text = "My File";
   TextEditingController _c;
@@ -27,6 +29,7 @@ class _FirstPage2State extends State<FirstPage2> {
   @override
   initState() {
     _c = new TextEditingController();
+    _progress = -1.0;
     super.initState();
   }
 
@@ -35,7 +38,7 @@ class _FirstPage2State extends State<FirstPage2> {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  Future dialog(File file,String fileName, BuildContext context ) async {
+  Future dialog(File file, String fileName, BuildContext context) async {
     await showDialog(
         child: new Dialog(
           //insetPadding: EdgeInsets.symmetric(vertical: 50.0,horizontal: 80.0),
@@ -92,7 +95,9 @@ class _FirstPage2State extends State<FirstPage2> {
         context: context);
     return this._text;
   }
-  Future<void> _showMyDialog(BuildContext context1, String fileUrl, int index) async {
+
+  Future<void> _showMyDialog(
+      BuildContext context1, String fileUrl, int index) async {
     return showDialog<void>(
       context: context,
       //barrierDismissible: false, // user must tap button!
@@ -108,7 +113,10 @@ class _FirstPage2State extends State<FirstPage2> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Delete', style: TextStyle(color: Colors.teal),),
+              child: Text(
+                'Delete',
+                style: TextStyle(color: Colors.teal),
+              ),
               onPressed: () {
                 deleteFireBaseStorageItem(context1, fileUrl, index);
                 Navigator.of(context).pop();
@@ -120,12 +128,12 @@ class _FirstPage2State extends State<FirstPage2> {
     );
   }
 
-  void deleteFireBaseStorageItem(BuildContext context, String fileUrl, int index) {
+  void deleteFireBaseStorageItem(
+      BuildContext context, String fileUrl, int index) {
     FirebaseStorage.instance.getReferenceFromUrl(fileUrl).then((reference) {
       reference.delete();
-      mainReference = FirebaseDatabase.instance
-          .reference()
-          .child(user.uid + '/');
+      mainReference =
+          FirebaseDatabase.instance.reference().child(user.uid + '/');
       mainReference.once().then((DataSnapshot snap) {
         var data = snap.value;
         data.forEach((key, value) {
@@ -137,12 +145,14 @@ class _FirstPage2State extends State<FirstPage2> {
         });
       });
       _displaySnackBar(context, 'file deleted successfully');
-      _displaySnackBar(context, 'If you don\'t see your file deleted here, press back and come again');
+      _displaySnackBar(context,
+          'If you don\'t see your file deleted here, press back and come again');
     }).catchError((e) => print(e));
   }
 
   @override
   Widget build(BuildContext context) {
+    print(_progress);
     user = Provider.of<User>(context);
     //initStateFunction();
     //print('setState() called');
@@ -169,81 +179,88 @@ class _FirstPage2State extends State<FirstPage2> {
         title: Text(
           "Upload your PDF here",
         ),
+        //Text('Uploading ${(_progress * 100).toStringAsFixed(2)} %'),
       ),
       body: itemList.length == 0
-          ?  Align(
-        alignment: Alignment.center,
-        child: Text(
-          'Nothing to display',
-          style: TextStyle(
-              fontStyle: FontStyle.italic, color: Colors.grey),
-        ),
-      )
-          : ListView.builder(
-                itemCount: itemList.length,
-                itemBuilder: (context, index) {
-                  //print(index);
-                  //print(" from scaffold value is ${itemList.length}");
-                  return Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      child: GestureDetector(
-                        onTap: () {
-                          String passData = itemList[index].link;
-                          //print("passdata: $passData");
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ViewPdf(
-                                    passData: passData,
-                                  ),
-                                  settings: RouteSettings()));
-                        },
-                       /* onDoubleTap: () {
-                          deleteFireBaseStorageItem(
-                              context, itemList[index].link);
-                          mainReference = FirebaseDatabase.instance
-                              .reference()
-                              .child(user.uid + '/');
-                          mainReference.once().then((DataSnapshot snap) {
-                            var data = snap.value;
-                            data.forEach((key, value) {
-                              if (value['PDF'] == itemList[index].link)
-                                FirebaseDatabase.instance
-                                    .reference()
-                                    .child(user.uid + '/' + key)
-                                    .remove();
-                            });
-                          });
-                        },*/
-                        onLongPress:() => _showMyDialog(context, itemList[index].link,index),
-                        child: Stack(
-                          children: <Widget>[
-                            Container(
-                              height: 100,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/bg.jpg'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Container(
-                                height: 140,
-                                child: Card(
-                                  margin: EdgeInsets.all(18),
-                                  elevation: 7.0,
-                                  child: Center(
-                                    child: Text(itemList[index].name.toString()),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ));
-                },
+          ? Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Nothing to display',
+                style:
+                    TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
               ),
+            )
+          : Column(
+              children: [
+                if(_progress < 1.00 && _progress >= 0.0)...[
+                LinearProgressIndicator(
+                  backgroundColor: Colors.white,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                  value: _progress,
+                  semanticsLabel: 'Text',
+                ),
+                  Text('Uploading file...'),
+                ],
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: itemList.length,
+                    itemBuilder: (context, index) {
+                      //print(index);
+                      //print(" from scaffold value is ${itemList.length}");
+
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: GestureDetector(
+                          onTap: () {
+                            String passData = itemList[index].link;
+                            //print("passdata: $passData");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ViewPdf(
+                                          passData: passData,
+                                        ),
+                                    settings: RouteSettings()));
+                          },
+                          //onLongPress:() => _showMyDialog(context, itemList[index].link,index),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              color: Colors.cyan[50],
+                              shadowColor: Colors.blueGrey,
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.menu_book,
+                                  size: 35,
+                                  color: Colors.teal,
+                                ),
+                                title: Text(
+                                  itemList[index].name.toString(),
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                subtitle: Text('Tap to view'),
+                                trailing: IconButton(
+                                  icon: Icon(
+                                    Icons.delete,
+                                    size: 30,
+                                    color: Colors.teal,
+                                  ),
+                                  onPressed: () {
+                                    _showMyDialog(
+                                        context, itemList[index].link, index);
+                                  },
+                                ),
+                                //selected: true,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
           onPressed: () {
@@ -273,11 +290,10 @@ class _FirstPage2State extends State<FirstPage2> {
       type: FileType.custom,
     );
     String fileName = '${randomName}.pdf';
-    await dialog(file, fileName,context);
+    if (file != null) await dialog(file, fileName, context);
     //function call
     //print(fileName);
     //print('${file.readAsBytesSync()}');
-
   }
 
   Future savePdf(List<int> asset, String name, BuildContext context) async {
@@ -285,7 +301,17 @@ class _FirstPage2State extends State<FirstPage2> {
     StorageReference reference =
         FirebaseStorage.instance.ref().child(user.uid + '/' + name);
     StorageUploadTask uploadTask = reference.putData(asset);
+    uploadTask.events.listen((event) {
+      setState(() {
+        _progress = event.snapshot.bytesTransferred.toDouble() /
+            event.snapshot.totalByteCount.toDouble();
+      });
+    }).onError((error) {
+      // do something to handle error
+    });
     String url = await (await uploadTask.onComplete).ref.getDownloadURL();
+    //inProgress = await (await uploadTask.isInProgress);
+
     //String _filename = dialog();
     documentFileUpload(url, context, this._text);
     return url;

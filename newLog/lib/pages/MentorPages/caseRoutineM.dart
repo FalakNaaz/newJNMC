@@ -11,7 +11,7 @@ class CaseRoutineScreenM extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: Text('JNMCH eLogBook'),
+          title: Text('Learning Objectives and Learning Contract'),
           backgroundColor: Colors.teal,
         ),
         body: CaseRoutineInfoM(uid: uid, rotationNo: rotationNo),

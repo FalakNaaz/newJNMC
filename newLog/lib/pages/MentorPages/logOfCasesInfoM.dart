@@ -20,7 +20,7 @@ class _LogOfCasesInfoMState extends State<LogOfCasesInfoM> {
           print('listOfPatientNo snapshot.data:${snapshot.data}');
           if (snapshot.hasData) {
             QuerySnapshot patientData = snapshot.data;
-            patientData.documents.forEach((element) {print('forEach Bala');print(element.data);});
+            //patientData.documents.forEach((element) {print('forEach Bala');print(element.data);});
             return SafeArea(
               child: (/*patientNo[widget.rotationNo].no != 0*/true)
                   ? Padding(
@@ -37,7 +37,7 @@ class _LogOfCasesInfoMState extends State<LogOfCasesInfoM> {
                                   shadowColor: Colors.blueGrey,
                                   child: new ListTile(
                                     leading:  Icon(Icons.account_circle, size: 35, color: Colors.blue,),
-                                    title:(document.data['Patient$i']['name'] == '')? Text('Patient$i') : Text("${document.data['Patient$i']['name'] }"),
+                                    title:(document.data['Patient$i']['name'] == '')? Text('Patient $i') : Text("${document.data['Patient$i']['name'] }"),
                                     //subtitle: new Text(document.data['company']),
                                     //onLongPress: ()=> DatabaseService(uid: widget.uid).deletePatientDoc(widget.rotationNo, i),
                                     onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => PatientInfoM(uid: widget.uid,rotationNo: widget.rotationNo,patientNo: i,))),
@@ -46,7 +46,17 @@ class _LogOfCasesInfoMState extends State<LogOfCasesInfoM> {
                             ],
                           );
                         else
-                          return Text("hi${document.data['no']}");
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 250.0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                'No information available yet!',
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic, color: Colors.grey),
+                              ),
+                            ),
+                          );
                       else
                         return Container();
                     }).toList(),

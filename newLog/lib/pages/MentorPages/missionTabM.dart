@@ -16,7 +16,6 @@ class _MissionTabMState extends State<MissionTabM> {
 
   @override
   Widget build(BuildContext context) {
-    //final user = Provider.of<User>(context);
     return StreamBuilder<MissionData>(
       stream: DatabaseService(uid: widget.uid).missionData,
       builder: (context, snapshot1) {

@@ -45,16 +45,18 @@ class _LogOfCasesInfoState extends State<LogOfCasesInfo> {
                               children: [
                                 for (int i = 1; i <= document.data['no']; i++)
                                   Card(
+                                    color: Colors.cyan[50],
+                                    shadowColor: Colors.blueGrey,
                                     child: new ListTile(
                                       leading: Icon(
-                                        Icons.person_sharp,
-                                        size: 56,
+                                        Icons.account_circle,
+                                        size: 35,
                                         color: Colors.teal,
                                       ),
                                       title: (document.data['Patient$i']
                                                   ['name'] ==
                                               '')
-                                          ? Text('Patient$i')
+                                          ? Text('Patient $i')
                                           : Text(
                                               "${document.data['Patient$i']['name']}"),
                                       //subtitle: new Text(document.data['company']),
@@ -72,7 +74,17 @@ class _LogOfCasesInfoState extends State<LogOfCasesInfo> {
                               ],
                             );
                           else
-                            return Text("hi${document.data['no']}");
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 250.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'No information available yet!',
+                                  style: TextStyle(
+                                      fontStyle: FontStyle.italic, color: Colors.grey),
+                                ),
+                              ),
+                            );
                           else
                             return Container();
                         }).toList(),

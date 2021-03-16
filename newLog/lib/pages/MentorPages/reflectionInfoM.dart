@@ -220,7 +220,16 @@ class _ReflectionInfoMState extends State<ReflectionInfoM> {
                                     ],
                                   ),
                                 ) : Center(
-                                  child: Text('The resident has not yet applied for approval'),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.info_outline),
+                                        SizedBox(width: 10.0,),
+                                        Text('The resident has not yet applied for approval'),
+                                      ],
+                                    ),
+                                  ),
                                 )
                               ]),
                       ),

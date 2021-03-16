@@ -37,34 +37,39 @@ class AuthService {
         '',
         '',
         '',
-        '',
+        '1',
         '',
       );
       await DatabaseService(uid: user.uid).createThesis(
-        'A',
-        'A',
-        'A',
+        '1',
+        '1',
+        '1',
         false,
         false,
         '',
         '',
       );
+      await DatabaseService(uid: user.uid).updateSummary( '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',false, false,'','');
+      await DatabaseService(uid: user.uid).updateFeedback1( '', '', '', '', '', '', '', '', '', '', '', '', '', '','','', '', '',false,'','',false,);
       await DatabaseService(uid: user.uid).createRotations();
       await DatabaseService(uid: user.uid).updateUserData(false, false, '', '',
-          '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+          '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
       await DatabaseService(uid: user.uid).updateUserDataForMission(false, '');
       await DatabaseService(uid: user.uid)
           .updatePublicationsData(false, '', '', '', '', '', '', '', false);
       await DatabaseService(uid: user.uid).createImageVar(false);
+
     }
     return _userFromFirebaseUser(user);
   }
 
   //Sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
+
     AuthResult result = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
     FirebaseUser user = result.user;
+
     return _userFromFirebaseUser(user);
   }
 

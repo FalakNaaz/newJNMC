@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:jmnchelogbook/pages/MentorPages/summaryM.dart';
 import 'package:jmnchelogbook/pages/authenticate/authenticateResident.dart';
+import 'package:jmnchelogbook/pages/home/blueprint.dart';
+//import 'file:///F:/my_project/JNMCH-eLogBook-master/JNMCH-eLogBook-master/newLog/lib/pages/home/rime.dart';
 import 'package:jmnchelogbook/pages/home/caseReport.dart';
+import 'package:jmnchelogbook/pages/home/feedback1.dart';
 import 'package:jmnchelogbook/pages/home/publications.dart';
+import 'package:jmnchelogbook/pages/home/rime.dart';
+import 'package:jmnchelogbook/pages/home/summary.dart';
 import 'package:jmnchelogbook/pages/home/uploadScreen.dart';
 import 'package:jmnchelogbook/pages/home/uploads.dart';
 import 'package:jmnchelogbook/services/auth.dart';
@@ -53,6 +59,11 @@ class MyApp extends StatelessWidget {
             '/authenticate': (context) => AuthenticateResident(),
             '/imageCapture' : (context) => ImageCapture(),
             '/uploadScreen': (context) => UploadScreen(),
+            '/rime': (context) => Rime(),
+            '/blueprint': (context) => Blueprint(),
+            '/summary': (context) => SummaryScreen(),
+            '/feedback': (context) => FeedbackScreen(),
+            '/summaryM': (context) => SummaryScreenM(),
           }),
     );
   }
