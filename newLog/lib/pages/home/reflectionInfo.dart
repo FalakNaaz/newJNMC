@@ -46,7 +46,7 @@ class _ReflectionInfoState extends State<ReflectionInfo> {
             return SafeArea(
               child: (listOfReflectionData[widget.rotationNo].level != '')
                   ? Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Card(
                         color: Colors.white,
                         shadowColor: Colors.blueGrey,

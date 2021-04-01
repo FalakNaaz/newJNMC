@@ -45,7 +45,7 @@ InputDecoration textInputDecoration(String labelText) {
 }
 TextStyle textStyle(){
   return TextStyle(
-    fontSize: 20,
+    fontSize: 16,
     color:  Colors.black,
   );
 }

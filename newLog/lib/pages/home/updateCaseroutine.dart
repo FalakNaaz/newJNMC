@@ -51,10 +51,9 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                     ),
                     TextFormField(
                       decoration: textInputDecoration(' Date '),
-                      maxLines: 4,
                       initialValue: caseroutineData[widget.rotationNo].pdate,
                       validator: (val) =>
-                      val.isEmpty ? 'Please enter Date detail' : null,
+                      val.isEmpty ? 'Please enter Date' : null,
                       onChanged: (val) => setState(() => _currentpdate = val),
                     ),
                     SizedBox(
@@ -62,7 +61,6 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                     ),
                     TextFormField(
                       decoration: textInputDecoration('Preceptor\'s Name' ),
-                      maxLines: 4,
                       initialValue: caseroutineData[widget.rotationNo].pname,
                       validator: (val) =>
                       val.isEmpty ? 'Please enter Name' : null,
@@ -84,7 +82,7 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                       maxLines: 4,
                       initialValue: caseroutineData[widget.rotationNo].l1,
                       validator: (val) =>
-                      val.isEmpty ? 'Please enter l1' : null,
+                      val.isEmpty ? 'Please enter the field' : null,
                       onChanged: (val) => setState(() => _currentl1 = val),
                     ),
                     SizedBox(
@@ -95,7 +93,7 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                       maxLines: 4,
                       initialValue: caseroutineData[widget.rotationNo].l2,
                       validator: (val) =>
-                      val.isEmpty ? 'Please enter l2 ' : null,
+                      val.isEmpty ? 'Please enter the field' : null,
                       onChanged: (val) => setState(() => _currentl2 = val),
                     ),
                     SizedBox(
@@ -105,7 +103,7 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                       decoration: textInputDecoration('3rd thing'),
                       maxLines: 4,
                       initialValue: caseroutineData[widget.rotationNo].l3,
-                      validator: (val) => val.isEmpty ? 'Any other l3' : null,
+                      validator: (val) => val.isEmpty ? 'Please enter the field' : null,
                       onChanged: (val) => setState(() => _currentl3 = val),
                     ),
                     SizedBox(
@@ -129,7 +127,7 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        // if (_formKey.currentState.validate())
+                         if (_formKey.currentState.validate())
                         {
                           await DatabaseService(uid: user.uid)
                               .updateCaseroutineData(

@@ -120,7 +120,7 @@ class _UpdateTestState extends State<UpdateTest> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        // if (_formKey.currentState.validate())
+                         if (_formKey.currentState.validate())
                         {
                           await DatabaseService(uid: user.uid).updateTest2(
                             (widget.tabNo).toString(),

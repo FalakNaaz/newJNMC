@@ -269,7 +269,7 @@ class _UpdateSummaryState extends State<UpdateSummary> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        // if (_formKey.currentState.validate())
+                         if (_formKey.currentState.validate())
                         {
                           await DatabaseService(uid: user.uid)
                               .updateSummary(

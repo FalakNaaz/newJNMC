@@ -88,7 +88,7 @@ class _UpdateCaseReportState extends State<UpdateCaseReport> {
                           children: [
                             TextFormField(
                               decoration: textInputDecoration('Write your report'),
-                              maxLines: 4,
+                              maxLines: 8,
                               initialValue: listOfReportData[widget.rotationNo].reportText,
                               validator: (val) => val.isEmpty ? 'Enter report' : null,
                               onChanged: (val) => setState(() => _currentReportText = val),
@@ -98,7 +98,7 @@ class _UpdateCaseReportState extends State<UpdateCaseReport> {
                               child: ButtonTheme(
                                 child: RaisedButton(
                                   onPressed: () async {
-                                    // if (_formKey.currentState.validate())
+                                     if (_formKey.currentState.validate())
                                     {
                                       await DatabaseService(uid: user.uid)
                                           .updateReport(
@@ -111,10 +111,10 @@ class _UpdateCaseReportState extends State<UpdateCaseReport> {
                                   },
                                   color: Colors.teal,
                                   child: Text(
-                                    'Save',
+                                    'Update',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 20,
                                     ),
                                   ),

@@ -396,7 +396,7 @@ class _UpdateCVState extends State<UpdateCV> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        // if (_formKey.currentState.validate())
+                         if (_formKey.currentState.validate())
                         {
                           //await DatabaseService(uid: user.uid).mastersList();
                           //await DatabaseService(uid: user.uid).updateTestData();

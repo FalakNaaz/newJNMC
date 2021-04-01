@@ -120,9 +120,6 @@ class _UpdateThesisState extends State<UpdateThesis> {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
-                      // if (_formKey.currentState.validate())
-                      {
-
                         await DatabaseService(uid: user.uid).updateThesis(
                           (widget.tabNo).toString(),
                           _currentconsult ?? listOfThesisData[widget.tabNo].consult,
@@ -130,7 +127,6 @@ class _UpdateThesisState extends State<UpdateThesis> {
                           _currentpre ?? listOfThesisData[widget.tabNo].pre,
                         );
                         Navigator.pop(context);
-                      }
                     },
                   ),
                 )

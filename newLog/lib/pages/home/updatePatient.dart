@@ -58,10 +58,9 @@ class _UpdatePatientState extends State<UpdatePatient> {
                     ),
                     TextFormField(
                       decoration: textInputDecoration(' Date '),
-                      maxLines: 4,
                       initialValue: documentSnapshot.data['Patient${widget.patientNo}']['date'],
                       validator: (val) =>
-                      val.isEmpty ? 'Please enter Date detail' : null,
+                      val.isEmpty ? 'Please enter Date' : null,
                       onChanged: (val) => setState(() => _currentdate = val),
                     ),
                     SizedBox(
@@ -69,7 +68,6 @@ class _UpdatePatientState extends State<UpdatePatient> {
                     ),
                     TextFormField(
                       decoration: textInputDecoration('Patient\'s Name' ),
-                      maxLines: 4,
                       initialValue: documentSnapshot.data['Patient${widget.patientNo}']['name'],
                       validator: (val) =>
                       val.isEmpty ? 'Please enter Name' : null,
@@ -104,7 +102,7 @@ class _UpdatePatientState extends State<UpdatePatient> {
                       decoration: textInputDecoration('Level Achieved'),
                       maxLines: 4,
                       initialValue: documentSnapshot.data['Patient${widget.patientNo}']['level'],
-                      validator: (val) => val.isEmpty ? 'Any other level achieved' : null,
+                      validator: (val) => val.isEmpty ? 'Please enter level achieved' : null,
                       onChanged: (val) => setState(() => _currentlevel = val),
                     ),
                     SizedBox(
@@ -113,11 +111,11 @@ class _UpdatePatientState extends State<UpdatePatient> {
                     RaisedButton(
                       color: Colors.teal,
                       child: Text(
-                        'update',
+                        'Update',
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
-                        // if (_formKey.currentState.validate())
+                         if (_formKey.currentState.validate())
                         {
 
                           //print(_currentpdate);
