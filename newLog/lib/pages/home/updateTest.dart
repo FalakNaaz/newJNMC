@@ -134,9 +134,6 @@ class _UpdateTestState extends State<UpdateTest> {
                           );
                           Navigator.pop(context);
                         }
-                        // print(_currentName);
-                        // print(_currentEnrl);
-                        // print(_currentFacultyno);
                       },
                     )
                   ],

@@ -76,16 +76,30 @@ class _HomeTabMState extends State<HomeTabM> {
                       // color: Colors.red[500],
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(30))),
-                child: Center(
-                  child: Text(
-                    "Keep your Log Book with yourselves!",
-                    //alignment:Alignment(10,20),
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontFamily: "DancingScript",
-                      color: Colors.teal[800],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Keep your Log Book with yourselves",
+                      //alignment:Alignment(10,20),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontFamily: "DancingScript",
+                        color: Colors.teal[800],
+                      ),
                     ),
-                  ),
+                    Text(
+                      "always",
+                      //alignment:Alignment(10,20),
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontFamily: "DancingScript",
+                        color: Colors.teal[800],
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

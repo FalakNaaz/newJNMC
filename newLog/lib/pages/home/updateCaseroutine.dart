@@ -131,8 +131,6 @@ class _UpdateCaseroutineState extends State<UpdateCaseroutine> {
                       onPressed: () async {
                         // if (_formKey.currentState.validate())
                         {
-
-                          //print(_currentpdate);
                           await DatabaseService(uid: user.uid)
                               .updateCaseroutineData(
                             widget.rotationNo,

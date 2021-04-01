@@ -358,7 +358,6 @@ class _UpdateReflectionState extends State<UpdateReflection> {
                         onPressed: () async {
                           // if (_formKey.currentState.validate())
                           {
-                            //print(_currentpdate);
                             await DatabaseService(uid: user.uid)
                                 .updateReflectionData(
                               widget.rotationNo,

@@ -4,7 +4,6 @@ import 'package:flutter/rendering.dart';
 import 'package:jmnchelogbook/services/auth.dart';
 import 'package:jmnchelogbook/services/database.dart';
 import 'package:jmnchelogbook/shared/loading.dart';
-import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 class BaseApp extends StatefulWidget {
   final Function toggleView;

@@ -131,9 +131,6 @@ class _UpdateThesisState extends State<UpdateThesis> {
                         );
                         Navigator.pop(context);
                       }
-                      // print(_currentName);
-                      // print(_currentEnrl);
-                      // print(_currentFacultyno);
                     },
                   ),
                 )

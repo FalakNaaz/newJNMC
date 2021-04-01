@@ -43,7 +43,6 @@ class _LogInResidentState extends State<LogInResident> {
          await _auth.signInWithEmailAndPassword(email, password);
       }
       catch (e) {
-        print(e);
         setState(() {
           loading = false;
           warning = e.message;
@@ -62,7 +61,6 @@ class _LogInResidentState extends State<LogInResident> {
         });
       }
       catch (e) {
-        //print(e);
         setState(() {
           warning = e.message;
         });

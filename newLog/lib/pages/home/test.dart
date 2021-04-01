@@ -189,7 +189,6 @@ class _TestBarState extends State<TestBar> {
     return StreamBuilder<List<TestData>>(
         stream: DatabaseService(uid: user.uid).listOfTestData,
         builder: (context, snapshot) {
-          print(snapshot.hasData);
           if (snapshot.hasData) {
 
             List<TestData> listOfTestData = snapshot.data;

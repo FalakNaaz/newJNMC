@@ -100,7 +100,6 @@ class _UpdateCaseReportState extends State<UpdateCaseReport> {
                                   onPressed: () async {
                                     // if (_formKey.currentState.validate())
                                     {
-                                      //print(_currentpdate);
                                       await DatabaseService(uid: user.uid)
                                           .updateReport(
                                         widget.rotationNo,

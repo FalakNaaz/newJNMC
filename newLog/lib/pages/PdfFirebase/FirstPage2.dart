@@ -182,14 +182,21 @@ class _FirstPage2State extends State<FirstPage2> {
         //Text('Uploading ${(_progress * 100).toStringAsFixed(2)} %'),
       ),
       body: itemList.length == 0
-          ? Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Nothing to display',
-                style:
-                    TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
-              ),
-            )
+          ? (_progress < 1.00 && _progress >= 0.0) ?
+                LinearProgressIndicator(
+                  backgroundColor: Colors.white,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                  value: _progress,
+                  semanticsLabel: 'Text',
+                ):
+              Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Nothing to display',
+                    style:
+                        TextStyle(fontStyle: FontStyle.italic, color: Colors.grey),
+                  ),
+                )
           : Column(
               children: [
                 if(_progress < 1.00 && _progress >= 0.0)...[

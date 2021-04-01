@@ -31,7 +31,6 @@ class _navState extends State<nav> {
         FirebaseStorage.instance.ref().child('images/${widget.uid}.jpeg');
     // no need of the file extension, the name will do fine.
     widget.url = await ref.getDownloadURL();
-    print('hi');
     widget.callback(widget.url);
     await DatabaseService(uid: widget.uid).createImageVar(true);
     //widget.callback('from ');
@@ -59,15 +58,6 @@ class ImageCapture extends StatefulWidget {
   final String uid;
   String url;
   Function(String) callback;
-
-  /* callback(_url) {
-    print('entering Image Capture');
-    print("urrrl: $url");
-    url = _url;
-    print("urlllllll: $url");
-    print('Exit ImageCapture');
-
-  }*/
   ImageCapture({this.uid, this.url, this.callback});
 
   createState() => _ImageCaptureState();
@@ -226,7 +216,6 @@ class _UploaderState extends State<Uploader> {
 
   @override
   Widget build(BuildContext context) {
-    //print("url: $url1");
     if (_uploadTask != null) {
       return StreamBuilder<StorageTaskEvent>(
           stream: _uploadTask.events,

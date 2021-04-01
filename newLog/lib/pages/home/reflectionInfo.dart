@@ -41,7 +41,6 @@ class _ReflectionInfoState extends State<ReflectionInfo> {
     return StreamBuilder<List<ReflectionData1>>(
         stream: DatabaseService(uid: user.uid).listOfReflectionData,
         builder: (context, snapshot) {
-          print('reflection data ${snapshot.hasData}');
           if (snapshot.hasData) {
             List<ReflectionData1> listOfReflectionData = snapshot.data;
             return SafeArea(

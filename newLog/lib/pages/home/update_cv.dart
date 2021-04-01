@@ -447,9 +447,6 @@ class _UpdateCVState extends State<UpdateCV> {
                           );
                           Navigator.pop(context);
                         }
-                        // print(_currentName);
-                        // print(_currentEnrl);
-                        // print(_currentFacultyno);
                       },
                     )
                   ],

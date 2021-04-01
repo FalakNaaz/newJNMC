@@ -57,7 +57,7 @@ class _UploadScreenState extends State<UploadScreen> {
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('JNMCH eLogBook'),
+            title: Text('Profile Picture'),
             backgroundColor: Colors.teal,
           ),
           body: url == null
@@ -80,10 +80,12 @@ class _UploadScreenState extends State<UploadScreen> {
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 150.0,
-                      backgroundImage: NetworkImage(url),
-                      backgroundColor: Colors.transparent,
+                    Center(
+                      child: Container(
+                        height: 300,
+                        width: 300,
+                        child: Image.network(url),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),

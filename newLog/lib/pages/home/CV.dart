@@ -1,4 +1,3 @@
-import 'package:draggable_bottom_sheet/draggable_bottom_sheet.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,20 +10,7 @@ class CV_Info extends StatefulWidget {
 }
 
 class _CV_InfoState extends State<CV_Info> {
-  Widget _createTextArea(String label, String text) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-      child: RichText(
-        text: TextSpan(
-          text: '$label: ',
-            style: TextStyle(fontWeight: FontWeight.w600,color: Colors.teal, fontSize: 16),
-          children: <TextSpan>[
-            TextSpan(text: text, style: TextStyle(fontWeight: FontWeight.normal,color: Colors.black, fontSize: 16)),
-          ],
-        ),
-      )
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {

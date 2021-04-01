@@ -168,19 +168,19 @@ class _MyApp2State extends State<MyApp2> {
                           Navigator.pushNamed(context, '/blueprint');
                         }),
                     createDrawerBodyItem(
-                        icon: Icons.assignment,
+                        icon: Icons.ac_unit,
                         text: 'RIME model',
                         onTap: () {
                           Navigator.pushNamed(context, '/rime');
                         }),
                     createDrawerBodyItem(
-                        icon: Icons.assignment,
+                        icon: Icons.subject_rounded,
                         text: 'Summary',
                         onTap: () {
                           Navigator.pushNamed(context, '/summary');
                         }),
                     createDrawerBodyItem(
-                        icon: Icons.assignment,
+                        icon: Icons.check,
                         text: '360 degree Feedback',
                         onTap: () {
                           Navigator.pushNamed(context, '/feedback');

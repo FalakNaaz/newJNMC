@@ -36,7 +36,6 @@ class PublicationsScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             PublicationsData publicationsData = snapshot.data;
-            print(publicationsData.approvalReady);
             return Scaffold(
                 extendBodyBehindAppBar: true,
                 appBar: AppBar(

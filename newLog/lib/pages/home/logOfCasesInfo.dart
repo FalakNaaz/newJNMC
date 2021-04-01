@@ -23,12 +23,9 @@ class _LogOfCasesInfoState extends State<LogOfCasesInfo> {
     return StreamBuilder<QuerySnapshot>(
         stream: DatabaseService(uid: user.uid).listOfPatientData,
         builder: (context, snapshot) {
-          print('listOfPatientNo snapshot.data:${snapshot.data}');
           if (snapshot.hasData) {
             QuerySnapshot patientData = snapshot.data;
             patientData.documents.forEach((element) {
-              print('forEach Bala');
-              print(element.data);
             });
             return SafeArea(
               child: (/*patientNo[widget.rotationNo].no != 0*/ true)
@@ -75,11 +72,11 @@ class _LogOfCasesInfoState extends State<LogOfCasesInfo> {
                             );
                           else
                             return Padding(
-                              padding: const EdgeInsets.only(top: 250.0),
+                              padding: const EdgeInsets.only(top: 300.0),
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'No information available yet!',
+                                  'No information available! Add documents to update to Update!',
                                   style: TextStyle(
                                       fontStyle: FontStyle.italic, color: Colors.grey),
                                 ),

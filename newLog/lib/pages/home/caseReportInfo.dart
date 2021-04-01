@@ -19,7 +19,6 @@ class _CaseReportInfoState extends State<CaseReportInfo> {
     return StreamBuilder<List<Report>>(
         stream: DatabaseService(uid: user.uid).listOfReportData,
         builder: (context, snapshot) {
-          print('snapshot.data:${snapshot.hasData}');
           if (snapshot.hasData) {
             List<Report> reportData = snapshot.data;
             return SafeArea(

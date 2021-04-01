@@ -32,7 +32,6 @@ class SummaryScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Summary summaryData = snapshot.data;
-            print(summaryData.isApproved);
             return Scaffold(
                 extendBodyBehindAppBar: true,
                 appBar: AppBar(

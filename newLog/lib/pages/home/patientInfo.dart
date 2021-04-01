@@ -48,14 +48,11 @@ class _PatientInfoState extends State<PatientInfo> {
       body: StreamBuilder<QuerySnapshot>(
           stream: DatabaseService(uid: user.uid).listOfPatientData,
           builder: (context, snapshot) {
-            print('snapshot.data:${snapshot.hasData}');
             if (snapshot.hasData) {
               QuerySnapshot querySnapshot = snapshot.data;
               querySnapshot.documents.forEach((DocumentSnapshot document) {
                 if (document.documentID == 'Rotation${widget.rotationNo}') {
-                  print('document');
                   documentSnapshot = document;
-                  print(documentSnapshot);
                 }
               });
               return SafeArea(

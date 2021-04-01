@@ -20,13 +20,9 @@ class _FeedbackInfoState extends State<FeedbackInfo> {
     return StreamBuilder<Feedback1>(
         stream: DatabaseService(uid: user.uid).feedbackData,
         builder: (context, snapshot) {
-          print('snapshot.hasDaata');
-          print(snapshot.hasData);
           if(snapshot.hasData)
           {
             Feedback1 feedbackData = snapshot.data;
-            print(feedbackData);
-            print(feedbackData.patients1);
 
             return SafeArea(
               child: feedbackData.patients1 == '' ? Align(
