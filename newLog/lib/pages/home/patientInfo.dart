@@ -236,7 +236,7 @@ class _PatientInfoState extends State<PatientInfo> {
           }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal,
-        child: IconButton(icon: Icon(Icons.edit)),
+        child: IconButton(icon: Icon(Icons.edit,color: Colors.white,)),
         onPressed: ()  {
           _showSettingsPanel();
           // await DatabaseService(uid: user.uid)

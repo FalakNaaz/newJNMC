@@ -158,7 +158,7 @@ class _CaseRoutineInfoMState extends State<CaseRoutineInfoM> {
                                   ),
                                 ) : Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: [
                                         Icon(Icons.info_outline),

@@ -123,7 +123,7 @@ class _LogInResidentState extends State<LogInResident> {
               Padding(
                 padding: const EdgeInsets.all(0),
                 child: ButtonTheme(
-                  minWidth: 170,
+                  minWidth: 200,
                   height: 50,
                   child: RaisedButton(
                       onPressed:() {
@@ -143,7 +143,7 @@ class _LogInResidentState extends State<LogInResident> {
               ),
               SizedBox(height: 10.0,),
               ButtonTheme(
-                minWidth: 170,
+                minWidth: 200,
                 height: 50,
                 child: RaisedButton(
                     onPressed:() {

@@ -187,8 +187,17 @@ class _PublicationsInfoMState extends State<PublicationsInfoM> {
                                  ),
                                ],
                              ),
-                           ) : Center(
-                             child: Text('The resident has not yet applied for approval'),
+                           ) :Center(
+                             child: Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: Row(
+                                 children: [
+                                   Icon(Icons.info_outline),
+                                   SizedBox(width: 10.0,),
+                                   Text('The resident has not yet applied for approval'),
+                                 ],
+                               ),
+                             ),
                            )
                          ]),
                    ),

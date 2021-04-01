@@ -52,7 +52,7 @@ class _ReflectionInfoMState extends State<ReflectionInfoM> {
                     child: (listOfReflectionData[widget.rotationNo].level != '')
                         ? SingleChildScrollView(
                       child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Card(
                           color: Colors.white,
                           shadowColor: Colors.blueGrey,
@@ -221,7 +221,7 @@ class _ReflectionInfoMState extends State<ReflectionInfoM> {
                                   ),
                                 ) : Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: [
                                         Icon(Icons.info_outline),

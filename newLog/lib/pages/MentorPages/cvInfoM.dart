@@ -442,8 +442,14 @@ class _CVInfoMState extends State<CVInfoM> {
                                     ),
                                   ) : Center(
                                     child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Text('The resident has not yet applied for approval'),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.info_outline),
+                                          SizedBox(width: 10.0,),
+                                          Text('The resident has not yet applied for approval'),
+                                        ],
+                                      ),
                                     ),
                                   )
                                 ]),

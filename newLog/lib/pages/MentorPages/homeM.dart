@@ -152,17 +152,6 @@ class _HomeMState extends State<HomeM> {
                           );
                         }),
                     createDrawerBodyItem(
-                        icon: Icons.person,
-                        text: 'Mentor approval',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    UploadScreenM(uid: widget.uid)),
-                          );
-                        }),
-                    createDrawerBodyItem(
                         icon: Icons.publish,
                         text: 'Upload Profile Picture',
                         onTap: () {
